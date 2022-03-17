@@ -1,0 +1,38 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser,faAnchor } from "@fortawesome/free-solid-svg-icons";
+
+const Navigation = ({ userObj }) => (
+    <nav className="navi">
+        <ul style = {{ display: "flex", justifyContent: "center", marginTop: 50 }}>
+            <li>
+                <Link to="/" style={{ marginRight: 200 }}>
+                    <FontAwesomeIcon icon={faAnchor} color={"#94b1ff"} size="2x" />
+                    
+                </Link>
+            </li>
+            <li>
+                <Link
+                    to="/profile"
+                    style={{
+                        marginLeft: 10,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        fontSize: 12,
+                    }}
+                >
+                    <FontAwesomeIcon icon={faUser} color={"#94b1ff"} size="2x" />
+                    <span style={{ marginTop: 10 }}>
+                        {/* {userObj.displayName
+                            ? `${userObj.displayName}'s Profile`
+                            : "Profile"} */}
+                    </span>
+                </Link>
+            </li>
+        </ul>
+    </nav>
+);
+
+export default Navigation;
