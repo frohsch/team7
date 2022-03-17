@@ -34,7 +34,7 @@ const Auth = () => {
         size="5x"
         style={{ marginBottom: 50 }}
       />
-      
+
       <AuthForm />
       <div >
       <div className="authOr" >or</div>
@@ -47,8 +47,6 @@ const Auth = () => {
         <FontAwesomeIcon icon={faGithub} />  Continue with Github
         </button>
       </div>
-      
-      
     </div>
   );
 };
