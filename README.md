@@ -1,1 +1,1 @@
-link: https://github.io/frohsch/newmypage/
+link: https://frohsch.github.io/mypage/
