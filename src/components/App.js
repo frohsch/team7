@@ -42,7 +42,6 @@ function App() {
     //   updateProfile: (args) => updateProfile(user, { displayName: user.displayName }),
     // });
   };
-
   return (
     <>
     <div classname="Initializing"> 
