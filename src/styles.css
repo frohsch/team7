@@ -21,6 +21,9 @@ input {
           appearance: none;
 }
 
+.Initializing {
+  vertical-align: middle;
+}
 
 body {
   background-color: black;
@@ -260,7 +263,8 @@ form {
   cursor: pointer;
   border-radius: 3px;
   border: none;
-  padding: 10px 0px;
+  padding: 10px;
+  margin: 0px 5px;
   font-size: 12px;
   text-align: center;
   width: 150px;

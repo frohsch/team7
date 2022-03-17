@@ -32,7 +32,7 @@ const Auth = () => {
         icon={faAnchor}
         color={"#94b1ff"}
         size="5x"
-        style={{ marginBottom: 70 }}
+        style={{ marginBottom: 50 }}
       />
       <AuthForm />
       <div >

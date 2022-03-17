@@ -45,7 +45,9 @@ function App() {
 
   return (
     <>
+    <div classname="Initializing"> 
       {init ? (<AppRouter refreshUser={refreshUser} isLoggedIn={Boolean(userObj)} userObj={userObj} />) : ("Initializing...")}
+      </div>
     </>
   );
 }
