@@ -34,6 +34,7 @@ const Auth = () => {
         size="5x"
         style={{ marginBottom: 50 }}
       />
+      
       <AuthForm />
       <div >
       <div className="authOr" >or</div>
