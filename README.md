@@ -1,5 +1,6 @@
 ## MINI SNS
-![Slide1](https://user-images.githubusercontent.com/89457040/158945047-e9632887-c516-4e93-8aad-ca03059feb13.png)
+![Slide1](https://user-images.githubusercontent.com/89457040/158951355-947880e7-854c-4ee9-9b66-72bf5dfc30d2.png)
+
 
 
 
