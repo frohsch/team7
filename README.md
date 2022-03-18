@@ -9,9 +9,9 @@ Contents
 * Goal: mini anonymous SNS
 * Time: March 4th 2022 ~ March 18th 2022, FOR 14DAYS
 
-Major Function: Signup/Login, Main Page, Profile Edit Page
+Major Functions: Signup/Login, Main Page, Profile Edit Page
 
-Used Skills Stack: React(JavaScript), gh-pages(deploy)
+Used Skill Stacks: React(JavaScript), gh-pages(deploy)
 
 Environment: Web Browser
 
