@@ -5,34 +5,55 @@ import { faUser,faAnchor } from "@fortawesome/free-solid-svg-icons";
 
 const Navigation = ({ userObj }) => (
     <nav className="navi">
-        <ul style = {{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-            <li>
-                <Link to="/" style={{ marginRight: 200 }}>
-                    <FontAwesomeIcon icon={faAnchor} color={"#94b1ff"} size="2x" />
-                    
+        <div className="navidiv">
+        <ul style = {{ display: "flex", justifyContent: "center", margin: 10 }}>
+            <li className="logoLi">
+                <Link to="/" >
+                    <div className="logoImage">
+
+                    {/* <image src = "/public/logo.png" alt = "logo"/> */}
+                    {/* <FontAwesomeIcon icon={faAnchor} color={"#48ACFF"} size="2x" /> */}
+                    </div>
                 </Link>
             </li>
             <li>
+                 <Link className="naviLink" to="/project">
+                    <span>프로젝트</span>
+                </Link>
+            </li>
+            <li>
+                 <Link className="naviLink" to="/participate">
+                    <span>함께해요</span>
+                </Link>
+            </li>
+            <li>
+                 <Link className="naviLink" to="/publicize">
+                    <span>홍보해요</span>
+                </Link>
+            </li>
+            
+            <li>
                 <Link
+                className="naviLink"
                     to="/profile"
                     style={{
-                        marginLeft: 10,
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
                         fontSize: 12,
+                        marginLeft: 120,
+                        marginTop: 10
                     }}
                 >
-                    <FontAwesomeIcon icon={faUser} color={"#94b1ff"} size="2x" />
-                    <span style={{ marginTop: 10 }}>
-                        {/* {userObj.displayName
-                            ? `${userObj.displayName}'s Profile`
-                            : "Profile"} */}
-                    </span>
+                    <FontAwesomeIcon icon={faUser} color={"#707070"} size="2x" />
                 </Link>
             </li>
         </ul>
+        <hr />
+        </div>
     </nav>
+
+
 );
 
 export default Navigation;

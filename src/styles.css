@@ -26,17 +26,49 @@ input {
 }
 
 body {
-  background-color: black;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 14px;
   color: white;
+  padding: 0;
+  margin:0;
 }
 
 .navi {
-  margin: 30px;
+  margin: 0px;
 
 }
+.navidiv{
+  margin: 0;
+  width: 100%;
+  height: 70px;
+  /* border: 1px solid black; */
+  columns: black;
+  
+}
+
+.naviLink{
+  margin: 15px 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px;
+  color: black;
+  height: auto;
+
+
+}
+
+.logoLi {
+  margin: 0 60% 0 0;
+}
+
+hr {
+  width: 120%;
+  margin-left:-10%;
+}
+
+
 
 button {
   background-color: white;
@@ -52,36 +84,110 @@ form {
   width: 100%;
 }
 
-.kuromi-input::placeholder {
-  color: white;
-  opacity: 0.9;
-}
+
+
+
 
 .container {
   width: 100%;
-  max-width: 320px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
+.mainLemona {
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.LemonaSec {
+  width: 650px;
+  height: 320px;
+  border: 1px solid black;
+  margin: 70px;
+}
+
+.search {
+  height: 60px;
+  width: 80%;
+  border: 1px solid black;
+  border-radius: 30px;
+  flex-direction: row;
+  align-items: center;
+  display:flex;
+  align-items:center; 
+}
+
+.searchInput{
+  height: 50px;
+  width: 90%;
+  border-radius: 25px;
+  /* border: 1px solid black; */
+  margin-left: 35px;
+  font-size: 16px;
+  display:inline-block;
+}
+.searchBtn {
+  height: 40px;
+  width: 90px;
+  border-radius: 25px;
+  font-size: 16px;
+  border: none;
+  background-color: #AAAAAA;
+  cursor: pointer;
+  display:inline-block;
+  margin-left: 10px;
+}
+
+.hot {
+  font-size: 16px;
+  width: 100px;
+  height: 40px;
+  color: #707070;
+  background-color: #CCE8FF;
+  border-radius: 20px;
+  text-align: center;
+  margin: 50px 1800px 50px 0;
+  padding: 10px;
+}
+
+.hotSpan {
+  margin: 5px;
+}
+
+
+
 
 .formInput {
   width: 100%;
   padding: 10px 20px;
-  border-radius: 3px;
-  border: 1px solid black;
+  border: 0.5px solid black;
   text-align: center;
   background-color: white;
   color: black;
 }
 
+.authSubmit {
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+  text-align: center;
+  background-color: #48ACFF;
+  color: white;
+  
+}
+.authSubmit:hover {
+  opacity: 0.8;
+}
+
 .formBtn {
   cursor: pointer;
   width: 100%;
+  border: none;
   padding: 7px 20px;
   text-align: center;
   color: white;
   border-radius: 3px;
-  background-color: #94b1ff;
+  background-color: #48ACFF;
   cursor: pointer;
 }
 
@@ -129,7 +235,7 @@ form {
   height: 40px;
   padding: 0px 20px;
   color: white;
-  border: 1px solid #94b1ff;
+  border: 1px solid #48ACFF;
   border-radius: 3px;
   font-weight: 500;
   font-size: 12px;
@@ -138,7 +244,7 @@ form {
 .factoryInput__arrow {
   position: absolute;
   right: 0;
-  background-color: #94b1ff;
+  background-color: #48ACFF;
   height: 40px;
   width: 40px;
   padding: 10px 0px;
@@ -148,7 +254,7 @@ form {
 }
 
 .factoryInput__label {
-  color: #94b1ff;
+  color: #48ACFF;
   cursor: pointer;
 }
 
@@ -171,7 +277,7 @@ form {
 }
 
 .factoryForm__clear {
-  color: #94b1ff;
+  color: #48ACFF;
   cursor: pointer;
   text-align: center;
 }
@@ -255,57 +361,76 @@ form {
   margin-bottom: 0;
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  max-width: 320px;
+  width: 500px;
 }
 
 .authBtn {
   cursor: pointer;
-  border-radius: 3px;
-  border: none;
-  padding: 10px;
-  margin: 0px 5px;
-  font-size: 12px;
+  margin: 0px;
+  font-size: 15px;
+  width: 500px;
+  padding: 10px 20px;
+  border: 0.5px solid black;
   text-align: center;
-  width: 150px;
-  background: white;
-  cursor: pointer;
+  background-color: white;
+  color: black;
+}
+
+
+.authBtn :hover {
+  color:rgba(0, 0, 0, 0.5);
+  opacity: 0.5;
 }
 
 .authOr {
-  color: #94b1ff;
+  width: 100%;
+  color: black;
   cursor: default;
   margin-top: 20px;
-  display: block;
-  font-size: 12px;
+  display: flex;
+  font-size: 15px;
+  text-shadow: 0 1px fade(#FFF, 40%);
+  align-items: center;
+  width: 530px
 }
+
 .authOr::before,
 .authOr::after {
   content: "";
   flex-grow: 1;
+  background: black;
   height: 1px;
-  background: #94b1ff;
-  margin: 0 16px;
   font-size: 0px;
   line-height: 0px;
+  margin: 0px 15px;
 }
+
+/* .authOr::before,
+.authOr::after {
+  content: "";
+  flex-grow: 1;
+  height: 1px;
+  background: #48ACFF;
+  margin: 0 16px;
+  font-size: 15px;
+  line-height: 0px;
+} */
 
 /* AuthForm */
 
 .authInput {
-  max-width: 320px;
-  width: 100%;
+  width: 500px;
   padding: 10px;
-  border-radius: 3px;
   background-color: rgba(255, 255, 255, 1);
+  outline: 0.5px solid black;
   margin-bottom: 10px;
-  font-size: 12px;
+  font-size: 15px;
   color: black;
 }
 
 .authSubmit {
   text-align: center;
-  background: #94b1ff;
+  background: #48ACFF;
   color: white;
   margin-top: 10px;
   cursor: pointer;
@@ -315,14 +440,22 @@ form {
   color: tomato;
   text-align: center;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .authSwitch {
-  color: #94b1ff;
+  color: #48ACFF;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 30px;
+  margin-bottom: 10px;
   display: block;
-  font-size: 12px;
+  font-size: 15px;
   text-decoration: underline;
+}
+
+
+.logoImage {
+  width: 50px;
+  height: 50px;
+  background-color: #AAAAAA;
 }
