@@ -14,7 +14,7 @@ const ProjectPosts = ({ posts, loading }) => {
             {loading && <div> loading... </div>}
                 {posts.map((post) => (
                 <div key={post.id}>
-                    <Link to="/project_items" state={{data:post.id}}> 
+                    <Link to="/project_items" state={{data:post.projectId}}> 
                         <div className="card-wrapper">
                             <div className="card-title">{post.title}</div>
                             <div className="card-body">
