@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { dbService } from "../firebase_";
-import Posts from "./Posts";
 import Paging from "./Paging";
+import axios from "axios";
+import ParticipatePosts from "./ParticipatePosts";
 
-function Forum() {
+function ParticipateBoard() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(9);
+  const [postsPerPage, setPostsPerPage] = useState(10);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      dbService.collection('projectforms').get().then((res)=>{
-        res.forEach((doc)=>{
-          console.log(doc.data())
-          setPosts((prev) => [doc.data(), ...prev]);
-        })
-      })
+    //   dbService.collection('participateforms').get().then((res)=>{
+    //     res.forEach((doc)=>{
+    //       console.log(doc.data())
+    //       setPosts((prev) => [doc.data(), ...prev]);
+    //     })
+    //   })
+    const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/posts"
+        );
+        setPosts(response.data);
       setLoading(false);
     };
     fetchData();
@@ -34,7 +39,7 @@ function Forum() {
   console.log(posts);
   return (
     <div className="App">
-      <Posts posts={currentPosts(posts)} loading={loading}></Posts>
+      <ParticipatePosts posts={currentPosts(posts)} loading={loading}></ParticipatePosts>
       <Paging 
         page={currentPage}
         postsPerPage={postsPerPage}
@@ -45,4 +50,4 @@ function Forum() {
   );
 }
 
-export default Forum;
+export default ParticipateBoard;

@@ -7,7 +7,8 @@ import Form from "../routes/Form";
 import ProjectForm from "../routes/ProjectForm";
 import Test from "../routes/Test";
 import ProjectDetails from "../routes/ProjectDetail";
-import Forum from "../routes/Forum";
+import ParticipateBoard from "../routes/ParticipateBoard";
+import ProjectBoard from "../routes/ProjectBoard";
 
 const AppRouter = () => {
     const [isLoggedIn, setisLoggedIn] = useState(true);
@@ -15,7 +16,7 @@ const AppRouter = () => {
     return (
         <Router>
             <Routes>
-                <Route exact path="/" element={<Forum />} />
+                <Route exact path="/" element={<ParticipateBoard />} />
                 <Route exact path="/pd" element={<ProjectDetails />} />
             </Routes> 
         </Router>

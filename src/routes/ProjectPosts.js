@@ -1,9 +1,9 @@
 import { logDOM } from "@testing-library/react";
 import React from "react";
 import { Link } from "react-router-dom";
-import '../Posts.css';
+import '../ProjectPosts.css';
 
-const Posts = ({ posts, loading }) => {
+const ProjectPosts = ({ posts, loading }) => {
     return (
         <>
         <div style={{
@@ -46,4 +46,4 @@ const Posts = ({ posts, loading }) => {
         </>
     );
 };
-export default Posts;
+export default ProjectPosts;
