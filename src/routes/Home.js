@@ -17,6 +17,15 @@ const Home = () => {
 			setNewProjects(newArray);
 		});
 	}, []);
+
+	const onClick = (event) => {
+		const {
+			target : {name}
+		} = event;
+
+		console.log(event);
+		console.log(event.target.className);
+	}
 	
 
 	return (
@@ -24,11 +33,15 @@ const Home = () => {
 			<div>
 				<div style={{ marginTop: 30 }}>
 					{newProjects.map((newProject) => (
+
+						<span className={newProject.projectId} onClick={onClick}>
+
 						<Link to="/project_items" state={{data: newProject.projectId}}>
 							<div className="project_container">
 								<h1>{newProject.title}</h1>
 							</div>
 						</Link>
+						</span>
 					))}
 				</div>
 			</div>
