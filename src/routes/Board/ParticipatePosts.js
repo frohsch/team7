@@ -17,10 +17,10 @@ const ParticipatePosts = ({ posts, loading }) => {
                   <thead>
                      <tr>
                         <th className="common-table-header">ë²ˆí˜¸</th>
-                        <th className="common-table-header">? œëª?</th>
-                        <th className="common-table-header">?ž‘?„±?ž</th>
-                        <th className="common-table-header">?ž‘?„±?¼?‹œ</th>
-                        <th className="common-table-header">ì¡°íšŒ?ˆ˜</th>
+                        <th className="common-table-header">ì œëª©</th>
+                        <th className="common-table-header">ìž‘ì„±ìž</th>
+                        <th className="common-table-header">ìž‘ì„±ì¼</th>
+                        <th className="common-table-header">ì¡°íšŒìˆ˜</th>
                      </tr>
                   </thead>
                   <tbody>

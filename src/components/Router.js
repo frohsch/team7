@@ -10,9 +10,9 @@ import Show from "../routes/Show";
 import Content from "./Content";
 import GetImage from "./GetImage";
 import Form from "../routes/Form";
-import Test from "../routes/Test";
-import ParticipateBoard from "../routes/ParticipateBoard";
-import ProjectBoard from "../routes/ProjectBoard";
+//import Test from "../routes/Test";
+import ParticipateBoard from "../routes/Board/ParticipateBoard";
+import ProjectBoard from "../routes/Board/ProjectBoard";
 
 const AppRouter = () => {
     const [isLoggedIn, setisLoggedIn] = useState(true);
