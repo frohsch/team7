@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { dbService } from "../firebase_";
 import Posts from "./Posts";
 import Paging from "./Paging";
 
@@ -12,10 +12,12 @@ function Forum() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
-      setPosts(response.data);
+      dbService.collection('projectforms').get().then((res)=>{
+        res.forEach((doc)=>{
+          console.log(doc.data())
+          setPosts((prev) => [doc.data(), ...prev]);
+        })
+      })
       setLoading(false);
     };
     fetchData();

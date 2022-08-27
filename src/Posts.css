@@ -65,12 +65,13 @@
     flex-grow: 1;
     word-break: break-all;
     overflow: auto;
+    color: #282c34;
     padding: 0.6rem;
   }
   .card-wrapper .card-body-text::-webkit-scrollbar {
     display: none;
   }
-  .card-wrapper .card-body-title {
+  .card-wrapper .card-title {
     font-size: 1.3rem;
     color: darkslategray;
     font-weight: bold;
@@ -84,3 +85,15 @@
     font-size: 1.1rem;
     justify-content: space-between;
   }
+
+  a:link { 
+    text-decoration: none;
+   }
+    
+   a:visited { 
+    text-decoration: none;
+   }
+    
+   a:hover { 
+    text-decoration: none;
+   }
