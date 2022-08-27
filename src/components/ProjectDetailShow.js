@@ -1,4 +1,5 @@
 import ReactHtmlParser from "html-react-parser";
+import '../DetailStyle/ProjectDetailShow.css';
 
 const ProjectDetailShow = ({itemDetail}) => {
 	return (

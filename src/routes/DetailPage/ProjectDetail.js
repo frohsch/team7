@@ -9,6 +9,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import ReactHtmlParser from "html-react-parser";
 import { dbService, storageService } from "../../firebase_";
 import ProjectDetailShow from "../../components/ProjectDetailShow";
+import '../../DetailStyle/ProjectDetail.css';
 
 
 const ProjectDetail = () => {
