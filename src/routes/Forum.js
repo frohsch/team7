@@ -1,10 +1,9 @@
-import './App.css';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Posts from "./Posts";
 import Paging from "./Paging";
 
-function App() {
+function Forum() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,4 +43,4 @@ function App() {
   );
 }
 
-export default App;
+export default Forum;
