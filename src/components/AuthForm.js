@@ -1,10 +1,27 @@
 import React, { useState } from "react";
-
 import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
 } from "firebase/auth";
+
+import styled from "styled-components";
+
+const Container = styled.div`
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-botton: 10px;
+    padding-bottom: 10px;
+`
+
+const AuthError = styled.span`
+    color: tomato;
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+`
 
 const AuthForm = () => {
     const [email, setEmail] = useState("");
@@ -61,17 +78,28 @@ const AuthForm = () => {
 
     return (
         <>
-            <form onSubmit={onSubmit} className="container">
-                <input
-                    name="email"
-                    className="authInput"
-                    type="text"
-                    placeholder="Email"
-                    required
-                    defaultValue={email}
-                    onChange={onChange}
-
-                />
+            <form onSubmit={onSubmit}>
+                <Container>
+                    <input
+                        name="email"
+                        className="authInput"
+                        type="text"
+                        placeholder="Email"
+                        required
+                        defaultValue={email}
+                        onChange={onChange}
+                        style={{
+                            width: "500px",
+                            padding: "10px",
+                            backgroundcolor: "rgba(255, 255, 255, 1)",
+                            outline: "0.5px solid black",
+                            marginbottom: "20px",
+                            fontsize: "14px",
+                            color: "black",
+                        }}
+                    />
+                </Container>
+                <Container>
                 <input
                     name="password"
                     className="authInput"
@@ -80,12 +108,44 @@ const AuthForm = () => {
                     required
                     defaultValue={password}
                     onChange={onChange}
+                    style={{
+                        width: "500px",
+                        padding: "10px",
+                        backgroundcolor: "rgba(255, 255, 255, 1)",
+                        outline: "0.5px solid black",
+                        marginbottom: "10px",
+                        fontsize: "14px",
+                        color: "black",
+                    }}
                 />
-                <input type="submit" className="authSubmit" value={newAccount ? "Create Account" : "Log In"} />
-                {error && <span className="authError">{error}</span>}
+                </Container>
+                <Container>
+                <input 
+                    type="submit" 
+                    className="authSubmit" 
+                    value={newAccount ? "Create Account" : "Log In"} 
+                    style={{
+                        width: "502px",
+                        textalign: "center",
+                        background: "#48ACFF",
+                        color: "white",
+                        margintop: "10px",
+                        cursor: "pointer",
+                    }}
+                />
+                {error && <AuthError>{error}</AuthError>}
+                </Container>
             </form>
-            <span onClick={toggleAccount} className="authSwitch">
-                {newAccount ? "Sign In" : "Create Account"}
+            <span onClick={toggleAccount} style={{
+                color: "#48ACFF",
+                cursor: "pointer",
+                margintop: "20px",
+                marginbottom: "10px",
+                display: "block",
+                fontsize: "15px",
+                textdecoration: "underline"}}
+            >
+            {newAccount ? "Sign In" : "Create Account"}
             </span>
         </>
     )
