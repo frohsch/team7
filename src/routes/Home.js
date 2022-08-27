@@ -20,7 +20,7 @@ const Home = ({ userObj }) => {
             className="searchInput"
             placeholder="Search"
             required
-            value={search}/>
+            defaultValue={search}/>
             <button
             className="searchBtn">🔍</button>
         </div>

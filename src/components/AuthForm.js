@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -67,7 +68,7 @@ const AuthForm = () => {
                     type="text"
                     placeholder="Email"
                     required
-                    value={email}
+                    defaultValue={email}
                     onChange={onChange}
 
                 />
@@ -77,7 +78,7 @@ const AuthForm = () => {
                     type="password"
                     placeholder="Password"
                     required
-                    value={password}
+                    defaultValue={password}
                     onChange={onChange}
                 />
                 <input type="submit" className="authSubmit" value={newAccount ? "Create Account" : "Log In"} />

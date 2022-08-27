@@ -85,7 +85,29 @@ form {
 }
 
 
+.profileformcss {
+  width: 40vw;
+  height: 25px;
+  margin: 50px 0 0 0;
+  border-bottom: 1px solid #464646;
+  display: flex;
+}
 
+.profilecss {
+  font-size: 14px;
+  color: #464646;
+}
+
+.Portfolio {
+  width: 100vw;
+  display: flex;
+}
+
+.editPortfolio {
+  width: 100vw;
+  display: flex;
+  margin: 0 1000px 0 0;
+}
 
 
 .container {
@@ -154,17 +176,82 @@ form {
   margin: 5px;
 }
 
+.profileMainTitile{
+  color: black;
+  font-size: 20px;
+  margin: 60px 40px 10px 30%;
+}
 
+.editprofileMainTitile{
+  color: black;
+  font-size: 20px;
+  margin: 60px 40px 10px 0;
+}
 
+.profileTitleDiv {
+  width: 100vw;
+  display: flex;
+}
+
+.EditBtnDiv {
+  font-size: 14px;
+  width: 80px;
+  height: 40px;
+  color: #707070;
+  background-color: #CCE8FF;
+  border-radius: 20px;
+  text-align: center;
+  margin: 50px 45vw 0 0;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.profileContainer { 
+  /* margin-right: 30px; */
+  width: 573px;
+  float: left;
+
+} 
+
+.profileTitle {
+  color: black;
+  width: 100px;
+  font-size: 14px;
+  height: auto;
+}
+
+/* .profileForm {
+  width: 500px;
+} */
+
+/* .cancelBtn {
+  cursor: pointer;
+  background-color: white;
+  border: 1 solid black;
+  color: black;
+} */
 
 .formInput {
-  width: 100%;
+  width: 500px;
   padding: 10px 20px;
   border: 0.5px solid black;
   text-align: center;
   background-color: white;
   color: black;
 }
+
+.profileeditcss {
+  width: 500px;
+  padding: 0 10px;
+  background-color: white;
+  font-size: 14px;
+  color: #707070;
+  margin-bottom: 10px;
+}
+/* .profilecss {
+  font-size: 14px;
+  color: #464646;
+} */
 
 .authSubmit {
   font-size: 14px;
@@ -182,36 +269,26 @@ form {
 
 .formBtn {
   cursor: pointer;
-  width: 100%;
+  width: 10vw;
   border: none;
   padding: 7px 20px;
   text-align: center;
   color: white;
-  border-radius: 3px;
   background-color: #48ACFF;
   cursor: pointer;
+  margin-right: 30vw;
+  margin-bottom: 50px;
 }
 
-.cancelBtn {
-  cursor: pointer;
-  background-color: tomato;
-  border: 0;
-}
 
 /* Profile Page */
 
 .profileForm {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.9);
-  padding-bottom: 30px;
+  padding-bottom: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
-
-.logOut {
-  margin-top: 50px;
-}
-
 
 /* Auth */
 

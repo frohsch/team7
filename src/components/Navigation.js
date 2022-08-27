@@ -13,9 +13,6 @@ const Navigation  = ({ userObj, isLoggedIn, loginlink }) => (
             <li className="logoLi">
                 <Link to="/" >
                     <div className="logoImage">
-
-                    {/* <image src = "/public/logo.png" alt = "logo"/> */}
-                    {/* <FontAwesomeIcon icon={faAnchor} color={"#48ACFF"} size="2x" /> */}
                     </div>
                 </Link>
             </li>
@@ -34,7 +31,8 @@ const Navigation  = ({ userObj, isLoggedIn, loginlink }) => (
                     <span>홍보해요</span>
                 </Link>
             </li>
-            <li> { isLoggedIn ? (
+            <li>
+                { isLoggedIn ? (
                 <Link
                 className="naviLink" 
                 
@@ -49,7 +47,8 @@ const Navigation  = ({ userObj, isLoggedIn, loginlink }) => (
                     }}
                 >
                     <FontAwesomeIcon icon={faUser} color={"#707070"} size="2x" />
-                </Link> ) : (
+                </Link> 
+                 ) : ( 
                 <Link
                 className="naviLink" 
                 
@@ -64,8 +63,9 @@ const Navigation  = ({ userObj, isLoggedIn, loginlink }) => (
                     }}
                 >
                     <FontAwesomeIcon icon={faUser} color={"#707070"} size="2x" />
-                </Link> )
-                }
+                </Link> 
+                 ) 
+                 } 
             </li>
         </ul>
         <hr />

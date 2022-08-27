@@ -10,26 +10,27 @@ import Project from "../routes/Project";
 import Publicize from "../routes/Publicize";
 
 
-const AppRouter = ( {isLoggedIn, userObj} ) => {
+const AppRouter = ( { isLoggedIn, userObj, refreshUser } ) => {
   return (
     <Router basename="/">
-        {<Navigation userObj={userObj}  />}
+        {<Navigation userObj={userObj} isLoggedIn={isLoggedIn} />}
 
       <Routes>
         <>
-        <Route exact={true} path={"/"} element={<Home />}></Route>
-        <Route exact={true} path={"/project"} element={<Project />}></Route>
-        <Route exact={true} path={"/participate"} element={<Participate  />}></Route>
-        <Route exact={true} path={"/publicize"} element={<Publicize />}></Route>
+        <Route exact={true} path={"/"} element={<Home userObj={userObj} />}></Route>
+        <Route exact={true} path={"/project"} element={<Project userObj={userObj} />}></Route>
+        <Route exact={true} path={"/participate"} element={<Participate userObj={userObj}  />}></Route>
+        <Route exact={true} path={"/publicize"} element={<Publicize userObj={userObj} />}></Route>
         </>
         {isLoggedIn ? (
-     
-            <Route exact={true} path={"/profile"} element={<Profile userObj={userObj} />}></Route>
-      
-        ) : (
+     <>
+            <Route exact={true} path={"/profile"} element={<Profile refreshUser={refreshUser} userObj={userObj} />}></Route>
+            <Route exact={true} path={"/profileedit"} element={<ProfileEdit refreshUser={refreshUser} userObj={userObj} />}></Route>
+            </>
+        ) : ( 
               <Route exact={true} path={"/auth"} element={<Auth />}></Route>
         
-        )}
+        )}  
       </Routes>
     </Router>
   );
