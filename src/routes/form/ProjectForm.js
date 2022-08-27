@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import styled, { css } from 'styled-components';
-import DetailList from "../../components/DetailList";
 import { dbService, storageService } from "../../firebase";
+import {v4 as uuidv4} from 'uuid';
+import { map } from "@firebase/util";
 
 const ProjectForm = ({ userObj }) => {
     const [title, setTitle] = useState(""); //제목
@@ -14,6 +14,11 @@ const ProjectForm = ({ userObj }) => {
     const [header, setHeader] = useState("");
     const [context, setContext] = useState("");
     const [attachment, setAttachment] = useState("");
+    const [attachmentList, setAttachmentList] = useState([]);
+    const [files, setFiles] = useState([]); // 파일 리스트
+    const [fileList, setFileList] = useState([]);
+    const [isUploading, setUploading] = useState(false); // 업로드 상태
+    const [photoURL, setPhotosURL] = useState([]); // 업로드 완료된 사진 링크들
     const [newContentList, setNewContentList] = useState([]); //소개내용추가
     const [countList, setCountList] = useState([]);
 
@@ -26,20 +31,60 @@ const ProjectForm = ({ userObj }) => {
         setCountList(countArr)
     }
 
+    // 업로드시 호출될 함수
+    const handleImageUpload = async (event, fileList) => {
+        event.preventDefault();
+        try {
+            setUploading(true);
+            // 업로드의 순서는 상관없으니 Promise.all로 이미지 업로드후 저장된 url 받아오기
+            const urls = await Promise.all(
+                fileList?.map((file) => {
+                // 스토리지 어디에 저장되게 할껀지 참조 위치를 지정. 아래와 같이 지정해줄시 images 폴더에 파일이름으로 저장
+                const attachmentRef = storageService
+                    .ref()
+                    .child(`${title}/${uuidv4()}`);
+                const response = attachmentRef.putString(attachment, "base64");
+                const attachmentUrl =  response.ref.getDownloadURL();
+                return attachmentUrl;
+                })
+            );
+            setPhotosURL(urls);
+            alert("성공적으로 업로드 되었습니다");
+        } catch (err) {
+            console.error(err);
+        }
+
+        setUploading(false);
+        onClickCon(event);
+    };
+
+
     const onSubmit = async (event) => {
         //버튼을 클릭한 경우에만 제출하도록 변경
         event.preventDefault(); //새로고침 방지
-        console.log("firebase제출");
-        console.log(newContentList)
+        
+        let attachmentUrl = "";
+        const projectId = uuidv4();
+
+        if (mainAttachment !== "") {
+            console.log("사진있음")
+            const attachmentRef = storageService
+                .ref()
+                .child(`${title}/${uuidv4()}`);
+            const response = await attachmentRef.putString(attachment, "base64");
+            attachmentUrl = await response.ref.getDownloadURL();
+        }
+        
         const ProjectFormObj = {
             title: title,
             member: memberList,
             introduce: introduce,
             tagList: tagList,
             content: newContentList,
-            createdAt: Date.now()
+            createdAt: Date.now(),
+            attachmentUrl : attachmentUrl,
+            projectId: projectId,
             //글 작성자(멤버에 항상 포함되도록)
-            //id
         };
         await dbService.collection("projectforms").add(ProjectFormObj);
 
@@ -62,11 +107,22 @@ const ProjectForm = ({ userObj }) => {
 
     //내용 리스트에 추가
     const onClickCon = (event) => {
-        console.log("onclickcon")
+        
+        let attachmentUrl = "";
+        
+        // if (attachment !== "") {
+        //     const attachmentRef = storageService
+        //         .ref()
+        //         .child(`${title}/${uuidv4()}`);
+        //     const response = await attachmentRef.putString(attachment, "base64");
+        //     attachmentUrl = await response.ref.getDownloadURL();
+        // }
+        
+
         const newContent = {
             header: header,
             context: context,
-            attachment: attachment,
+            attachmentUrl: attachmentUrl,
         }
         setNewContentList([...newContentList, newContent])
         setHeader("")
@@ -88,6 +144,9 @@ const ProjectForm = ({ userObj }) => {
 
         if (event.target.id === "titleText") {
             setTitle(value);
+        }
+        else if (event.target.id === "memberText") {
+            setMember(value);
         }
         else if (event.target.id === "introduceText") {
             setIntroduce(value);
@@ -118,24 +177,32 @@ const ProjectForm = ({ userObj }) => {
             };
             reader.readAsDataURL(theFile);
         }
+
         else if(event.target.id === "attachment"){
-            const { 
-                target: { files }, 
-            } = event;
-            const theFile = files[0];
-            const reader = new FileReader();
-            reader.onloadend = (finishedEvent) => {
-                const {
-                    currentTarget: { result },
-                } = finishedEvent;
-                setAttachment(result);
+            console.log(event.target.files)
+            for (const image of event.target.files){
+                setFileList([...fileList, image]);
+            }
+            for(const i=1; i<fileList.size; i++){
+                
+                const theFile = files[i];
+                const reader = new FileReader();
+                reader.onloadend = (finishedEvent) => {
+                    const {
+                        currentTarget: { result },
+                    } = finishedEvent;
+                setAttachmentList([...attachmentList],result);
+                reader.readAsDataURL(theFile);
             };
-            reader.readAsDataURL(theFile);
+                
+            }
+            
         }
        
     };
     
     const onClearAttachment = () => setMainAttachment(null);
+    const onClearAttachment2 = () => setAttachment(null);
 
     return (
         <>
@@ -165,15 +232,8 @@ const ProjectForm = ({ userObj }) => {
                         placeholder="멤버 추가"
                         value={member}
                         onChange={onChange}
-                        list="depList"
                         style={{ border: "none" }}
                     />
-                    <datalist id="depList">
-                        <option value="컴퓨터공학과"></option>
-                        <option value="영어영문과"></option>
-                        <option value="경영학과"></option>
-                        <option value="사회체육과"></option>
-                    </datalist>
                 </div>
                 <br></br>
                 <div className="input_p">
@@ -233,23 +293,27 @@ const ProjectForm = ({ userObj }) => {
                         onChange={onChange}
                         style={{ boxsizing: "content-box", border: "none" }}
                     />
-                    <input
-                        className="input_img"
-                        type="file"
-                        accept="image/*"
-                        id="attachment"
-                        onChange={onFileChange}
-                        style={{ border: "none" }}
-                    />
-                    {attachment && (
-                        <div className="attatchment">
-                            <img src={attachment} />
-                            <button className="default_Btn" onClick={onClearAttachment}>Clear</button>
-                        </div>
-                    )}
-                    
+                    <label>
+                        <input
+                            multiple
+                            className="input_img"
+                            type="file"
+                            accept="image/*"
+                            id="attachment"
+                            onChange={onFileChange}
+                            style={{ border: "none" }}
+                        />
+                        {attachmentList.map((item, idx) => {
+                            return(
+                                <div className="attatchment">
+                                    <img src={attachmentList[idx]} />
+                                    <button className="default_Btn" onClick={onClearAttachment2}>Clear</button>
+                                </div>
+                            )
+                        })}
+                    </label>
                     <br></br>
-                    <button onClick={onClickCon}>본문 추가 완료</button>
+                    <button onClick={(e) => handleImageUpload(e, files)}>본문 추가 완료</button>
                     <div>
                         {newContentList.map((item, idx) => {
                             return (
