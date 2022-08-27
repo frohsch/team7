@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
-import { dbService } from "../firebase";
+import { dbService } from "../firebase_";
 
 const Home = () => {
 	const [newProjects, setNewProjects] = useState([]);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { dbService, storageService } from "../../firebase";
+import { dbService, storageService } from "../../firebase_";
 import {v4 as uuidv4} from 'uuid';
 import { map } from "@firebase/util";
 import { CKEditor } from "@ckeditor/ckeditor5-react";

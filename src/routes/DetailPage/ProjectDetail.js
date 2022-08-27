@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import ReactHtmlParser from "html-react-parser";
-import { dbService, storageService } from "../../firebase";
+import { dbService, storageService } from "../../firebase_";
 import ProjectDetailShow from "../../components/ProjectDetailShow";
 
 
