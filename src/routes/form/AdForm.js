@@ -3,6 +3,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { dbService, storageService } from "../../firebase_";
 import {v4 as uuidv4} from 'uuid';
+import UploadAdapter from "../../components/UploadAdapter";
 
 const AdForm = () => {
     const [title, setTitle] = useState(""); //제목
@@ -43,22 +44,21 @@ const AdForm = () => {
 
         let attachmentUrl = "";
         if (thumbNail !== "") {
-            console.log("사진있음")
             const attachmentRef = storageService
                 .ref()
                 .child(`${projectId}/${uuidv4()}`);
             const response = await attachmentRef.putString(thumbNail, "data_url");
             attachmentUrl = await response.ref.getDownloadURL();
-            console.log(attachmentUrl);
         }
         
         const AdFormObj = {
-            id: projectId,
+            projectId: projectId,
             title: title,
             introduce: introduce,
             data: data,
             thumbNailUrl: attachmentUrl,
             tagList: tagList,
+            view: 0,
         };
         await dbService.collection("adforms").add(AdFormObj);
 
@@ -74,7 +74,8 @@ const AdForm = () => {
             const { 
                 target: { files }, 
             } = event;
-            const theFile = files[0];
+            
+            const theFile = files[0]; console.log(theFile)
             const reader = new FileReader();
             reader.onloadend = (finishedEvent) => {
                 const {
@@ -87,6 +88,12 @@ const AdForm = () => {
     };
 
     const onClearAttachment = () => setThumbNail("");
+
+    function MyCustomUploadAdapterPlugin(editor) {
+        editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+            return new UploadAdapter(loader, title)
+        }
+    }
     
     return (
         <>
@@ -121,39 +128,6 @@ const AdForm = () => {
                 </div>
                 <br></br>
                 <div className="input_p">
-                    <span className="span_img">썸네일 사진 </span><hr></hr>
-                    <input
-                        className="input_img"
-                        id="thumbNail"
-                        type="file"
-                        accept="image/*"
-                        onChange={onFileChange}
-                        style={{ border: "none" }}
-                    />
-                    {thumbNail && (
-                        <div className="attatchment">
-                            <img src={thumbNail} />
-                            <button className="default_Btn" onClick={onClearAttachment}>Clear</button>
-                        </div>
-                    )}
-                </div>
-                <br></br>
-                <div className="input_content">
-                    <span>본문 작성</span><hr></hr>
-                    <CKEditor
-                        editor={ClassicEditor}
-                        data=''
-                        config={{
-                            placeholder: '내용을 입력해 주세요.',
-                        }}
-                        onChange={(event, editor) => {
-                            //console.log(editor.getData());
-                            setData(editor.getData());
-                        }}
-                    />
-                </div>
-                <br></br>
-                <div className="input_p">
                     <span className="span_tag">해시태그</span><hr></hr>
                     <span>#</span>
                     <div style={{ display: "inline-block" }}>
@@ -181,6 +155,39 @@ const AdForm = () => {
                         })}
                     </div>
                 </div>
+                <br></br>
+                <div className="input_p">
+                    <span className="span_img">썸네일 사진 </span><hr></hr>
+                    <input
+                        className="input_img"
+                        id="thumbNail"
+                        type="file"
+                        accept="image/*"
+                        onChange={onFileChange}
+                        style={{ border: "none" }}
+                    />
+                    {thumbNail && (
+                        <div className="attatchment">
+                            <img src={thumbNail} />
+                            <button className="default_Btn" onClick={onClearAttachment}>Clear</button>
+                        </div>
+                    )}
+                </div>
+                <br></br>
+                <div className="input_content">
+                    <span>본문 작성</span><hr></hr>
+                    <CKEditor
+                        editor={ClassicEditor}
+                        config={{
+                            placeholder: '내용을 입력해 주세요.',
+                            extraPlugins: [ MyCustomUploadAdapterPlugin],
+                        }}
+                        onChange={(event, editor) => {
+                            setData(editor.getData());
+                        }}
+                    />
+                </div>
+                <br></br>
             </form>
             <div>
                 <button className="default_Btn_Right" type="submit" onClick={onSubmit}>제출</button>
@@ -193,36 +200,3 @@ export default AdForm;
 
 
 
-
-{/* <h1>홍보해요 작성폼</h1>
-<form className="form_container" onSubmit={false}>
-<div className="input_p">
-    <span>제목 </span><hr></hr>
-    <input
-        className="input_title"
-        id="titleText"
-        type="text"
-        placeholder="제목"
-        size="30"
-        value={title}
-        onChange={onChange}
-        style={{ border: "none" }}
-    />
-</div>
-<br></br>
-<div className="input_p">
-    <span>한 줄 소개</span><hr></hr>
-    <textarea
-        className="input_intro"
-        id="introduceText"
-        placeholder="한 줄 소개"
-        cols="70"
-        rows="3"
-        value={introduce}
-        onChange={onChange}
-        style={{ border: "none" }}
-    />
-</div>
-<br></br>
-
-</form> */}
