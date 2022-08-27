@@ -63,6 +63,8 @@ const TogetherForm = ({userObj}) => {
             view: 0,
         };
         await dbService.collection("participateforms").add(TogetherFormObj);
+		setProjectId(uuidv4());
+		
 
         setTitle("");
         setMember("");
