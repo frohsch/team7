@@ -16,7 +16,7 @@ const AppRouter = () => {
     return (
         <Router>
             <Routes>
-                <Route exact path="/" element={<ParticipateBoard />} />
+                <Route exact path="/" element={<ProjectBoard />} />
                 <Route exact path="/pd" element={<ProjectDetails />} />
             </Routes> 
         </Router>

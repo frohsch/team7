@@ -10,16 +10,17 @@ const ProjectPosts = ({ posts, loading }) => {
             display: "grid",
             gridTemplateRows: "1fr ",
             gridTemplateColumns: "1fr 1fr 1fr",
+            margin: "45px",
         }}>
             {loading && <div> loading... </div>}
                 {posts.map((post) => (
                 <div key={post.id}>
-                    <Link to="/pd"> 
+                    <Link to="/pd" state={{data:post.id}}> 
                         <div className="card-wrapper">
                             <div className="card-title">{post.title}</div>
                             <div className="card-body">
                                 <div className="card-body-img">
-                                    <img src={"logo192.png"}/>
+                                    <img src={"logo512.png"}/>
                                 </div>
                                 <div className="card-body-text">
                                     <div className="card-body-text-content">{post.introduce}</div>
@@ -35,7 +36,7 @@ const ProjectPosts = ({ posts, loading }) => {
                                         hour: "2-digit",
                                         minute: "2-digit",
                                     }).format(post.createdAt)}</div>
-                                <div className="view">{"200 view"}</div>
+                                <div className="view">{post.view+"  view"}</div>
                                 <div className="heart">{"150 heart"}</div>
                             </div>
                         </div>
