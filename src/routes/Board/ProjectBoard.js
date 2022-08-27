@@ -33,7 +33,7 @@ function ProjectBoard() {
 
   console.log(posts);
   return (
-    <div className="App">
+    <div>
       <ProjectPosts posts={currentPosts(posts)} loading={loading}></ProjectPosts>
       <Paging 
         page={currentPage}

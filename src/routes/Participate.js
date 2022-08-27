@@ -1,9 +1,10 @@
 import React from 'react';
+import ParticipateBoard from './Board/ParticipateBoard';
 
 const Participate = () => {
     return (
         <div className='container'>
-            <h1>Participate</h1>
+            <ParticipateBoard />
         </div>
     );
 };

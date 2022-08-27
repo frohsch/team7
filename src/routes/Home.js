@@ -14,7 +14,7 @@ const Home = ({ userObj }) => {
                 
             </div>
 
-        </div>788/
+        </div>
 
         <div className="search">
             <input
