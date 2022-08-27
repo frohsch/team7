@@ -29,8 +29,15 @@ const ParticipatePosts = ({ posts, loading }) => {
                            <td className="common-table-column">{"post._id"}</td>
                            <td className="common-table-column">{post.title}</td>
                            <td className="common-table-column">{"post.userName"}</td>
-                           <td className="common-table-column">{"date"}</td>
-                           <td className="common-table-column">{"post.readCount"}</td>
+                           <td className="common-table-column">{
+                              new Intl.DateTimeFormat("en-US", {
+                                 year: "numeric",
+                                 month: "2-digit",
+                                 day: "2-digit",
+                                 hour: "2-digit",
+                                 minute: "2-digit",
+                             }).format(post.createdAt)}</td>
+                           <td className="common-table-column">{post.view}</td>
                         </tr>
                      ))}
                   </tbody>
