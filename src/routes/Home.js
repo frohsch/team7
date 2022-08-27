@@ -8,12 +8,9 @@ const Home = ({ userObj }) => {
        <div className="container">
         <div className="mainLemona">
             <div className="LemonaSec">
-
             </div>
             <div className="LemonaSec">
-                
             </div>
-
         </div>
 
         <div className="search">

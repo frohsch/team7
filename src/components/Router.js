@@ -13,46 +13,40 @@ import ProjectDetail from "../routes/DetailPage/ProjectDetail";
 import AdForm from "../routes/form/AdForm";
 import ProjectForm from "../routes/form/ProjectForm";
 import TogetherForm from "../routes/form/TogetherForm";
-import Show from "../routes/Show";
-import Content from "./Content";
-import GetImage from "./GetImage";
-import Form from "../routes/Form";
-//import Test from "../routes/Test";
-import ParticipateBoard from "../routes/Board/ParticipateBoard";
-import ProjectBoard from "../routes/Board/ProjectBoard";
 import TogetherDetail from "../routes/DetailPage/TogetherDetail";
 import AdDetail from "../routes/DetailPage/AdDetail";
 
-const AppRouter = ( { isLoggedIn, userObj, refreshUser } ) => {
+const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
   return (
-    <Router basename="/">
-        {<Navigation userObj={userObj} isLoggedIn={isLoggedIn} />}
+    <Router>
+      {<Navigation userObj={userObj} isLoggedIn={isLoggedIn} />}
 
       <Routes>
         <>
-        <Route exact path="/adform" element={<AdForm />} />
-        <Route exact path="/projectform" element={<ProjectForm />} />
-        <Route exact path="/togetherform" element={<TogetherForm />} />
-        <Route exact path="/content" element={<Content />} />
-        <Route exact path="/show" element={<Show />} />
-        <Route exact path="/getimage" element={<GetImage />} />
-       <Route exact path="/project_items" element = {<ProjectDetail />}/>
-				<Route exact path="/together_items" element = {<TogetherDetail />}/>
-				<Route exact path="/ad_items" element = {<AdDetail />}/>
-        <Route exact={true} path={"/"} element={<Home userObj={userObj} />}></Route>
-        <Route exact={true} path={"/project"} element={<Project userObj={userObj} />}></Route>
-        <Route exact={true} path={"/participate"} element={<Participate userObj={userObj}  />}></Route>
-        <Route exact={true} path={"/publicize"} element={<Publicize userObj={userObj} />}></Route>
+          {/*폼 작성*/}
+          <Route exact path="/adform" element={<AdForm />} />
+          <Route exact path="/projectform" element={<ProjectForm />} />
+          <Route exact path="/togetherform" element={<TogetherForm />} />
+
+          {/*상세페이지*/}
+          <Route exact path="/project_items" element={<ProjectDetail />} />
+          <Route exact path="/together_items" element={<TogetherDetail />} />
+          <Route exact path="/ad_items" element={<AdDetail />} />
+
+          <Route exact path="/" element={<Home userObj={userObj} />} />
+          <Route exact path="/project" element={<Project userObj={userObj} />} />
+          <Route exact path="/participate" element={<Participate userObj={userObj} />} />
+          <Route exact path="/publicize" element={<Publicize userObj={userObj} />} />
         </>
+
         {isLoggedIn ? (
-     <>
-            <Route exact={true} path={"/profile"} element={<Profile refreshUser={refreshUser} userObj={userObj} />}></Route>
-            <Route exact={true} path={"/profileedit"} element={<ProfileEdit refreshUser={refreshUser} userObj={userObj} />}></Route>
-            </>
-        ) : ( 
-              <Route exact={true} path={"/auth"} element={<Auth />}></Route>
-        
-        )}  
+          <>
+            <Route exact path="/profile" element={<Profile refreshUser={refreshUser} userObj={userObj} />} />
+            <Route exact path="/profileedit" element={<ProfileEdit refreshUser={refreshUser} userObj={userObj} />} />
+          </>
+        ) : (
+          <Route exact path="/auth" element={<Auth />} />
+        )}
       </Routes>
     </Router>
   );
