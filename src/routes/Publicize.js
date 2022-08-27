@@ -1,9 +1,10 @@
 import React from 'react';
+import AdBoard from './Board/AdBoard';
 
 const Publicize = () => {
     return (
         <div className='container'>
-            <h1>Publicize</h1>
+            <AdBoard />
         </div>
     );
 };

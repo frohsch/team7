@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { dbService } from "../../firebase_";
+import AdPosts from "./AdPosts";
 import Paging from "./Paging";
-import axios from "axios";
-import ParticipatePosts from "./ParticipatePosts";
 
-function ParticipateBoard() {
+function AdBoard() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(15);
+  const [postsPerPage, setPostsPerPage] = useState(9);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      dbService.collection('participateforms').get().then((res)=>{
+      dbService.collection('adforms').get().then((res)=>{
         res.forEach((doc)=>{
           console.log(doc.data())
           setPosts((prev) => [doc.data(), ...prev]);
@@ -34,8 +33,8 @@ function ParticipateBoard() {
 
   console.log(posts);
   return (
-    <div className="container">
-      <ParticipatePosts posts={currentPosts(posts)} loading={loading}></ParticipatePosts>
+    <div>
+      <AdPosts posts={currentPosts(posts)} loading={loading}></AdPosts>
       <Paging 
         page={currentPage}
         postsPerPage={postsPerPage}
@@ -46,4 +45,4 @@ function ParticipateBoard() {
   );
 }
 
-export default ParticipateBoard;
+export default AdBoard;
