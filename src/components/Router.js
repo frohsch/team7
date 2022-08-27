@@ -35,6 +35,8 @@ const AppRouter = ( { isLoggedIn, userObj, refreshUser } ) => {
         <Route exact path="/show" element={<Show />} />
         <Route exact path="/getimage" element={<GetImage />} />
         <Route exact path="/project_items" element = {<ProjectDetail />}/>
+        <Route exact path="/participate_board" element = {<ParticipateBoard />}/>
+        <Route exact path="/project_board" element = {<ProjectBoard />}/>
         <Route exact={true} path={"/"} element={<Home userObj={userObj} />}></Route>
         <Route exact={true} path={"/project"} element={<Project userObj={userObj} />}></Route>
         <Route exact={true} path={"/participate"} element={<Participate userObj={userObj}  />}></Route>
