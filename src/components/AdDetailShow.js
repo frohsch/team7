@@ -1,7 +1,7 @@
 import ReactHtmlParser from "html-react-parser";
 import '../DetailStyle/ProjectDetailShow.css';
 
-const ProjectDetailShow = ({itemDetail}) => {
+const AdDetailShow = ({itemDetail}) => {
 	return (
 		<>
 			<div>
@@ -11,13 +11,6 @@ const ProjectDetailShow = ({itemDetail}) => {
 			<div className="list">
 				<span>제목</span>
 				<div>{`${itemDetail.title}`}</div>
-			</div>
-				
-			<div  className="list">
-				<span>멤버</span>
-				{itemDetail.member.map((memberName) => (
-					<div className="member">{memberName}</div>
-				))}
 			</div>
 			
 			<div className="list">
@@ -34,11 +27,11 @@ const ProjectDetailShow = ({itemDetail}) => {
 			
 			<div className="list">
 				<span>본문</span>
-				<div>{ReactHtmlParser(itemDetail.content)}</div>
+				<div>{ReactHtmlParser(itemDetail.data)}</div>
 			</div>
 			
 		</>
 	);
 };
 
-export default ProjectDetailShow;
+export default AdDetailShow;
