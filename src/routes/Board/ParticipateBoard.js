@@ -8,7 +8,7 @@ function ParticipateBoard() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(10);
+  const [postsPerPage, setPostsPerPage] = useState(15);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +38,7 @@ function ParticipateBoard() {
 
   console.log(posts);
   return (
-    <div className="App">
+    <div className="container">
       <ParticipatePosts posts={currentPosts(posts)} loading={loading}></ParticipatePosts>
       <Paging 
         page={currentPage}

@@ -241,7 +241,7 @@ const ProjectDetail = () => {
 	};
 		
 	return (
-		<div>
+		<div className="container">
 
 			{detailEditing ? (
 
