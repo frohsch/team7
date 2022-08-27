@@ -58,12 +58,14 @@ const TogetherForm = () => {
             member: memberList,
             tagList: tagList,
             data: data,
+            view: 0,
         };
         await dbService.collection("participateforms").add(TogetherFormObj);
 
         setTitle("");
         setMember("");
         setData("");
+        setTag("");
         setMemberList([]);
         setTagList([]);
     };

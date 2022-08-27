@@ -44,16 +44,11 @@ const AdForm = () => {
 
         let attachmentUrl = "";
         if (thumbNail !== "") {
-            console.log(thumbNail)
-            console.log("사진있음")
             const attachmentRef = storageService
                 .ref()
                 .child(`${projectId}/${uuidv4()}`);
             const response = await attachmentRef.putString(thumbNail, "data_url");
-            console.log(response)
-             console.log(response.ref)
             attachmentUrl = await response.ref.getDownloadURL();
-            console.log(attachmentUrl);
         }
         
         const AdFormObj = {
@@ -63,6 +58,7 @@ const AdForm = () => {
             data: data,
             thumbNailUrl: attachmentUrl,
             tagList: tagList,
+            view: 0,
         };
         await dbService.collection("adforms").add(AdFormObj);
 
@@ -132,6 +128,35 @@ const AdForm = () => {
                 </div>
                 <br></br>
                 <div className="input_p">
+                    <span className="span_tag">해시태그</span><hr></hr>
+                    <span>#</span>
+                    <div style={{ display: "inline-block" }}>
+                        <input
+                            type="text"
+                            title="태그"
+                            name="tagText"
+                            id="tagText"
+                            placeholder="태그입력"
+                            value={tag}
+                            onChange={onChange}
+                            onKeyPress={onKeyPressTag}
+                            style={{ boxsizing: "content-box", width: "47px", border: "none" }}
+                        />
+                        <div style={{ position: "absolute", top: "0px", left: "0px", visibility: "hidden", height: "0px", overflow: "scroll", whitespace: "pre", fontsize: "13px", fontweight: "400", fontstyle: "normal", letterspacing: "normal", texttransform: "none" }}></div>
+                    </div>
+                    <div>
+                        {tagList.map((item, idx) => {
+                            return (
+                                <span className="txt_tag">
+                                    <span key={idx}>#{item} </span>
+                                    {/*<button className="btn_delete" onClick={deleteTagItem}>X</button>*/}
+                                </span>
+                            )
+                        })}
+                    </div>
+                </div>
+                <br></br>
+                <div className="input_p">
                     <span className="span_img">썸네일 사진 </span><hr></hr>
                     <input
                         className="input_img"
@@ -163,34 +188,6 @@ const AdForm = () => {
                     />
                 </div>
                 <br></br>
-                <div className="input_p">
-                    <span className="span_tag">해시태그</span><hr></hr>
-                    <span>#</span>
-                    <div style={{ display: "inline-block" }}>
-                        <input
-                            type="text"
-                            title="태그"
-                            name="tagText"
-                            id="tagText"
-                            placeholder="태그입력"
-                            value={tag}
-                            onChange={onChange}
-                            onKeyPress={onKeyPressTag}
-                            style={{ boxsizing: "content-box", width: "47px", border: "none" }}
-                        />
-                        <div style={{ position: "absolute", top: "0px", left: "0px", visibility: "hidden", height: "0px", overflow: "scroll", whitespace: "pre", fontsize: "13px", fontweight: "400", fontstyle: "normal", letterspacing: "normal", texttransform: "none" }}></div>
-                    </div>
-                    <div>
-                        {tagList.map((item, idx) => {
-                            return (
-                                <span className="txt_tag">
-                                    <span key={idx}>#{item} </span>
-                                    {/*<button className="btn_delete" onClick={deleteTagItem}>X</button>*/}
-                                </span>
-                            )
-                        })}
-                    </div>
-                </div>
             </form>
             <div>
                 <button className="default_Btn_Right" type="submit" onClick={onSubmit}>제출</button>

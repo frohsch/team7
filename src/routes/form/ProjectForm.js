@@ -48,6 +48,7 @@ const ProjectForm = ({ userObj }) => {
             thumbNailUrl: attachmentUrl,
             projectId: projectId,
             content: data,
+            view: 0,
             //글 작성자(멤버에 항상 포함되도록)
         };
         await dbService.collection("projectforms").add(ProjectFormObj);
