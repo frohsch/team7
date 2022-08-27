@@ -7,10 +7,10 @@ import { v4 as uuidv4 } from "uuid";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { dbService, storageService } from "../../firebase_";
-import ProjectDetailShow from "../../components/ProjectDetailShow";
 import '../../DetailStyle/ProjectDetail.css';
 import React from "react";
 import UploadAdapter from "../../components/UploadAdapter";
+import AdDetailShow from "../../components/AdDetailShow";
 
 
 const ProjectDetail = () => {	
@@ -23,22 +23,18 @@ const ProjectDetail = () => {
 		thumbnailUrl: "",
 		title: "",
 		introduce: "",
-		member: [],
 		tagList: [],
-		content: "",
+		data: "",
 	});
 
 	const [projectOwner, setProjectOwner] = useState(false);
 	const [detailEditing, setDetailEditing] = useState(false);
-	const [loading, setLoading] = useState(false);
 
 	// 수정 프로젝트 정보
 	const [newThumbnailBool, setNewThumbnailBool] = useState(false);
 	const [newThumbnail, setNewThumbnail] = useState("");
 
 	const [newTitle, setNewTitle] = useState(null);
-	const [newMemberName, setNewMemberName] = useState(null);		
-	const [newMember, setNewMember] = useState(null);		
 	const [newIntroduce, setNewIntroduce] = useState(null);
 	const [newTagListName, setNewTagListName] = useState(null);		
 	const [newTagList, setNewTagList] = useState(null);	
@@ -50,7 +46,7 @@ const ProjectDetail = () => {
 	useEffect(() => {
 		console.log("useEffect");
 		dbService
-		.collection("projectforms")
+		.collection("adforms")
 		.where("projectId", "==", nowProjectId)
 		.get()
 		.then(function(querySnapshot) {
@@ -65,16 +61,14 @@ const ProjectDetail = () => {
 				thumbnailUrl: newArray[0].thumbnailUrl,
 				title: newArray[0].title,
 				introduce: newArray[0].introduce,
-				member: newArray[0].member,
 				tagList: newArray[0].tagList,
-				content: newArray[0].content,
+				data: newArray[0].data,
 			});
 
 			setNewTitle(newArray[0].title);
-			setNewMember([...newArray[0].member]);
 			setNewIntroduce(newArray[0].introduce);
 			setNewTagList([...newArray[0].tagList]);
-			setNewContent(newArray[0].content);
+			setNewContent(newArray[0].data);
 			
 			// owner인지 확인
 		})
@@ -88,7 +82,7 @@ const ProjectDetail = () => {
 		const ok = window.confirm("삭제하시겠습니까?");
 
 		if (ok){
-			await dbService.doc(`projectforms/${itemDetail.id}`).delete();
+			await dbService.doc(`adforms/${itemDetail.id}`).delete();
 			if (itemDetail.thumbnailUrl !== ""){
 				await storageService.refFromURL(itemDetail.thumbnailUrl).delete();
 			}
@@ -108,10 +102,6 @@ const ProjectDetail = () => {
 		switch (event.target.id){
 			case "inputTitle":
 				setNewTitle(value);
-				break;
-
-			case "inputMember":
-				setNewMemberName(value);
 				break;
 			
 			case "inputIntroduce":
@@ -147,21 +137,6 @@ const ProjectDetail = () => {
 
 	};
 
-	// 멤버 추가
-	const onAddMemberClick = () => {
-		if (newMemberName !== ""){
-			setNewMember([...newMember, newMemberName]);
-			setNewMemberName("");
-		}
-	}
-
-	// 멤버 삭제
-	const onDeleteMember = (event) => {
-		const newMemArray = newMember;
-		newMemArray.splice(event.target.id, 1);
-		setNewMember([...newMemArray]);
-	}
-
 	// 해시태그 추가
 	const onAddTagListClick = () => {
 		if (newTagListName !== ""){
@@ -184,10 +159,9 @@ const ProjectDetail = () => {
 		setNewThumbnail("");
 		setNewThumbnailBool(false);
 		setNewTitle(itemDetail.title);
-		setNewMember([...itemDetail.member]);
 		setNewIntroduce(itemDetail.introduce);
 		setNewTagList([...itemDetail.tagList]);
-		setNewContent(itemDetail.content);
+		setNewContent(itemDetail.data);
 		setDetailEditing((prev) => !prev);
 	}
 
@@ -214,13 +188,12 @@ const ProjectDetail = () => {
 		}
 		
 		// db 업데이트
-		await dbService.doc(`projectforms/${itemDetail.id}`).update({
+		await dbService.doc(`adforms/${itemDetail.id}`).update({
 			thumbnailUrl: newThumbnailUrl,
 			title: newTitle,
-			member: newMember,
 			introduce: newIntroduce,
 			tagList: newTagList,
-			content: newContent
+			data: newContent
 		});
 
 		// 프로젝트 정보 업데이트
@@ -229,9 +202,8 @@ const ProjectDetail = () => {
 			thumbnailUrl: newThumbnailUrl,
 			title: newTitle,
 			introduce: newIntroduce,
-			member: newMember,
 			tagList: newTagList,
-			content: newContent
+			data: newContent
 		});
 
 		setDetailEditing(false);
@@ -284,37 +256,6 @@ const ProjectDetail = () => {
 								autoFocus
 								id="inputTitle"
 							/>
-						</div>
-
-						{/* Member */}
-						<div  className="list_update">
-
-							<span>
-								멤버
-								<div className="input_member">
-									<input 
-										type="text" 
-										placeholder="Name"
-										value={newMemberName}
-										maxLength="15" 
-										onChange={onChange}
-										id="inputMember"
-									/>
-									<FontAwesomeIcon 
-										icon={faCirclePlus} 
-										size="1x" 
-										style={{paddingLeft:"10px", cursor:"pointer"}}
-										onClick={onAddMemberClick}
-									/>
-								</div>
-							</span>
-
-							{newMember.map((memberName, index) => (
-								<div className="member">
-									{memberName}
-									<FontAwesomeIcon id={index} onClick={onDeleteMember} icon={faXmark} size="1x" style={{paddingLeft:"10px", cursor:"pointer"}}  />
-								</div>
-							))}
 						</div>
 						
 						{/* Introduce */}
@@ -400,7 +341,7 @@ const ProjectDetail = () => {
 			) : (
 				<div className="detail_container">
 
-					<ProjectDetailShow itemDetail={itemDetail} />
+					<AdDetailShow itemDetail={itemDetail} />
 					<div style={{ paddingBottom:"20px"}}>
 							<span onClick={onDeleteClick}>
 								<FontAwesomeIcon icon={faTrash} size="2x" style={{ padding:"10px"}}/>

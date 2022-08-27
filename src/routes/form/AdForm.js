@@ -47,6 +47,8 @@ const AdForm = () => {
             const attachmentRef = storageService
                 .ref()
                 .child(`${projectId}/${uuidv4()}`);
+			
+				console.log(thumbNail);
             const response = await attachmentRef.putString(thumbNail, "data_url");
             attachmentUrl = await response.ref.getDownloadURL();
             console.log(attachmentUrl);

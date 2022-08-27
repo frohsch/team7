@@ -7,10 +7,10 @@ import { v4 as uuidv4 } from "uuid";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { dbService, storageService } from "../../firebase_";
-import ProjectDetailShow from "../../components/ProjectDetailShow";
 import '../../DetailStyle/ProjectDetail.css';
 import React from "react";
 import UploadAdapter from "../../components/UploadAdapter";
+import TogetherDetailShow from "../../components/TogetherDetailShow";
 
 
 const ProjectDetail = () => {	
@@ -20,26 +20,19 @@ const ProjectDetail = () => {
 	// 프로젝트 정보
 	const [itemDetail, setItemDetail] = useState({
 		id: "",
-		thumbnailUrl: "",
 		title: "",
-		introduce: "",
 		member: [],
 		tagList: [],
-		content: "",
+		data: "",
 	});
 
 	const [projectOwner, setProjectOwner] = useState(false);
 	const [detailEditing, setDetailEditing] = useState(false);
-	const [loading, setLoading] = useState(false);
 
 	// 수정 프로젝트 정보
-	const [newThumbnailBool, setNewThumbnailBool] = useState(false);
-	const [newThumbnail, setNewThumbnail] = useState("");
-
 	const [newTitle, setNewTitle] = useState(null);
 	const [newMemberName, setNewMemberName] = useState(null);		
 	const [newMember, setNewMember] = useState(null);		
-	const [newIntroduce, setNewIntroduce] = useState(null);
 	const [newTagListName, setNewTagListName] = useState(null);		
 	const [newTagList, setNewTagList] = useState(null);	
 
@@ -50,7 +43,7 @@ const ProjectDetail = () => {
 	useEffect(() => {
 		console.log("useEffect");
 		dbService
-		.collection("projectforms")
+		.collection("participateforms")
 		.where("projectId", "==", nowProjectId)
 		.get()
 		.then(function(querySnapshot) {
@@ -62,19 +55,16 @@ const ProjectDetail = () => {
 			// 현재 프로젝트 정보 저장
 			setItemDetail({
 				id: newArray[0].id,
-				thumbnailUrl: newArray[0].thumbnailUrl,
 				title: newArray[0].title,
-				introduce: newArray[0].introduce,
 				member: newArray[0].member,
 				tagList: newArray[0].tagList,
-				content: newArray[0].content,
+				data: newArray[0].data,
 			});
 
 			setNewTitle(newArray[0].title);
 			setNewMember([...newArray[0].member]);
-			setNewIntroduce(newArray[0].introduce);
 			setNewTagList([...newArray[0].tagList]);
-			setNewContent(newArray[0].content);
+			setNewContent(newArray[0].data);
 			
 			// owner인지 확인
 		})
@@ -88,7 +78,7 @@ const ProjectDetail = () => {
 		const ok = window.confirm("삭제하시겠습니까?");
 
 		if (ok){
-			await dbService.doc(`projectforms/${itemDetail.id}`).delete();
+			await dbService.doc(`participateforms/${itemDetail.id}`).delete();
 			if (itemDetail.thumbnailUrl !== ""){
 				await storageService.refFromURL(itemDetail.thumbnailUrl).delete();
 			}
@@ -112,12 +102,6 @@ const ProjectDetail = () => {
 
 			case "inputMember":
 				setNewMemberName(value);
-				break;
-			
-			case "inputIntroduce":
-				event.target.style.height = "1px";
-				event.target.style.height = (12+event.target.scrollHeight)+"px";
-				setNewIntroduce(value);
 				break;
 
 			case "inputTagList":
@@ -181,13 +165,10 @@ const ProjectDetail = () => {
 
 	// 수정 취소
 	const cancelEditing = () => {
-		setNewThumbnail("");
-		setNewThumbnailBool(false);
 		setNewTitle(itemDetail.title);
 		setNewMember([...itemDetail.member]);
-		setNewIntroduce(itemDetail.introduce);
 		setNewTagList([...itemDetail.tagList]);
-		setNewContent(itemDetail.content);
+		setNewContent(itemDetail.data);
 		setDetailEditing((prev) => !prev);
 	}
 
@@ -200,43 +181,26 @@ const ProjectDetail = () => {
 	// 수정 제출
 	const onSubmit = async (event) => {
 		event.preventDefault();
-		let newThumbnailUrl = "";
-		// 이미지 변경된 경우, storage 이전 이미지 삭제 후 새로운 이미지 저장
-		if (newThumbnail !== ""){
-			await storageService.refFromURL(itemDetail.thumbnailUrl).delete();
 
-			const attachmentRef = storageService
-				.ref()
-				.child(`${itemDetail.nowProjectId}/${uuidv4()}`);
-		
-			const response = await attachmentRef.putString(newThumbnail, "data_url");
-			newThumbnailUrl = await response.ref.getDownloadURL();
-		}
 		
 		// db 업데이트
-		await dbService.doc(`projectforms/${itemDetail.id}`).update({
-			thumbnailUrl: newThumbnailUrl,
+		await dbService.doc(`participateforms/${itemDetail.id}`).update({
 			title: newTitle,
 			member: newMember,
-			introduce: newIntroduce,
 			tagList: newTagList,
-			content: newContent
+			data: newContent
 		});
 
 		// 프로젝트 정보 업데이트
 		setItemDetail({
 			id: itemDetail.id,
-			thumbnailUrl: newThumbnailUrl,
 			title: newTitle,
-			introduce: newIntroduce,
 			member: newMember,
 			tagList: newTagList,
-			content: newContent
+			data: newContent
 		});
 
 		setDetailEditing(false);
-		setNewThumbnail("");
-		setNewThumbnailBool(false);
 	};
 		
 	return (
@@ -246,32 +210,6 @@ const ProjectDetail = () => {
 
 				<div className="detail_container">
 					<form onSubmit={onSubmit}>
-
-						{/* Img */}
-						<div style={{paddingBottom:"40px"}}>
-							{newThumbnailBool ? (
-								<img src={`${newThumbnail}`}/>
-							) : (
-								<img src={itemDetail.thumbnailUrl}/>
-							)}
-
-							<div>
-								<label htmlFor="attach-file" className="factoryInput__label">
-									<span>Edit Thumbnail</span>
-									<FontAwesomeIcon icon={faPlus}/>
-								</label>
-
-								<input 
-									id="attach-file"
-									type="file" 
-									accept="image/*"
-									onChange={onFileChange}
-									style={{
-										opacity: 0
-									}} 
-								/>
-							</div>
-						</div>
 								
 						{/* Title */}
 						<div className="list_update">
@@ -315,19 +253,6 @@ const ProjectDetail = () => {
 									<FontAwesomeIcon id={index} onClick={onDeleteMember} icon={faXmark} size="1x" style={{paddingLeft:"10px", cursor:"pointer"}}  />
 								</div>
 							))}
-						</div>
-						
-						{/* Introduce */}
-						<div className="list_update">
-							<span>한줄소개</span>
-							<textarea
-								onChange={onChange}
-								value={newIntroduce}
-								required
-								placeholder="Edit Introduce"
-								autoFocus
-								id="inputIntroduce"
-							/>
 						</div>
 						
 						{/* tagList */}
@@ -400,7 +325,7 @@ const ProjectDetail = () => {
 			) : (
 				<div className="detail_container">
 
-					<ProjectDetailShow itemDetail={itemDetail} />
+					<TogetherDetailShow itemDetail={itemDetail} />
 					<div style={{ paddingBottom:"20px"}}>
 							<span onClick={onDeleteClick}>
 								<FontAwesomeIcon icon={faTrash} size="2x" style={{ padding:"10px"}}/>

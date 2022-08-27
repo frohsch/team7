@@ -62,7 +62,7 @@ const Content = () => {
 
     function MyCustomUploadAdapterPlugin(editor) {
         editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-            return new UploadAdapter(loader)
+            return new UploadAdapter(loader, editor.t);
         }
     }
 
