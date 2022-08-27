@@ -1,6 +1,6 @@
 import { logDOM } from "@testing-library/react";
 import React from "react";
-import './Posts.css';
+import '../Posts.css';
 
 const Posts = ({ posts, loading }) => {
   return (
