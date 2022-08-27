@@ -5,7 +5,7 @@
 }
 html {
   display: table;
-  margin: auto;
+  margin: 0;
 }
 
 body {
@@ -28,7 +28,7 @@ input {
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   color: white;
   padding: 0;
   margin:0;
@@ -36,6 +36,7 @@ body {
 
 .navi {
   margin: 0px;
+  width: 100%;
 
 }
 .navidiv{
@@ -48,11 +49,11 @@ body {
 }
 
 .naviLink{
-  margin: 15px 50px;
+  margin: 15px 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 16px;
+  font-size: 14px;
   color: black;
   height: auto;
 
@@ -64,8 +65,7 @@ body {
 }
 
 hr {
-  width: 120%;
-  margin-left:-10%;
+  width: 100%;
 }
 
 
@@ -89,7 +89,7 @@ form {
 
 
 .container {
-  width: 100%;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -100,14 +100,14 @@ form {
   flex-direction: row;
 }
 .LemonaSec {
-  width: 650px;
-  height: 320px;
+  width: 40vw;
+  height: 200px;
   border: 1px solid black;
   margin: 70px;
 }
 
 .search {
-  height: 60px;
+  height: 50px;
   width: 80%;
   border: 1px solid black;
   border-radius: 30px;
@@ -118,36 +118,36 @@ form {
 }
 
 .searchInput{
-  height: 50px;
+  height: 40px;
   width: 90%;
-  border-radius: 25px;
+  border-radius: 20px;
   /* border: 1px solid black; */
-  margin-left: 35px;
-  font-size: 16px;
+  margin-left: 25px;
+  font-size: 14px;
   display:inline-block;
 }
 .searchBtn {
   height: 40px;
-  width: 90px;
-  border-radius: 25px;
-  font-size: 16px;
+  width: 70px;
+  border-radius: 20px;
+  font-size: 14px;
   border: none;
   background-color: #AAAAAA;
   cursor: pointer;
   display:inline-block;
-  margin-left: 10px;
+  margin-left: 13px;
 }
 
 .hot {
-  font-size: 16px;
-  width: 100px;
+  font-size: 14px;
+  width: 80px;
   height: 40px;
   color: #707070;
   background-color: #CCE8FF;
   border-radius: 20px;
   text-align: center;
-  margin: 50px 1800px 50px 0;
-  padding: 10px;
+  margin: 50px 85vw 50px 0;
+  padding: 12px;
 }
 
 .hotSpan {
@@ -167,6 +167,7 @@ form {
 }
 
 .authSubmit {
+  font-size: 14px;
   width: 100%;
   padding: 10px 20px;
   border: none;
@@ -211,140 +212,6 @@ form {
   margin-top: 50px;
 }
 
-/* Factory */
-
-.factoryForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.factoryInput__container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  position: relative;
-  margin-bottom: 20px;
-  width: 100%;
-}
-
-.factoryInput__input {
-  flex-grow: 1;
-  height: 40px;
-  padding: 0px 20px;
-  color: white;
-  border: 1px solid #48ACFF;
-  border-radius: 3px;
-  font-weight: 500;
-  font-size: 12px;
-}
-
-.factoryInput__arrow {
-  position: absolute;
-  right: 0;
-  background-color: #48ACFF;
-  height: 40px;
-  width: 40px;
-  padding: 10px 0px;
-  text-align: center;
-  border-radius: 3px;
-  color: white;
-}
-
-.factoryInput__label {
-  color: #48ACFF;
-  cursor: pointer;
-}
-
-.factoryInput__label span {
-  margin-right: 10px;
-  font-size: 12px;
-}
-
-.factoryForm__attachment {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.factoryForm__attachment img {
-  max-width: 200px;
-  height: auto;
-  border-radius: 3px;
-  
-}
-
-.factoryForm__clear {
-  color: #48ACFF;
-  cursor: pointer;
-  text-align: center;
-}
-
-.factoryForm__clear span {
-  margin-right: 10px;
-  font-size: 12px;
-}
-
-/* kuromi */
-
-.kuromiEdit .formBtn {
-  cursor: pointer;
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
-
-
-
-.kuromi {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  /* background-color: white; */
-  width: 100%;
-  max-width: 320px;
-  padding: 20px 20px;
-  border-radius: 3px;
-  border-bottom-style: solid;
-  border-bottom-width: 0.6px;
-  border-bottom-color: white;
-  position: relative;
-  /* display: flex;
-  flex-direction: column; */
-  color: rgba(0, 0, 0, 0.8);
-}
-
-.kuromi h4 {
-  line-height: 20px;
-  font-size: 14px;
-  color: white;
-}
-
-
-/* 수정 */
-
-
-
-.kuromi img {
-  display: block;
-  margin-top: 10px;
-  width: 100%;
-}
-
-.kuromi__actions {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  color: white;
-}
-
-.kuromi__actions span {
-  cursor: pointer;
-}
-
-.kuromi__actions span:first-child {
-  margin-right: 10px;
-}
 
 /* Auth */
 
@@ -352,7 +219,8 @@ form {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  justify-content: center;
+  padding: 10vh 0 0 0;
+  /* justify-content: center; */
   align-items: center;
 }
 
@@ -367,7 +235,7 @@ form {
 .authBtn {
   cursor: pointer;
   margin: 0px;
-  font-size: 15px;
+  font-size: 14px;
   width: 500px;
   padding: 10px 20px;
   border: 0.5px solid black;
@@ -386,9 +254,9 @@ form {
   width: 100%;
   color: black;
   cursor: default;
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
-  font-size: 15px;
+  font-size: 14px;
   text-shadow: 0 1px fade(#FFF, 40%);
   align-items: center;
   width: 530px
@@ -424,11 +292,12 @@ form {
   background-color: rgba(255, 255, 255, 1);
   outline: 0.5px solid black;
   margin-bottom: 10px;
-  font-size: 15px;
+  font-size: 14px;
   color: black;
 }
 
 .authSubmit {
+  width: 502px;
   text-align: center;
   background: #48ACFF;
   color: white;
@@ -440,13 +309,13 @@ form {
   color: tomato;
   text-align: center;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .authSwitch {
   color: #48ACFF;
   cursor: pointer;
-  margin-top: 30px;
+  margin-top: 20px;
   margin-bottom: 10px;
   display: block;
   font-size: 15px;

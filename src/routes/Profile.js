@@ -30,7 +30,7 @@ const Profile = ({ refreshUser, userObj }) => {
 
     const getMyKuromis = async () => {
         const q = query(
-            collection(dbService, "kuromis"),
+            collection(dbService, "rooo"),
             where("creatorId", "==", userObj.uid)
         );
         const querySnapshot = await getDocs(q);
@@ -71,3 +71,22 @@ const Profile = ({ refreshUser, userObj }) => {
 };
 
 export default Profile;
+
+// import React from "react";
+
+// function Profile({ userObj }) {
+//   const { email, password, name } = user || {};
+//   return (
+//     <div className = "container">
+//       <h1>Profile</h1>
+//       <dt>Email</dt>
+//       <dd>{email}</dd>
+//       <dt>Password</dt>
+//       <dd>{password}</dd>
+//       <dt>Name</dt>
+//       <dd>{name}</dd>
+//       </div>
+//   );
+// }
+
+// export default Profile;

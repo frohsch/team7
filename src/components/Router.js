@@ -5,35 +5,31 @@ import Home from "../routes/Home";
 import Profile from "../routes/Profile";
 import Navigation from "./Navigation";
 import ProfileEdit from "../routes/ProfileEdit";
+import Participate from "../routes/Participate";
+import Project from "../routes/Project";
+import Publicize from "../routes/Publicize";
 
-const AppRouter = ({ isLoggedIn, userObj }) => {
+
+const AppRouter = ( {isLoggedIn, userObj} ) => {
   return (
     <Router basename="/">
-        {<Navigation  />}
-      <Routes>
-          <>
-            <Route exact={true} path={"/"} element={<Home />}>
-            </Route>
+        {<Navigation userObj={userObj}  />}
 
-            <Route exact={true} path={"/profile"} element={<Profile />}>
-              {isLoggedIn ? (
-              <>
-              <Route exact={true} path={"/profileedit"} element={<ProfileEdit />}></Route>
-              </>
-              ) : (
-                <>
-                <Route exact={true} path={"/auth"} element={<Auth />}></Route>
-                </>
-              )}
-            </Route>
-          </>
-        {/* ) : ( */}
-            <>
-              <Route exact={true} path={"/"} element={<Auth />}>
-              {/* <Auth /> */}
-              </Route>
-            </>
-        {/* )} */}
+      <Routes>
+        <>
+        <Route exact={true} path={"/"} element={<Home />}></Route>
+        <Route exact={true} path={"/project"} element={<Project />}></Route>
+        <Route exact={true} path={"/participate"} element={<Participate  />}></Route>
+        <Route exact={true} path={"/publicize"} element={<Publicize />}></Route>
+        </>
+        {isLoggedIn ? (
+     
+            <Route exact={true} path={"/profile"} element={<Profile userObj={userObj} />}></Route>
+      
+        ) : (
+              <Route exact={true} path={"/auth"} element={<Auth />}></Route>
+        
+        )}
       </Routes>
     </Router>
   );

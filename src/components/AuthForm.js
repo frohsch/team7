@@ -33,6 +33,7 @@ const AuthForm = () => {
             }
         } catch (error) {
             const errorCode = error.code;
+            console.log(errorCode);
             let errorMessage;
             if (errorCode === "auth/email-already-in-use") {
                 errorMessage = "이미 가입함.";

@@ -1,5 +1,5 @@
 import React from "react";
-import { authService } from "firebase_"
+import { authService } from "../firebase_"
 import {
   GoogleAuthProvider,
   signInWithPopup
@@ -27,7 +27,7 @@ const Auth = () => {
       <FontAwesomeIcon
         icon={faLemon}
         color={"#48ACFF"}
-        size="10x"
+        size="8x"
         style={{ marginBottom: 50 }}
       />
 
