@@ -6,7 +6,7 @@ import {v4 as uuidv4} from 'uuid';
 import UploadAdapter from "../../components/UploadAdapter";
 
 
-const TogetherForm = () => {
+const TogetherForm = ({userObj}) => {
     const [title, setTitle] = useState(""); //제목
     const [member, setMember] = useState(""); //멤버
     const [memberList, setMemberList] = useState([]); //멤버리스트
@@ -55,6 +55,8 @@ const TogetherForm = () => {
         const TogetherFormObj = {
             projectId: projectId,
             title: title,
+			createdAt: Date.now(),
+			creatorId: userObj.uid,
             member: memberList,
             tagList: tagList,
             data: data,

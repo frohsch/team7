@@ -31,12 +31,12 @@ const ProjectForm = ({ userObj }) => {
         
         let attachmentUrl = "";
         if (thumbNailUrl !== "") {
-            console.log("사진있음")
             const attachmentRef = storageService
                 .ref()
-                .child(`${title}/${uuidv4()}`);
+                .child(`${userObj.uid}/${uuidv4()}`);
             const response = await attachmentRef.putString(thumbNailUrl, "data_url");
             attachmentUrl = await response.ref.getDownloadURL();
+			setProjectId(uuidv4());
         }
         
         const ProjectFormObj = {
@@ -45,7 +45,8 @@ const ProjectForm = ({ userObj }) => {
             introduce: introduce,
             tagList: tagList,
             createdAt: Date.now(),
-            thumbNailUrl: attachmentUrl,
+			creatorId: userObj.uid,
+            thumbnailUrl: attachmentUrl,
             projectId: projectId,
             content: data,
             view: 0,
@@ -64,7 +65,6 @@ const ProjectForm = ({ userObj }) => {
     //태그 리스트에 추가
     const onKeyPressTag = (event) => {  
         if (event.target.value.length !== 0 && event.key === 'Enter') {
-            console.log("onkeypresstag")
             setTagList([...tagList, tag])
             setTag("")
         }

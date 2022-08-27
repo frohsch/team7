@@ -13,12 +13,7 @@ function ParticipateBoard() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-    //   dbService.collection('participateforms').get().then((res)=>{
-    //     res.forEach((doc)=>{
-    //       console.log(doc.data())
-    //       setPosts((prev) => [doc.data(), ...prev]);
-    //     })
-    //   })
+
     const response = await axios.get(
         "https://jsonplaceholder.typicode.com/posts"
         );
@@ -36,7 +31,6 @@ function ParticipateBoard() {
     return currentPosts;
   };
 
-  console.log(posts);
   return (
     <div className="container">
       <ParticipatePosts posts={currentPosts(posts)} loading={loading}></ParticipatePosts>

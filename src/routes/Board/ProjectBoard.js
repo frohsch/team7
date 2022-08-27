@@ -14,7 +14,6 @@ function ProjectBoard() {
       setLoading(true);
       dbService.collection('projectforms').get().then((res)=>{
         res.forEach((doc)=>{
-          console.log(doc.data())
           setPosts((prev) => [doc.data(), ...prev]);
         })
       })
@@ -31,7 +30,6 @@ function ProjectBoard() {
     return currentPosts;
   };
 
-  console.log(posts);
   return (
     <div>
       <ProjectPosts posts={currentPosts(posts)} loading={loading}></ProjectPosts>

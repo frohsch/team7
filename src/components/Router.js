@@ -30,15 +30,15 @@ const AppRouter = ( { isLoggedIn, userObj, refreshUser } ) => {
 
       <Routes>
         <>
-        <Route exact path="/adform" element={<AdForm />} />
-        <Route exact path="/projectform" element={<ProjectForm />} />
-        <Route exact path="/togetherform" element={<TogetherForm />} />
+        <Route exact path="/adform" element={<AdForm userObj={userObj}/>} />
+        <Route exact path="/projectform" element={<ProjectForm userObj={userObj}/>} />
+        <Route exact path="/togetherform" element={<TogetherForm userObj={userObj}/>} />
         <Route exact path="/content" element={<Content />} />
         <Route exact path="/show" element={<Show />} />
         <Route exact path="/getimage" element={<GetImage />} />
-       <Route exact path="/project_items" element = {<ProjectDetail />}/>
-				<Route exact path="/together_items" element = {<TogetherDetail />}/>
-				<Route exact path="/ad_items" element = {<AdDetail />}/>
+        <Route exact path="/project_items" element = {<ProjectDetail userObj={userObj}/>}/>
+		<Route exact path="/together_items" element = {<TogetherDetail userObj={userObj}/>}/>
+		<Route exact path="/ad_items" element = {<AdDetail userObj={userObj}/>}/>
         <Route exact={true} path={"/"} element={<Home userObj={userObj} />}></Route>
         <Route exact={true} path={"/project"} element={<Project userObj={userObj} />}></Route>
         <Route exact={true} path={"/participate"} element={<Participate userObj={userObj}  />}></Route>
