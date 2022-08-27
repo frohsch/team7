@@ -1,16 +1,22 @@
 import axios from "axios";
-import React from "react";
-
+import React, { useEffect } from "react";
 
 function GetImage() {
-    axios.get("http://localhost:3000/#/content", )
-      .then(function (response) {
-           // response  
-      }).catch(function (error) {
-          // 오류발생시 실행
-      }).then(function() {
-          // 항상 실행
-      });
+    useEffect(()=>{
+        axios.get(
+          `http://localhost:3000/content/`,
+        )
+        .then((response) => {
+          console.log(response.data);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },[]);
+        return(
+            <>
+                <h1>getimage</h1>
+            </>
+        );
   
 }
 

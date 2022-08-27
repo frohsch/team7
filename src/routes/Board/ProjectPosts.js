@@ -19,7 +19,7 @@ const ProjectPosts = ({ posts, loading }) => {
                             <div className="card-title">{post.title}</div>
                             <div className="card-body">
                                 <div className="card-body-img">
-                                    <img src={"logo512.png"}/>
+                                    <img src={post.thumbNailUrl}/>
                                 </div>
                                 <div className="card-body-text">
                                     <div className="card-body-text-content">{post.introduce}</div>

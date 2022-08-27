@@ -1,52 +1,32 @@
-import {useEffect, useState} from "react";
-import { Link } from "react-router-dom";
-import { dbService } from "../firebase_";
+import React, { useState, useEffect } from "react";
 
-const Home = () => {
-	const [newProjects, setNewProjects] = useState([]);
 
-	useEffect(() => {
-		dbService
-			.collection("projectforms")
-			.orderBy("createdAt", "desc")
-			.onSnapshot((snapshot) => {
-				const newArray = snapshot.docs.map((document) => ({
-					id: document.id,
-					...document.data()
-				}));
-			setNewProjects(newArray);
-		});
-	}, []);
+const Home = ({ userObj }) => {
+    const [search, setSearch] = useState("");
 
-	const onClick = (event) => {
-		const {
-			target : {name}
-		} = event;
+    return (
+       <div className="container">
+        <div className="mainLemona">
+            <div className="LemonaSec">
 
-		console.log(event);
-		console.log(event.target.className);
-	}
-	
+            </div>
+            <div className="LemonaSec">
+                
+            </div>
 
-	return (
-		<div>
-			<div>
-				<div style={{ marginTop: 30 }}>
-					{newProjects.map((newProject) => (
+        </div>
 
-						<span className={newProject.projectId} onClick={onClick}>
-
-						<Link to="/project_items" state={{data: newProject.projectId}}>
-							<div className="project_container">
-								<h1>{newProject.title}</h1>
-							</div>
-						</Link>
-						</span>
-					))}
-				</div>
-			</div>
-		</div>
-	);
+        <div className="search">
+            <input
+            className="searchInput"
+            placeholder="Search"
+            required
+            defaultValue={search}/>
+            <button
+            className="searchBtn">🔍</button>
+        </div>
+        <div className="hot"><span className="hotSpan">🔥HOT</span></div>
+       </div>
+    );
 };
-
 export default Home;
