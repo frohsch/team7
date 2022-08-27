@@ -96,7 +96,7 @@ class UploadAdapter {
 export default UploadAdapter;
 */
 
-import { storageService } from "../firebase";
+import { storageService } from "../firebase_";
 import {v4 as uuidv4} from 'uuid';
 
 class UploadAdapter {
