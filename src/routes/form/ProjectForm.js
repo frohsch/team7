@@ -4,6 +4,7 @@ import {v4 as uuidv4} from 'uuid';
 import { map } from "@firebase/util";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import UploadAdapter from "../../components/UploadAdapter";
 
 const ProjectForm = ({ userObj }) => {
     const [title, setTitle] = useState(""); //제목
@@ -12,13 +13,9 @@ const ProjectForm = ({ userObj }) => {
     const [introduce, setIntroduce] = useState(""); //한줄소개
     const [tag, setTag] = useState(""); //태그
     const [tagList, setTagList] = useState([]);
-    const [mainAttachment, setMainAttachment] = useState(""); //썸네일사진
-    const [files, setFiles] = useState([]); // 파일 리스트
-    const [fileList, setFileList] = useState([]);
-    const [isUploading, setUploading] = useState(false); // 업로드 상태
-    const [photoURL, setPhotosURL] = useState([]); // 업로드 완료된 사진 링크들
-    const [newContentList, setNewContentList] = useState([]); //소개내용추가
+    const [thumbNailUrl, setThumbNailUrl] = useState(""); //썸네일사진
     const [data, setData] = useState(""); 
+    const [projectId, setProjectId] = useState(uuidv4());
 
     //멤버 리스트에 추가
     const onKeyPressMem = (event) => {  
@@ -33,14 +30,12 @@ const ProjectForm = ({ userObj }) => {
         event.preventDefault(); //새로고침 방지
         
         let attachmentUrl = "";
-        const projectId = uuidv4();
-
-        if (mainAttachment !== "") {
+        if (thumbNailUrl !== "") {
             console.log("사진있음")
             const attachmentRef = storageService
                 .ref()
                 .child(`${title}/${uuidv4()}`);
-            const response = await attachmentRef.putString(mainAttachment, "base64");
+            const response = await attachmentRef.putString(thumbNailUrl, "data_url");
             attachmentUrl = await response.ref.getDownloadURL();
         }
         
@@ -49,21 +44,20 @@ const ProjectForm = ({ userObj }) => {
             member: memberList,
             introduce: introduce,
             tagList: tagList,
-            content: newContentList,
             createdAt: Date.now(),
-            attachmentUrl : attachmentUrl,
+            thumbNailUrl: attachmentUrl,
             projectId: projectId,
-            data: data,
+            content: data,
             //글 작성자(멤버에 항상 포함되도록)
         };
         await dbService.collection("projectforms").add(ProjectFormObj);
 
         setTitle("");
-        setMemberList("");
+        setMemberList([]);
         setIntroduce("");
-        setTag("");
         setTagList([]);
-        setNewContentList([]);
+        setData("");
+        setThumbNailUrl("");
     };
 
     //태그 리스트에 추가
@@ -102,6 +96,7 @@ const ProjectForm = ({ userObj }) => {
         }
     };
 
+    //메인 썸네일 이미지 추가
     const onFileChange = (event) => {
         if(event.target.id === "mainAttachment"){
             const { 
@@ -113,13 +108,19 @@ const ProjectForm = ({ userObj }) => {
                 const {
                     currentTarget: { result },
                 } = finishedEvent;
-                setMainAttachment(result);
+                setThumbNailUrl(result);
             };
             reader.readAsDataURL(theFile);
         }
     };
     
-    const onClearAttachment = () => setMainAttachment(null);
+    const onClearAttachment = () => setThumbNailUrl(null);
+
+    function MyCustomUploadAdapterPlugin(editor) {
+        editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+            return new UploadAdapter(loader, title)
+        }
+    }
 
     return (
         <>
@@ -158,7 +159,7 @@ const ProjectForm = ({ userObj }) => {
                     <div>
                         {memberList.map((item, idx) => {
                             return (
-                                <span className="txt_tag">
+                                <span className="txt_member">
                                     <span key={idx}>{item} </span>
                                 </span>
                             )
@@ -177,39 +178,6 @@ const ProjectForm = ({ userObj }) => {
                         value={introduce}
                         onChange={onChange}
                         style={{ border: "none" }}
-                    />
-                </div>
-                <br></br>
-                <div className="input_p">
-                    <span className="span_img">썸네일 사진 </span><hr></hr>
-                    <input
-                        className="input_img"
-                        id="mainAttachment"
-                        type="file"
-                        accept="image/*"
-                        onChange={onFileChange}
-                        style={{ border: "none" }}
-                    />
-                    {mainAttachment && (
-                        <div className="attatchment">
-                            <img src={mainAttachment} />
-                            <button className="default_Btn" onClick={onClearAttachment}>Clear</button>
-                        </div>
-                    )}
-                </div>
-                <br></br>
-                <div className="input_content">
-                    <span>본문 작성</span><hr></hr>
-                    <CKEditor
-                        editor={ClassicEditor}
-                        data=''
-                        config={{
-                            placeholder: '내용을 입력해 주세요.',
-                        }}
-                        onChange={(event, editor) => {
-                            //console.log(editor.getData());
-                            setData(editor.getData());
-                        }}
                     />
                 </div>
                 <br></br>
@@ -241,10 +209,43 @@ const ProjectForm = ({ userObj }) => {
                         })}
                     </div>
                 </div>
-                <div>
-                    <button className="default_Btn_Right" type="submit" onClick={onSubmit}>제출</button>
+                <br></br>
+                <div className="input_p">
+                    <span className="span_img">썸네일 사진 </span><hr></hr>
+                    <input
+                        className="input_img"
+                        id="mainAttachment"
+                        type="file"
+                        accept="image/*"
+                        onChange={onFileChange}
+                        style={{ border: "none" }}
+                    />
+                    {thumbNailUrl && (
+                        <div className="attatchment">
+                            <img src={thumbNailUrl} />
+                            <button className="default_Btn" onClick={onClearAttachment}>Clear</button>
+                        </div>
+                    )}
                 </div>
+                <br></br>
+                <div className="input_content">
+                    <span>본문 작성</span><hr></hr>
+                    <CKEditor
+                        editor={ClassicEditor}
+                        config={{
+                            placeholder: '내용을 입력해 주세요.',
+                            extraPlugins: [ MyCustomUploadAdapterPlugin],
+                        }}
+                        onChange={(event, editor) => {
+                            setData(editor.getData());
+                        }}
+                    />
+                </div>
+                <br></br>
             </form>
+            <div>
+                <button className="default_Btn_Right" type="submit" onClick={onSubmit}>제출</button>
+            </div>
         </>
     );
 }

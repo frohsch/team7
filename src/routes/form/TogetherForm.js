@@ -3,6 +3,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { dbService, storageService } from "../../firebase";
 import {v4 as uuidv4} from 'uuid';
+import UploadAdapter from "../../components/UploadAdapter";
 
 
 const TogetherForm = () => {
@@ -52,7 +53,7 @@ const TogetherForm = () => {
         event.preventDefault(); //새로고침 방지
 
         const TogetherFormObj = {
-            id: projectId,
+            projectId: projectId,
             title: title,
             member: memberList,
             tagList: tagList,
@@ -66,6 +67,12 @@ const TogetherForm = () => {
         setMemberList([]);
         setTagList([]);
     };
+
+    function MyCustomUploadAdapterPlugin(editor) {
+        editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+            return new UploadAdapter(loader, title)
+        }
+    }
     
     return (
         <>
@@ -115,12 +122,11 @@ const TogetherForm = () => {
                     <span>본문 작성</span><hr></hr>
                     <CKEditor
                         editor={ClassicEditor}
-                        data=''
                         config={{
                             placeholder: '내용을 입력해 주세요.',
+                            extraPlugins: [ MyCustomUploadAdapterPlugin],
                         }}
                         onChange={(event, editor) => {
-                            //console.log(editor.getData());
                             setData(editor.getData());
                         }}
                     />
