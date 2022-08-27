@@ -1,33 +1,33 @@
 @media all and (min-width: 1024px) {
     .card-wrapper {
-      width: 500px;
-      height: 400px;
+      width: 400px;
+      height: 300px;
     }
     .card-wrapper:hover {
-      width: 510px;
-      height: 410px;
+      width: 410px;
+      height: 310px;
       box-shadow: rgba(0, 0, 0, 0.9) 0px 22px 70px 4px;
     }
   }
   @media all and (max-width: 1024px) {
     .card-wrapper {
-      width: 470px;
-      height: 340px;
+      width: 370px;
+      height: 240px;
     }
     .card-wrapper:hover {
-      width: 480px;
-      height: 350px;
+      width: 380px;
+      height: 250px;
       box-shadow: rgba(0, 0, 0, 0.9) 0px 22px 70px 4px;
     }
   }
   @media all and (max-width: 768px) {
     .card-wrapper {
-      width: 440px;
-      height: 380px;
+      width: 340px;
+      height: 280px;
     }
     .card-wrapper:hover {
-      width: 450px;
-      height: 390px;
+      width: 350px;
+      height: 290px;
       box-shadow: rgba(0, 0, 0, 0.9) 0px 22px 70px 4px;
     }
   }
@@ -82,7 +82,7 @@
     font-weight: 200;
     display: flex;
     color: #282c34;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     justify-content: space-between;
   }
 
