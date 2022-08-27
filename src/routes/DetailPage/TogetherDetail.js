@@ -13,7 +13,7 @@ import UploadAdapter from "../../components/UploadAdapter";
 import TogetherDetailShow from "../../components/TogetherDetailShow";
 
 
-const ProjectDetail = () => {	
+const TogetherDetail = () => {	
 	const location = useLocation();
 	const nowProjectId = location.state.data;
 
@@ -65,7 +65,10 @@ const ProjectDetail = () => {
 			setNewMember([...newArray[0].member]);
 			setNewTagList([...newArray[0].tagList]);
 			setNewContent(newArray[0].data);
-			
+
+			dbService.doc(`participateforms/${itemDetail.id}`).update({
+				view: newArray[0].view+1
+			});
 			// owner인지 확인
 		})
 		.catch(function(error) {
@@ -122,8 +125,6 @@ const ProjectDetail = () => {
 			const{
 				currentTarget : {result}
 			} = finishedEvent;
-			setNewThumbnailBool(true);
-			setNewThumbnail(result);
 		};
 		if (Boolean(theFile)){
 			reader.readAsDataURL(theFile);
@@ -344,4 +345,4 @@ const ProjectDetail = () => {
 	);
 };
 
-export default ProjectDetail;
+export default TogetherDetail;

@@ -13,7 +13,7 @@ import UploadAdapter from "../../components/UploadAdapter";
 import AdDetailShow from "../../components/AdDetailShow";
 
 
-const ProjectDetail = () => {	
+const AdDetail = () => {	
 	const location = useLocation();
 	const nowProjectId = location.state.data;
 
@@ -69,6 +69,10 @@ const ProjectDetail = () => {
 			setNewIntroduce(newArray[0].introduce);
 			setNewTagList([...newArray[0].tagList]);
 			setNewContent(newArray[0].data);
+			
+			dbService.doc(`adforms/${itemDetail.id}`).update({
+				view: newArray[0].view+1
+			});
 			
 			// owner인지 확인
 		})
@@ -360,4 +364,4 @@ const ProjectDetail = () => {
 	);
 };
 
-export default ProjectDetail;
+export default AdDetail;

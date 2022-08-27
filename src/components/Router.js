@@ -13,6 +13,8 @@ import Form from "../routes/Form";
 //import Test from "../routes/Test";
 import ParticipateBoard from "../routes/Board/ParticipateBoard";
 import ProjectBoard from "../routes/Board/ProjectBoard";
+import TogetherDetail from "../routes/DetailPage/TogetherDetail";
+import AdDetail from "../routes/DetailPage/AdDetail";
 
 const AppRouter = () => {
     const [isLoggedIn, setisLoggedIn] = useState(true);
@@ -27,6 +29,8 @@ const AppRouter = () => {
                 <Route exact path="/show" element={<Show />} />
                 <Route exact path="/getimage" element={<GetImage />} />
                 <Route exact path="/project_items" element = {<ProjectDetail />}/>
+				<Route exact path="/together_items" element = {<TogetherDetail />}/>
+				<Route exact path="/ad_items" element = {<AdDetail />}/>
                 <Route exact path="/" element = {<Home />}/>
             </Routes> 
         </Router>

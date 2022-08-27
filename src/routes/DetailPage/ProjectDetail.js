@@ -11,6 +11,7 @@ import ProjectDetailShow from "../../components/ProjectDetailShow";
 import '../../DetailStyle/ProjectDetail.css';
 import React from "react";
 import UploadAdapter from "../../components/UploadAdapter";
+import { async } from "@firebase/util";
 
 
 const ProjectDetail = () => {	
@@ -43,45 +44,46 @@ const ProjectDetail = () => {
 	const [newTagListName, setNewTagListName] = useState(null);		
 	const [newTagList, setNewTagList] = useState(null);	
 
-	const [newContent, setNewContent] = useState(null);
-	
+	const [newContent, setNewContent] = useState(null);	
 
 	// 해당 프로젝트 정보 가져오기
-	useEffect(() => {
+	useEffect(async() => {
 		console.log("useEffect");
 		dbService
-		.collection("projectforms")
-		.where("projectId", "==", nowProjectId)
-		.get()
-		.then(function(querySnapshot) {
-			const newArray = querySnapshot.docs.map((document) => ({
-				id: document.id,
-				...document.data()
-			}));
+			.collection("projectforms")
+			.where("projectId", "==", nowProjectId)
+			.get()
+			.then(function(querySnapshot) {
+				const newArray = querySnapshot.docs.map((document) => ({
+					id: document.id,
+					...document.data()
+				}));
 
-			// 현재 프로젝트 정보 저장
-			setItemDetail({
-				id: newArray[0].id,
-				thumbnailUrl: newArray[0].thumbnailUrl,
-				title: newArray[0].title,
-				introduce: newArray[0].introduce,
-				member: newArray[0].member,
-				tagList: newArray[0].tagList,
-				content: newArray[0].content,
+				console.log(newArray)
+				// 현재 프로젝트 정보 저장
+				setItemDetail({
+					id: newArray[0].id,
+					thumbnailUrl: newArray[0].thumbnailUrl,
+					title: newArray[0].title,
+					introduce: newArray[0].introduce,
+					member: newArray[0].member,
+					tagList: newArray[0].tagList,
+					content: newArray[0].content,
+				});
+
+				setNewTitle(newArray[0].title);
+				setNewMember([...newArray[0].member]);
+				setNewIntroduce(newArray[0].introduce);
+				setNewTagList([...newArray[0].tagList]);
+				setNewContent(newArray[0].content);
+				// owner인지 확인
+			})
+			.catch(function(error) {
+				console.log("Error getting documents: ", error);
 			});
-
-			setNewTitle(newArray[0].title);
-			setNewMember([...newArray[0].member]);
-			setNewIntroduce(newArray[0].introduce);
-			setNewTagList([...newArray[0].tagList]);
-			setNewContent(newArray[0].content);
-			
-			// owner인지 확인
-		})
-		.catch(function(error) {
-			console.log("Error getting documents: ", error);
-		});
 	}, []);
+
+	console.log("db update");
 
 	// 프로젝트 삭제
 	const onDeleteClick = async () => {
