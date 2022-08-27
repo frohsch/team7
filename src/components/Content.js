@@ -23,13 +23,12 @@ const Content = () => {
             } }
             onChange={(event, editor) => {
                 const data = editor.getData();
-                console.log(data);
             }}
             onBlur={editor => {
-                console.log('Blur.', editor );
+                // console.log('Blur.', editor );
             } }
             onFocus={editor => {
-                console.log('Focus.', editor );
+                // console.log('Focus.', editor );
             } }
         />
         </div>

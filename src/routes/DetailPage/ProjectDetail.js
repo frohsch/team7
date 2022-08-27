@@ -14,7 +14,7 @@ import UploadAdapter from "../../components/UploadAdapter";
 import { async } from "@firebase/util";
 
 
-const ProjectDetail = () => {	
+const ProjectDetail = ({userObj}) => {	
 	const location = useLocation();
 	const nowProjectId = location.state.data;
 
@@ -31,7 +31,6 @@ const ProjectDetail = () => {
 
 	const [projectOwner, setProjectOwner] = useState(false);
 	const [detailEditing, setDetailEditing] = useState(false);
-	const [loading, setLoading] = useState(false);
 
 	// 수정 프로젝트 정보
 	const [newThumbnailBool, setNewThumbnailBool] = useState(false);
@@ -48,7 +47,6 @@ const ProjectDetail = () => {
 
 	// 해당 프로젝트 정보 가져오기
 	useEffect(async() => {
-		console.log("useEffect");
 		dbService
 			.collection("projectforms")
 			.where("projectId", "==", nowProjectId)
@@ -59,8 +57,6 @@ const ProjectDetail = () => {
 					...document.data()
 				}));
 
-				console.log(newArray)
-				// 현재 프로젝트 정보 저장
 				setItemDetail({
 					id: newArray[0].id,
 					thumbnailUrl: newArray[0].thumbnailUrl,
@@ -76,14 +72,19 @@ const ProjectDetail = () => {
 				setNewIntroduce(newArray[0].introduce);
 				setNewTagList([...newArray[0].tagList]);
 				setNewContent(newArray[0].content);
+				
 				// owner인지 확인
+				if (newArray[0].creatorId == userObj.uid){
+					setProjectOwner(true);
+				}
+				else{
+					setProjectOwner(false);
+				}
 			})
 			.catch(function(error) {
 				console.log("Error getting documents: ", error);
 			});
 	}, []);
-
-	console.log("db update");
 
 	// 프로젝트 삭제
 	const onDeleteClick = async () => {
@@ -94,7 +95,7 @@ const ProjectDetail = () => {
 			if (itemDetail.thumbnailUrl !== ""){
 				await storageService.refFromURL(itemDetail.thumbnailUrl).delete();
 			}
-			window.location.replace("/");
+			window.location.replace("./lemona#/project");
 		}
 	};
 
@@ -174,7 +175,6 @@ const ProjectDetail = () => {
 
 	// 해시태그 삭제
 	const onDeleteTagList = (event) => {
-		console.log(event.target.id);
 		const newTagArray = newTagList;
 		newTagArray.splice(event.target.id, 1);
 		setNewTagList([...newTagArray]);
@@ -209,7 +209,7 @@ const ProjectDetail = () => {
 
 			const attachmentRef = storageService
 				.ref()
-				.child(`${itemDetail.nowProjectId}/${uuidv4()}`);
+				.child(`${userObj.uid}/${uuidv4()}`);
 		
 			const response = await attachmentRef.putString(newThumbnail, "data_url");
 			newThumbnailUrl = await response.ref.getDownloadURL();
@@ -252,7 +252,7 @@ const ProjectDetail = () => {
 						{/* Img */}
 						<div style={{paddingBottom:"40px"}}>
 							{newThumbnailBool ? (
-								<img src={`${newThumbnail}`}/>
+								<img src={newThumbnail}/>
 							) : (
 								<img src={itemDetail.thumbnailUrl}/>
 							)}
@@ -377,14 +377,13 @@ const ProjectDetail = () => {
 								} }
 								onChange={(event, editor) => {
 									const data = editor.getData();
-									console.log(data);
 									setNewContent(data);
 								}}
 								onBlur={editor => {
-									console.log('Blur.', editor );
+									// console.log('Blur.', editor );
 								} }
 								onFocus={editor => {
-									console.log('Focus.', editor );
+									// console.log('Focus.', editor );
 								} }
 							/>
 						</div>
@@ -403,7 +402,9 @@ const ProjectDetail = () => {
 				<div className="detail_container">
 
 					<ProjectDetailShow itemDetail={itemDetail} />
-					<div style={{ paddingBottom:"20px"}}>
+					
+					{projectOwner && (
+						<div style={{ paddingBottom:"20px"}}>
 							<span onClick={onDeleteClick}>
 								<FontAwesomeIcon icon={faTrash} size="2x" style={{ padding:"10px"}}/>
 							</span>
@@ -411,9 +412,7 @@ const ProjectDetail = () => {
 								<FontAwesomeIcon icon={faPencilAlt} size="2x" style={{ padding:"10px"}}/>
 							</span>
 						</div>
-					{/* {projectOwner && (
-						
-					)} */}
+					)}
 				
 				</div >
 			)}

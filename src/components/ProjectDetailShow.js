@@ -5,7 +5,7 @@ const ProjectDetailShow = ({itemDetail}) => {
 	return (
 		<>
 			<div>
-				<img src={`${itemDetail.thumbnailUrl}`}/>
+				<img src={itemDetail.thumbnailUrl}/>
 			</div>
 					
 			<div className="list">

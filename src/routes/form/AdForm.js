@@ -6,7 +6,7 @@ import {v4 as uuidv4} from 'uuid';
 import UploadAdapter from "../../components/UploadAdapter";
 import Navigation from "components/Navigation";
 
-const AdForm = () => {
+const AdForm = ({userObj}) => {
     const [title, setTitle] = useState(""); //제목
     const [introduce, setIntroduce] = useState(""); //한줄소개
     const [thumbNail, setThumbNail] = useState(""); //썸네일사진
@@ -47,19 +47,20 @@ const AdForm = () => {
         if (thumbNail !== "") {
             const attachmentRef = storageService
                 .ref()
-                .child(`${projectId}/${uuidv4()}`);
-			
-				console.log(thumbNail);
+                .child(`${userObj.uid}/${uuidv4()}`);
+
             const response = await attachmentRef.putString(thumbNail, "data_url");
             attachmentUrl = await response.ref.getDownloadURL();
         }
         
         const AdFormObj = {
             projectId: projectId,
+			createdAt: Date.now(),
+			creatorId: userObj.uid,
             title: title,
             introduce: introduce,
             data: data,
-            thumbNailUrl: attachmentUrl,
+            thumbnailUrl: attachmentUrl,
             tagList: tagList,
             view: 0,
         };
@@ -78,7 +79,7 @@ const AdForm = () => {
                 target: { files }, 
             } = event;
             
-            const theFile = files[0]; console.log(theFile)
+            const theFile = files[0]; 
             const reader = new FileReader();
             reader.onloadend = (finishedEvent) => {
                 const {

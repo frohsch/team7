@@ -11,9 +11,9 @@ import '../../DetailStyle/ProjectDetail.css';
 import React from "react";
 import UploadAdapter from "../../components/UploadAdapter";
 import TogetherDetailShow from "../../components/TogetherDetailShow";
+ 
 
-
-const TogetherDetail = () => {	
+const TogetherDetail = ({userObj}) => {	
 	const location = useLocation();
 	const nowProjectId = location.state.data;
 
@@ -41,7 +41,6 @@ const TogetherDetail = () => {
 
 	// 해당 프로젝트 정보 가져오기
 	useEffect(() => {
-		console.log("useEffect");
 		dbService
 		.collection("participateforms")
 		.where("projectId", "==", nowProjectId)
@@ -69,7 +68,14 @@ const TogetherDetail = () => {
 			dbService.doc(`participateforms/${itemDetail.id}`).update({
 				view: newArray[0].view+1
 			});
+			
 			// owner인지 확인
+			if (newArray[0].creatorId == userObj.uid){
+				setProjectOwner(true);
+			}
+			else{
+				setProjectOwner(false);
+			}
 		})
 		.catch(function(error) {
 			console.log("Error getting documents: ", error);
@@ -82,9 +88,6 @@ const TogetherDetail = () => {
 
 		if (ok){
 			await dbService.doc(`participateforms/${itemDetail.id}`).delete();
-			if (itemDetail.thumbnailUrl !== ""){
-				await storageService.refFromURL(itemDetail.thumbnailUrl).delete();
-			}
 			window.location.replace("/");
 		}
 	};
@@ -113,25 +116,6 @@ const TogetherDetail = () => {
 		}
 	}
 
-	// 이미지 파일 변경
-	const onFileChange = (event) => {
-		const {
-			target: {files}
-		} = event;
-
-		const theFile = files[0];
-		const reader = new FileReader();
-		reader.onloadend = (finishedEvent) => {
-			const{
-				currentTarget : {result}
-			} = finishedEvent;
-		};
-		if (Boolean(theFile)){
-			reader.readAsDataURL(theFile);
-		}
-
-	};
-
 	// 멤버 추가
 	const onAddMemberClick = () => {
 		if (newMemberName !== ""){
@@ -157,7 +141,6 @@ const TogetherDetail = () => {
 
 	// 해시태그 삭제
 	const onDeleteTagList = (event) => {
-		console.log(event.target.id);
 		const newTagArray = newTagList;
 		newTagArray.splice(event.target.id, 1);
 		setNewTagList([...newTagArray]);
@@ -301,14 +284,13 @@ const TogetherDetail = () => {
 								} }
 								onChange={(event, editor) => {
 									const data = editor.getData();
-									console.log(data);
 									setNewContent(data);
 								}}
 								onBlur={editor => {
-									console.log('Blur.', editor );
+									// console.log('Blur.', editor );
 								} }
 								onFocus={editor => {
-									console.log('Focus.', editor );
+									// console.log('Focus.', editor );
 								} }
 							/>
 						</div>
@@ -327,7 +309,9 @@ const TogetherDetail = () => {
 				<div className="detail_container">
 
 					<TogetherDetailShow itemDetail={itemDetail} />
-					<div style={{ paddingBottom:"20px"}}>
+					
+					{projectOwner && (
+						<div style={{ paddingBottom:"20px"}}>
 							<span onClick={onDeleteClick}>
 								<FontAwesomeIcon icon={faTrash} size="2x" style={{ padding:"10px"}}/>
 							</span>
@@ -335,9 +319,7 @@ const TogetherDetail = () => {
 								<FontAwesomeIcon icon={faPencilAlt} size="2x" style={{ padding:"10px"}}/>
 							</span>
 						</div>
-					{/* {projectOwner && (
-						
-					)} */}
+					)}
 				
 				</div >
 			)}

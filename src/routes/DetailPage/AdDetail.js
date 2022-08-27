@@ -13,7 +13,7 @@ import UploadAdapter from "../../components/UploadAdapter";
 import AdDetailShow from "../../components/AdDetailShow";
 
 
-const AdDetail = () => {	
+const AdDetail = ({userObj}) => {	
 	const location = useLocation();
 	const nowProjectId = location.state.data;
 
@@ -44,7 +44,6 @@ const AdDetail = () => {
 
 	// 해당 프로젝트 정보 가져오기
 	useEffect(() => {
-		console.log("useEffect");
 		dbService
 		.collection("adforms")
 		.where("projectId", "==", nowProjectId)
@@ -75,6 +74,12 @@ const AdDetail = () => {
 			});
 			
 			// owner인지 확인
+			if (newArray[0].creatorId == userObj.uid){
+				setProjectOwner(true);
+			}
+			else{
+				setProjectOwner(false);
+			}
 		})
 		.catch(function(error) {
 			console.log("Error getting documents: ", error);
@@ -151,7 +156,6 @@ const AdDetail = () => {
 
 	// 해시태그 삭제
 	const onDeleteTagList = (event) => {
-		console.log(event.target.id);
 		const newTagArray = newTagList;
 		newTagArray.splice(event.target.id, 1);
 		setNewTagList([...newTagArray]);
@@ -185,7 +189,7 @@ const AdDetail = () => {
 
 			const attachmentRef = storageService
 				.ref()
-				.child(`${itemDetail.nowProjectId}/${uuidv4()}`);
+				.child(`${userObj.uid}/${uuidv4()}`);
 		
 			const response = await attachmentRef.putString(newThumbnail, "data_url");
 			newThumbnailUrl = await response.ref.getDownloadURL();
@@ -320,14 +324,13 @@ const AdDetail = () => {
 								} }
 								onChange={(event, editor) => {
 									const data = editor.getData();
-									console.log(data);
 									setNewContent(data);
 								}}
 								onBlur={editor => {
-									console.log('Blur.', editor );
+									// console.log('Blur.', editor );
 								} }
 								onFocus={editor => {
-									console.log('Focus.', editor );
+									// console.log('Focus.', editor );
 								} }
 							/>
 						</div>
@@ -346,7 +349,9 @@ const AdDetail = () => {
 				<div className="detail_container">
 
 					<AdDetailShow itemDetail={itemDetail} />
-					<div style={{ paddingBottom:"20px"}}>
+					
+					{projectOwner && (
+						<div style={{ paddingBottom:"20px"}}>
 							<span onClick={onDeleteClick}>
 								<FontAwesomeIcon icon={faTrash} size="2x" style={{ padding:"10px"}}/>
 							</span>
@@ -354,9 +359,7 @@ const AdDetail = () => {
 								<FontAwesomeIcon icon={faPencilAlt} size="2x" style={{ padding:"10px"}}/>
 							</span>
 						</div>
-					{/* {projectOwner && (
-						
-					)} */}
+					)}
 				
 				</div >
 			)}

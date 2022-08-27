@@ -13,12 +13,20 @@ function ParticipateBoard() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+
+// 충돌
+    const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/posts"
+        );
+        setPosts(response.data);
+
       dbService.collection('participateforms').get().then((res)=>{
         res.forEach((doc)=>{
           console.log(doc.data())
           setPosts((prev) => [doc.data(), ...prev]);
         })
       })
+
       setLoading(false);
     };
     fetchData();
@@ -32,7 +40,6 @@ function ParticipateBoard() {
     return currentPosts;
   };
 
-  console.log(posts);
   return (
     <div className="container">
       <ParticipatePosts posts={currentPosts(posts)} loading={loading}></ParticipatePosts>
