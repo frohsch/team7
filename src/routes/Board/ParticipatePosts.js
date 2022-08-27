@@ -1,8 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../../BoardStyle/ParticipatePosts.css';
 
 const ParticipatePosts = ({ posts, loading }) => {
+   const navi = useNavigate();
+   const linkToArticleDetail = (post) => {
+      console.log("kk");
+      navi("/project_items", {state: {data:post.projectId}});
+    }
   return (
     <>
       {loading && <div> loading... </div>}
@@ -25,7 +30,10 @@ const ParticipatePosts = ({ posts, loading }) => {
                   </thead>
                   <tbody>
                      {posts.map(post => (
-                        <tr className="common-table-row" key={post._id}>
+                        <tr onClick={(event) => {
+                           event.stopPropagation();
+                           linkToArticleDetail(post);
+                         }} className="common-table-row" key={post._id}>
                            <td className="common-table-column">{"post._id"}</td>
                            <td className="common-table-column">{post.title}</td>
                            <td className="common-table-column">{"post.userName"}</td>

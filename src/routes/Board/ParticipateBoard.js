@@ -19,10 +19,6 @@ function ParticipateBoard() {
           setPosts((prev) => [doc.data(), ...prev]);
         })
       })
-    // const response = await axios.get(
-    //     "https://jsonplaceholder.typicode.com/posts"
-    //     );
-    //     setPosts(response.data);
       setLoading(false);
     };
     fetchData();
