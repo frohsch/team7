@@ -29,6 +29,14 @@ const AdForm = () => {
         }
     };
 
+    //태그 리스트에 추가
+    const onKeyPressTag = (event) => {  
+        if (event.target.value.length !== 0 && event.key === 'Enter') {
+            setTagList([...tagList, tag])
+            setTag("")
+        }
+    }
+
     const onSubmit = async (event) => {
         //버튼을 클릭한 경우에만 제출하도록 변경
         event.preventDefault(); //새로고침 방지
@@ -41,6 +49,7 @@ const AdForm = () => {
                 .child(`${projectId}/${uuidv4()}`);
             const response = await attachmentRef.putString(thumbNail, "data_url");
             attachmentUrl = await response.ref.getDownloadURL();
+            console.log(attachmentUrl);
         }
         
         const AdFormObj = {
@@ -48,7 +57,8 @@ const AdForm = () => {
             title: title,
             introduce: introduce,
             data: data,
-            attachmentUrl: attachmentUrl,
+            thumbNailUrl: attachmentUrl,
+            tagList: tagList,
         };
         await dbService.collection("adforms").add(AdFormObj);
 
@@ -56,6 +66,7 @@ const AdForm = () => {
         setIntroduce("");
         setData("");
         setThumbNail("");
+        setTagList([]);
     };
 
     const onFileChange = (event) => {
@@ -75,7 +86,7 @@ const AdForm = () => {
         }
     };
 
-    const onClearAttachment = () => setThumbNail(null);
+    const onClearAttachment = () => setThumbNail("");
     
     return (
         <>
@@ -140,6 +151,35 @@ const AdForm = () => {
                             setData(editor.getData());
                         }}
                     />
+                </div>
+                <br></br>
+                <div className="input_p">
+                    <span className="span_tag">해시태그</span><hr></hr>
+                    <span>#</span>
+                    <div style={{ display: "inline-block" }}>
+                        <input
+                            type="text"
+                            title="태그"
+                            name="tagText"
+                            id="tagText"
+                            placeholder="태그입력"
+                            value={tag}
+                            onChange={onChange}
+                            onKeyPress={onKeyPressTag}
+                            style={{ boxsizing: "content-box", width: "47px", border: "none" }}
+                        />
+                        <div style={{ position: "absolute", top: "0px", left: "0px", visibility: "hidden", height: "0px", overflow: "scroll", whitespace: "pre", fontsize: "13px", fontweight: "400", fontstyle: "normal", letterspacing: "normal", texttransform: "none" }}></div>
+                    </div>
+                    <div>
+                        {tagList.map((item, idx) => {
+                            return (
+                                <span className="txt_tag">
+                                    <span key={idx}>#{item} </span>
+                                    {/*<button className="btn_delete" onClick={deleteTagItem}>X</button>*/}
+                                </span>
+                            )
+                        })}
+                    </div>
                 </div>
             </form>
             <div>
