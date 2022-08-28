@@ -112,7 +112,7 @@ const Home = ({ userObj }) => {
                 console.log(postObj)
             });
 
-        dbService.collection("togetherforms").orderBy("view", "desc")
+        dbService.collection("participateforms").orderBy("view", "desc")
             .onSnapshot((snapshot) => {
                 const postObj = snapshot.docs.map((doc) => ({
                     id: doc.id,

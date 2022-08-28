@@ -51,7 +51,7 @@ const BoxItemAd = ({ userObj, listObj, isOwner }) => {
                                 hour: "2-digit",
                                 minute: "2-digit",
                             }).format(listObj.createdAt)}</div>
-                        <div className="view">{listObj.view + "  view"}</div>
+                        <div className="view">{listObj.view + "  👀"}</div>
                     </div>
                 </div>
             </Container>
