@@ -20,7 +20,7 @@ const Project = ({userObj}) => {
 
     return (
         <div className='container'>
-            <div style={{
+            {userObj!==null && <div style={{
                             margin: "50px 85vw 50px 85vw",
                             padding: "12px",
                             textalign: "center",
@@ -39,7 +39,7 @@ const Project = ({userObj}) => {
                         width: "90px",
                         height: "40px"
                     }}>UPLOAD</span>
-            </div>
+            </div>}
             <ProjectBoard />
         </div>
     );
