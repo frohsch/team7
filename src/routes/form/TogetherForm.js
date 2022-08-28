@@ -95,6 +95,7 @@ const TogetherForm = ({userObj}) => {
                         value={title}
                         onChange={onChange}
                         style={{ border: "none" }}
+                        required
                     />
                 </div>
                 <br></br>

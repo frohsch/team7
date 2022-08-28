@@ -13,7 +13,7 @@ import UploadAdapter from "../../components/UploadAdapter";
 import TogetherDetailShow from "../../components/TogetherDetailShow";
  
 
-const TogetherDetail = ({userObj}) => {	
+const TogetherDetail = ({userObj, listObj}) => {	
 	const location = useLocation();
 	const nowProjectId = location.state.data;
 
