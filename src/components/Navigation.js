@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faLemon } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
 const Navi = styled.nav`
@@ -23,7 +23,8 @@ const Navigation = ({ userObj, isLoggedIn, loginlink }) => {
                     <ul style={{ display: "flex", justifyContent: "center", margin: 10 }}>
                         <li className="logoLi">
                             <Link to="/" >
-                                <div className="logoImage" style={{ backgroundColor: "gray", width: "50px", height: "50px", marginRight: "56vw" }}>
+                                <div className="logoImage" style={{  width: "50px", height: "50px", marginRight: "56vw" }}>
+                                <FontAwesomeIcon icon={faLemon} color={"#48acff"} size="4x" />
                                 </div>
                             </Link>
                         </li>
