@@ -71,7 +71,7 @@ const Comment = ({ userObj, id, tag }) => {
             <div className="cLine"></div>
             {list.map((item)=>{
                 return (
-                    <p className="txt_tag">
+                    <p className="comment_body">
                         <p className="it">{item.text} </p>
                         <p className="dt">{new Intl.DateTimeFormat("en-US", {
                                  year: "numeric",
