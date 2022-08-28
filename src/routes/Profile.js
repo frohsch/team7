@@ -6,8 +6,6 @@ import styled from "styled-components";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import UploadAdapter from "components/UploadAdapter";
-import ProjectPosts from "./Board/ProjectPosts";
-
 
 const Container = styled.div`
   display: flex;
@@ -77,7 +75,7 @@ const Profile = ({ refreshUser, userObj }) => {
 	const [profileOwner, setProfileOwner] = useState(false);
 	const [profileEditing, setProfileEditing] = useState(false);
 
-	useEffect(async() => {
+	useEffect(() => {
 		dbService
 			.collection("users")
 			.where("userId", "==", nowUserId)
@@ -124,6 +122,8 @@ const Profile = ({ refreshUser, userObj }) => {
 			});
     }, []);
 
+	console.log("*");
+
     const onLogOutClick = () => {
         authService.signOut();
         navigate("/");
@@ -162,9 +162,9 @@ const Profile = ({ refreshUser, userObj }) => {
 			bio: newBio
 		});
 
-		userObj.displayName = newDisplayName;
-
 		setProfileEditing(false);
+		await userObj.updateProfile({displayName: newDisplayName});
+		refreshUser();
     };
 
 	const cancelEditing = () => {
@@ -198,17 +198,17 @@ const Profile = ({ refreshUser, userObj }) => {
                 
 					<ProfileFormCss>
 						<ProfileTitle><span>Name</span></ProfileTitle>
-						<span className="profilecss" style={{ fontsize: "14px", color: "#464646"}}> {userProfile.displayName} </span>
+						<span className="profilecss" style={{ fontsize: "14px", color: "#464646"}}> {`${userProfile.displayName}`} </span>
 					</ProfileFormCss>
 
 					<ProfileFormCss>
 						<ProfileTitle><span>E Mail</span></ProfileTitle>
-						<span className="profilecss" style={{ fontsize: "14px", color: "#464646"}}> {userProfile.email} </span>
+						<span className="profilecss" style={{ fontsize: "14px", color: "#464646"}}> {`${userProfile.email}`} </span>
 					</ProfileFormCss>
 
 					<ProfileFormCss>
 						<ProfileTitle><span>Bio</span></ProfileTitle>
-						<span className="profilecss" style={{ fontsize: "14px", color: "#464646"}}> {userProfile.bio} </span>
+						<span className="profilecss" style={{ fontsize: "14px", color: "#464646"}}> {`${userProfile.bio}`} </span>
 					</ProfileFormCss>
 
 				</ProfileContainer>
