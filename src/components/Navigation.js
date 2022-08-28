@@ -71,7 +71,6 @@ const Navigation = ({ userObj, isLoggedIn, loginlink }) => {
                                 <Link
                                     className="naviLink"
                                     to='/profile'
-									state={{ data: userObj.uid }}
                                     style={{
                                         display: "flex",
                                         flexDirection: "column",
