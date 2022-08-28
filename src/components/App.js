@@ -11,17 +11,17 @@ function App() {
   const [newName, setNewName] = useState("");
   // 렌더링만을 위한 state(newName)
 
-  useEffect(() => {
+  useEffect(async() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
         if(user.displayName === null){
           updateProfile(user, {displayName: "anonymous"})
         }
         setUserObj({
-          displayName: user.displayName ? user.displayName : 'Anonymous',
           uid: user.uid,
+		  displayName: user.displayName ? user.displayName : 'Anonymous',
           updateProfile: (args) => updateProfile(user, { displayName: user.displayName }),
-          });
+        });
           
       } else {
         setUserObj(null);

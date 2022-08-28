@@ -45,6 +45,7 @@ const ProjectDetail = ({userObj, listObj}) => {
 	const [newTagList, setNewTagList] = useState(null);	
 
 	const [newContent, setNewContent] = useState(null);
+
 	
 	const [newId, setNewId] = useState(null);
 
@@ -96,7 +97,7 @@ const ProjectDetail = ({userObj, listObj}) => {
 		const ok = window.confirm("삭제하시겠습니까?");
 
 		if (ok){
-			await dbService.doc(`adforms/${itemDetail.id}`).delete();
+			await dbService.doc(`projectforms/${itemDetail.id}`).delete();
 			if (itemDetail.thumbnailUrl !== ""){
 				await storageService.refFromURL(itemDetail.thumbnailUrl).delete();
 			}
@@ -418,6 +419,8 @@ const ProjectDetail = ({userObj, listObj}) => {
 							</span>
 						</div>
 					)}
+
+					
 				
 				</div >
 			)}
