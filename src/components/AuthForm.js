@@ -5,6 +5,7 @@ import {
     signInWithEmailAndPassword,
 } from "firebase/auth";
 
+import { dbService } from "firebase_";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -46,6 +47,13 @@ const AuthForm = () => {
         try {
             if (newAccount) {
                 await createUserWithEmailAndPassword(auth, email, password);
+				await dbService.collection("users").add({
+					userId: auth.currentUser.uid,
+					displayName: auth.currentUser.displayName,
+					email: auth.currentUser.email,
+					bio: ""
+				});
+				
             } else {
                 await signInWithEmailAndPassword(auth, email, password);
             }

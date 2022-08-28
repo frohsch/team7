@@ -1,5 +1,5 @@
 import React from "react";
-import { authService } from "../firebase_"
+import { authService, dbService } from "../firebase_"
 import {
   GoogleAuthProvider,
   signInWithPopup
@@ -51,7 +51,20 @@ const Auth = () => {
     if (name === "google") {
       provider = new GoogleAuthProvider();
     }
-    await signInWithPopup(authService, provider);
+
+    await signInWithPopup(authService, provider).then((result) => {
+		if (result.user.metadata.creationTime === result.user.metadata.lastSignInTime){
+			console.log("new");
+			console.log(result);
+			dbService.collection("users").add({
+				userId: result.user.uid,
+				displayName: result.user.displayName,
+				email: result.user.email,
+				bio: ""
+			});
+		}
+	});
+
   };
 
   return (
