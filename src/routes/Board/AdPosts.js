@@ -35,8 +35,8 @@ const AdPosts = ({ posts, loading }) => {
                                         hour: "2-digit",
                                         minute: "2-digit",
                                     }).format(post.createdAt)}</div>
-                                <div className="view">{post.view+"  view"}</div>
-                                <div className="heart">{"150 heart"}</div>
+                                <div className="view">{post.view+"  👀"}</div>
+                                <div className="heart">{"150 ❤️"}</div>
                             </div>
                         </div>
                     </Link>
