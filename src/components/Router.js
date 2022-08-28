@@ -5,7 +5,6 @@ import Auth from "../routes/Auth";
 import Home from "../routes/Home";
 import Profile from "../routes/Profile";
 import Navigation from "./Navigation";
-import ProfileEdit from "../routes/ProfileEdit";
 import Participate from "../routes/Participate";
 import Project from "../routes/Project";
 import Publicize from "../routes/Publicize";
@@ -44,7 +43,6 @@ const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
         {isLoggedIn ? (
           <>
             <Route exact path="/profile" element={<Profile refreshUser={refreshUser} userObj={userObj} />} />
-            <Route exact path="/profileedit" element={<ProfileEdit refreshUser={refreshUser} userObj={userObj} />} />
           </>
         ) : (
           <Route exact path="/auth" element={<Auth />} />

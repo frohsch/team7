@@ -7,11 +7,11 @@ import { v4 as uuidv4 } from "uuid";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { dbService, storageService } from "../../firebase_";
-import ProjectDetailShow from "../../components/ProjectDetailShow";
+
 import '../../DetailStyle/ProjectDetail.css';
 import React from "react";
 import UploadAdapter from "../../components/UploadAdapter";
-import { async } from "@firebase/util";
+import ProjectDetailShow from "../../components/ProjectDetailShow";
 
 
 const ProjectDetail = ({userObj, listObj}) => {	
@@ -43,47 +43,49 @@ const ProjectDetail = ({userObj, listObj}) => {
 	const [newTagListName, setNewTagListName] = useState(null);		
 	const [newTagList, setNewTagList] = useState(null);	
 
-	const [newContent, setNewContent] = useState(null);	
+	const [newContent, setNewContent] = useState(null);
+	
 
 	// 해당 프로젝트 정보 가져오기
-	useEffect(async() => {
+	useEffect(() => {
 		dbService
-			.collection("projectforms")
-			.where("projectId", "==", nowProjectId)
-			.get()
-			.then(function(querySnapshot) {
-				const newArray = querySnapshot.docs.map((document) => ({
-					id: document.id,
-					...document.data()
-				}));
+		.collection("projectforms")
+		.where("projectId", "==", nowProjectId)
+		.get()
+		.then(function(querySnapshot) {
+			const newArray = querySnapshot.docs.map((document) => ({
+				id: document.id,
+				...document.data()
+			}));
 
-				setItemDetail({
-					id: newArray[0].id,
-					thumbnailUrl: newArray[0].thumbnailUrl,
-					title: newArray[0].title,
-					introduce: newArray[0].introduce,
-					member: newArray[0].member,
-					tagList: newArray[0].tagList,
-					content: newArray[0].content,
-				});
-
-				setNewTitle(newArray[0].title);
-				setNewMember([...newArray[0].member]);
-				setNewIntroduce(newArray[0].introduce);
-				setNewTagList([...newArray[0].tagList]);
-				setNewContent(newArray[0].content);
-				
-				// owner인지 확인
-				if (newArray[0].creatorId == userObj.uid){
-					setProjectOwner(true);
-				}
-				else{
-					setProjectOwner(false);
-				}
-			})
-			.catch(function(error) {
-				console.log("Error getting documents: ", error);
+			// 현재 프로젝트 정보 저장
+			setItemDetail({
+				id: newArray[0].id,
+				thumbnailUrl: newArray[0].thumbnailUrl,
+				title: newArray[0].title,
+				introduce: newArray[0].introduce,
+				member: newArray[0].member,
+				tagList: newArray[0].tagList,
+				content: newArray[0].content,
 			});
+
+			setNewTitle(newArray[0].title);
+			setNewMember([...newArray[0].member]);
+			setNewIntroduce(newArray[0].introduce);
+			setNewTagList([...newArray[0].tagList]);
+			setNewContent(newArray[0].content);
+			
+			// owner인지 확인
+			if (newArray[0].creatorId === userObj.uid){
+				setProjectOwner(true);
+			}
+			else{
+				setProjectOwner(false);
+			}
+		})
+		.catch(function(error) {
+			console.log("Error getting documents: ", error);
+		});
 	}, []);
 
 	// 프로젝트 삭제
@@ -91,11 +93,11 @@ const ProjectDetail = ({userObj, listObj}) => {
 		const ok = window.confirm("삭제하시겠습니까?");
 
 		if (ok){
-			await dbService.doc(`projectforms/${itemDetail.id}`).delete();
+			await dbService.doc(`adforms/${itemDetail.id}`).delete();
 			if (itemDetail.thumbnailUrl !== ""){
 				await storageService.refFromURL(itemDetail.thumbnailUrl).delete();
 			}
-			window.location.replace("./lemona#/project");
+			window.location.replace("/");
 		}
 	};
 
@@ -242,7 +244,7 @@ const ProjectDetail = ({userObj, listObj}) => {
 	};
 		
 	return (
-		<div className="container">
+		<div>
 
 			{detailEditing ? (
 
@@ -252,7 +254,7 @@ const ProjectDetail = ({userObj, listObj}) => {
 						{/* Img */}
 						<div style={{paddingBottom:"40px"}}>
 							{newThumbnailBool ? (
-								<img src={newThumbnail}/>
+								<img src={`${newThumbnail}`}/>
 							) : (
 								<img src={itemDetail.thumbnailUrl}/>
 							)}
