@@ -76,8 +76,6 @@ const PostContainer = styled.div`
   flex-wrap: nowrap;`
 
 
-
-
 const Home = ({ userObj }) => {
     const [search, setSearch] = useState("");
     const [projects, setProjects] = useState([]); //모든 프로젝트 게시글

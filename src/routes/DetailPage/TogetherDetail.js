@@ -21,6 +21,7 @@ const TogetherDetail = ({userObj, listObj}) => {
 	const [itemDetail, setItemDetail] = useState({
 		id: "",
 		title: "",
+		introduce: "",
 		member: [],
 		tagList: [],
 		data: "",
@@ -32,7 +33,8 @@ const TogetherDetail = ({userObj, listObj}) => {
 	// 수정 프로젝트 정보
 	const [newTitle, setNewTitle] = useState(null);
 	const [newMemberName, setNewMemberName] = useState(null);		
-	const [newMember, setNewMember] = useState(null);		
+	const [newMember, setNewMember] = useState(null);	
+	const [newIntroduce, setNewIntroduce] = useState(null);	
 	const [newTagListName, setNewTagListName] = useState(null);		
 	const [newTagList, setNewTagList] = useState(null);	
 
@@ -55,6 +57,7 @@ const TogetherDetail = ({userObj, listObj}) => {
 			setItemDetail({
 				id: newArray[0].id,
 				title: newArray[0].title,
+				introduce: newArray[0].introduce,
 				member: newArray[0].member,
 				tagList: newArray[0].tagList,
 				data: newArray[0].data,
@@ -62,12 +65,13 @@ const TogetherDetail = ({userObj, listObj}) => {
 
 			setNewTitle(newArray[0].title);
 			setNewMember([...newArray[0].member]);
+			setNewIntroduce(newArray[0].introduce);
 			setNewTagList([...newArray[0].tagList]);
 			setNewContent(newArray[0].data);
 
-			dbService.doc(`participateforms/${itemDetail.id}`).update({
-				view: newArray[0].view+1
-			});
+			// dbService.doc(`participateforms/${itemDetail.id}`).update({
+			// 	view: newArray[0].view+1
+			// });
 			
 			// owner인지 확인
 			if (newArray[0].creatorId == userObj.uid){
@@ -108,6 +112,12 @@ const TogetherDetail = ({userObj, listObj}) => {
 
 			case "inputMember":
 				setNewMemberName(value);
+				break;
+
+			case "inputIntroduce":
+				event.target.style.height = "1px";
+				event.target.style.height = (12+event.target.scrollHeight)+"px";
+				setNewIntroduce(value);
 				break;
 
 			case "inputTagList":
@@ -151,6 +161,7 @@ const TogetherDetail = ({userObj, listObj}) => {
 	const cancelEditing = () => {
 		setNewTitle(itemDetail.title);
 		setNewMember([...itemDetail.member]);
+		setNewIntroduce(itemDetail.introduce);
 		setNewTagList([...itemDetail.tagList]);
 		setNewContent(itemDetail.data);
 		setDetailEditing((prev) => !prev);
@@ -171,6 +182,7 @@ const TogetherDetail = ({userObj, listObj}) => {
 		await dbService.doc(`participateforms/${itemDetail.id}`).update({
 			title: newTitle,
 			member: newMember,
+			introduce: newIntroduce,
 			tagList: newTagList,
 			data: newContent
 		});
@@ -180,6 +192,7 @@ const TogetherDetail = ({userObj, listObj}) => {
 			id: itemDetail.id,
 			title: newTitle,
 			member: newMember,
+			introduce: newIntroduce,
 			tagList: newTagList,
 			data: newContent
 		});
@@ -237,6 +250,19 @@ const TogetherDetail = ({userObj, listObj}) => {
 									<FontAwesomeIcon id={index} onClick={onDeleteMember} icon={faXmark} size="1x" style={{paddingLeft:"10px", cursor:"pointer"}}  />
 								</div>
 							))}
+						</div>
+
+						{/* Introduce */}
+						<div className="list_update">
+							<span>한줄소개</span>
+							<textarea
+								onChange={onChange}
+								value={newIntroduce}
+								required
+								placeholder="Edit Introduce"
+								autoFocus
+								id="inputIntroduce"
+							/>
 						</div>
 						
 						{/* tagList */}

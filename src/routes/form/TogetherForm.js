@@ -8,6 +8,7 @@ import UploadAdapter from "../../components/UploadAdapter";
 
 const TogetherForm = ({userObj}) => {
     const [title, setTitle] = useState(""); //제목
+	const [introduce, setIntroduce] = useState(""); //한줄소개
     const [member, setMember] = useState(""); //멤버
     const [memberList, setMemberList] = useState([]); //멤버리스트
     const [tag, setTag] = useState(""); //태그
@@ -25,6 +26,9 @@ const TogetherForm = ({userObj}) => {
         }
         else if (event.target.id === "memberText") {
             setMember(value);
+        }
+		else if (event.target.id === "introduceText") {
+            setIntroduce(value);
         }
         else if (event.target.id === "tagText") {
             setTag(value);
@@ -57,6 +61,7 @@ const TogetherForm = ({userObj}) => {
             title: title,
 			createdAt: Date.now(),
 			creatorId: userObj.uid,
+			introduce: introduce,
             member: memberList,
             tagList: tagList,
             data: data,
@@ -69,6 +74,7 @@ const TogetherForm = ({userObj}) => {
         setTitle("");
         setMember("");
         setData("");
+		setIntroduce("");
         setTag("");
         setMemberList([]);
         setTagList([]);
@@ -124,11 +130,27 @@ const TogetherForm = ({userObj}) => {
                         })}
                     </div>
                 </div>
+				<br></br>
+                <div className="input_p">
+                    <span>한 줄 소개</span><hr></hr>
+                    <textarea
+                        className="input_intro"
+                        id="introduceText"
+                        placeholder="한 줄 소개"
+                        cols="70"
+                        rows="3"
+                        value={introduce}
+                        onChange={onChange}
+                        style={{ border: "none" }}
+                        required
+                    />
+                </div>
                 <br></br>
                 <div className="input_content">
                     <span>본문 작성</span><hr></hr>
                     <CKEditor
                         editor={ClassicEditor}
+						data={data}
                         config={{
                             placeholder: '내용을 입력해 주세요.',
                             extraPlugins: [ MyCustomUploadAdapterPlugin],
