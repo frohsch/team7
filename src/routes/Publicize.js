@@ -24,7 +24,8 @@ const Publicize = ({userObj}) => {
                             height: "40px",
                             color: "#707070",
                             backgroundColor: "#CCE8FF",
-                            borderRadius: "20px"
+                            borderRadius: "20px",
+                            cursor: "pointer",
                         }}
             >
             <span
