@@ -12,11 +12,14 @@ import React from "react";
 import UploadAdapter from "../../components/UploadAdapter";
 import TogetherDetailShow from "../../components/TogetherDetailShow";
 import Comment from "components/Comment";
+import { async } from "@firebase/util";
  
 
 const TogetherDetail = ({userObj, listObj}) => {	
 	const location = useLocation();
 	const nowProjectId = location.state.data;
+
+	console.log(nowProjectId);
 
 	// 프로젝트 정보
 	const [itemDetail, setItemDetail] = useState({
@@ -25,7 +28,7 @@ const TogetherDetail = ({userObj, listObj}) => {
 		introduce: "",
 		member: [],
 		tagList: [],
-		data: "",
+		content: "",
 	});
 
 	const [projectOwner, setProjectOwner] = useState(false);
@@ -42,6 +45,8 @@ const TogetherDetail = ({userObj, listObj}) => {
 	const [newContent, setNewContent] = useState(null);
 	const [newId, setNewId] = useState(null);
 
+	console.log(itemDetail);
+
 	// 해당 프로젝트 정보 가져오기
 	useEffect(() => {
 		dbService
@@ -54,6 +59,7 @@ const TogetherDetail = ({userObj, listObj}) => {
 				...document.data()
 			}));
 
+			
 			// 현재 프로젝트 정보 저장
 			setItemDetail({
 				id: newArray[0].id,
@@ -61,7 +67,7 @@ const TogetherDetail = ({userObj, listObj}) => {
 				introduce: newArray[0].introduce,
 				member: newArray[0].member,
 				tagList: newArray[0].tagList,
-				data: newArray[0].data,
+				content: newArray[0].content,
 			});
 
 			setNewId(newArray[0].id);
@@ -69,14 +75,14 @@ const TogetherDetail = ({userObj, listObj}) => {
 			setNewMember([...newArray[0].member]);
 			setNewIntroduce(newArray[0].introduce);
 			setNewTagList([...newArray[0].tagList]);
-			setNewContent(newArray[0].data);
+			setNewContent(newArray[0].content);
 
 			// dbService.doc(`participateforms/${itemDetail.id}`).update({
 			// 	view: newArray[0].view+1
 			// });
 			
 			// owner인지 확인
-			if (newArray[0].creatorId == userObj.uid){
+			if (newArray[0].creatorId === userObj.uid){
 				setProjectOwner(true);
 			}
 			else{
@@ -165,7 +171,7 @@ const TogetherDetail = ({userObj, listObj}) => {
 		setNewMember([...itemDetail.member]);
 		setNewIntroduce(itemDetail.introduce);
 		setNewTagList([...itemDetail.tagList]);
-		setNewContent(itemDetail.data);
+		setNewContent(itemDetail.content);
 		setDetailEditing((prev) => !prev);
 	}
 
@@ -186,7 +192,7 @@ const TogetherDetail = ({userObj, listObj}) => {
 			member: newMember,
 			introduce: newIntroduce,
 			tagList: newTagList,
-			data: newContent
+			content: newContent
 		});
 
 		// 프로젝트 정보 업데이트
@@ -196,7 +202,7 @@ const TogetherDetail = ({userObj, listObj}) => {
 			member: newMember,
 			introduce: newIntroduce,
 			tagList: newTagList,
-			data: newContent
+			content: newContent
 		});
 
 		setDetailEditing(false);
