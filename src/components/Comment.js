@@ -2,6 +2,7 @@ import { map, uuidv4 } from "@firebase/util";
 import { dbService } from "firebase_";
 import { useEffect, useState } from "react";
 import CommentList from "./CommentList";
+import './Comment.css';
 
 const Comment = ({ userObj, id, tag }) => {
     const [comment, setComment] = useState("");
@@ -45,8 +46,8 @@ const Comment = ({ userObj, id, tag }) => {
     }
 
     return (
-        <>
-            <div className="input_comment">
+        <div className="comment_wrapper">
+            <div className="input">
                 <input
                     type="text"
                     className="inputComment"
@@ -68,15 +69,22 @@ const Comment = ({ userObj, id, tag }) => {
                     disabled={isValid ? false : true}
                 >게시</button>
             </div>
+            <div className="cLine"></div>
             {list.map((item)=>{
                 return (
                     <p className="txt_tag">
-                        <span>{item.text} </span>
-                        <span>{item.createdAt}</span>
+                        <p className="it">{item.text} </p>
+                        <p className="dt">{new Intl.DateTimeFormat("en-US", {
+                                 year: "numeric",
+                                 month: "2-digit",
+                                 day: "2-digit",
+                                 hour: "2-digit",
+                                 minute: "2-digit",
+                             }).format(item.createdAt)}</p>
                     </p>
                 )
             })}
-        </>
+        </div>
     )
 
 }
