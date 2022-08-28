@@ -1,0 +1,59 @@
+h1 {
+
+}
+.form_outer {
+    display: flex;
+}
+.form_container {
+    width: 60vw;
+    margin: 0 auto;
+}
+.titleDiv {
+    width: 100%;
+    text-align: left;
+    flex-direction: column;
+}
+.titlewithUpload {
+    width: 100%;
+    flex-direction: row;
+
+    display: flex;
+}
+.mainTitle {
+    width: auto;
+    font-size: 20px;
+    margin: 30px 0;
+}
+.mainDisc{
+    font-size: 14px;
+    margin: 0 0 70px 0;
+}
+.input_p {
+    width: 100%;
+}
+
+.contentsTitle{
+    width: 100%;
+    margin:  5px 10px;
+}
+
+.input_title{
+    width: 100%;
+    margin: 5px 10px 50px 10px;
+}
+.input_intro {
+    margin: 5px 10px;
+}
+.tag_List {
+    margin: 15px 0;
+}
+.attatchment {
+    max-width: 50vw;
+    margin: 10px auto 50px auto;
+}
+.attachIMG {
+    max-width: 100%;
+}
+.CKE {
+    margin: 20px 10px 50px 10px;
+}

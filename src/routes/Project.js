@@ -2,7 +2,7 @@ import React from 'react';
 import ProjectBoard from './Board/ProjectBoard';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
-  
+
 const Navi = styled.nav`
 margin: 0px;
 width: 100vw;
@@ -29,7 +29,8 @@ const Project = ({userObj}) => {
                             height: "40px",
                             color: "#707070",
                             backgroundColor: "#CCE8FF",
-                            borderRadius: "20px"
+                            borderRadius: "20px",
+                            cursor: "pointer"
                         }}
             >
             <span

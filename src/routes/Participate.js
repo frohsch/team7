@@ -25,6 +25,7 @@ const Participate = ({userObj}) => {
                         color: "#707070",
                         backgroundColor: "#CCE8FF",
                         borderRadius: "20px",
+                        cursor: "pointer",
                     }}
             >
             <span

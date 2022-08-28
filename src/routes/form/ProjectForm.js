@@ -5,6 +5,7 @@ import { map } from "@firebase/util";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import UploadAdapter from "../../components/UploadAdapter";
+import "./formStyle.css";
 
 const ProjectForm = ({ userObj }) => {
     const [title, setTitle] = useState(""); //제목
@@ -125,11 +126,38 @@ const ProjectForm = ({ userObj }) => {
 
     return (
         <>
-            <h1>project form page</h1>
+            <div className = "form_outer">
             <form className="form_container" onSubmit={false}>
-                <p>프로젝트 소개 작성하기</p>
-                <div className="input_p">
-                    <span>제목 </span><hr></hr>
+                <div className="titleDiv"><div className="titlewithUpload"><div className="mainTitle">
+            <span >Project Form Page</span></div>
+            {/* <div> */}
+            <div style={{
+                            margin: "20px 0 0 600px",
+                            padding: "12px",
+                            textalign: "center",
+                            fontsize: "14px",
+                            width: "90px",
+                            height: "40px",
+                            color: "#707070",
+                            backgroundColor: "#CCE8FF",
+                            borderRadius: "20px",
+                            cursor: "pointer"
+                        }}
+            >
+            <span
+                    onClick={onSubmit}
+                        style={{
+                        margin: "5px",
+                        width: "90px",
+                        height: "40px"
+                    }}>UPLOAD</span>
+            </div></div>
+                {/* <button className="default_Btn_Right" type="submit" onClick={onSubmit}>Upload</button> */}
+            {/* </div> */}
+            <div className="mainDisc">
+                <span>프로젝트 소개 작성하기</span></div></div>
+                <div className="input_p"><div className="contentsTitle">
+                    <span>제목 </span></div><hr></hr>
                     <input
                         className="input_title"
                         id="titleText"
@@ -142,11 +170,11 @@ const ProjectForm = ({ userObj }) => {
                         required
                     />
                 </div>
-                <br></br>
-                <div className="input_p">
-                    <span className="span_tag">멤버</span><hr></hr>
-                    <div style={{ display: "inline-block" }}>
+                <div className="input_p"><div className="contentsTitle">
+                    <span>멤버</span></div><hr></hr>
+                    {/* <div style={{ display: "inline-block" }}> */}
                         <input
+                            className="input_title"
                             type="text"
                             title="멤버"
                             name="memberText"
@@ -155,7 +183,7 @@ const ProjectForm = ({ userObj }) => {
                             value={member}
                             onChange={onChange}
                             onKeyPress={onKeyPressMem}
-                            style={{ boxsizing: "content-box", width: "47px", border: "none" }}
+                            style={{ boxsizing: "content-box", border: "none" }}
                         />
                     </div>
                     <div>
@@ -166,13 +194,13 @@ const ProjectForm = ({ userObj }) => {
                                 </span>
                             )
                         })}
-                    </div>
+                    {/* </div> */}
                 </div>
-                <br></br>
-                <div className="input_p">
-                    <span>한 줄 소개</span><hr></hr>
+                <div className="input_p"><div className="contentsTitle">
+                    <span>한 줄 소개</span></div><hr></hr>
+                    <div className="input_intro">
                     <textarea
-                        className="input_intro"
+                        
                         id="introduceText"
                         placeholder="한 줄 소개"
                         cols="70"
@@ -181,11 +209,11 @@ const ProjectForm = ({ userObj }) => {
                         onChange={onChange}
                         style={{ border: "none" }}
                         required
-                    />
+                    /></div>
                 </div>
-                <br></br>
-                <div className="input_p">
-                    <span className="span_tag">해시태그</span><hr></hr>
+                <div className="input_p"><div className="contentsTitle">
+                    <span className="span_tag">해시태그</span></div><hr></hr>
+                    <div className="input_title">
                     <span>#</span>
                     <div style={{ display: "inline-block" }}>
                         <input
@@ -197,11 +225,11 @@ const ProjectForm = ({ userObj }) => {
                             value={tag}
                             onChange={onChange}
                             onKeyPress={onKeyPressTag}
-                            style={{ boxsizing: "content-box", width: "47px", border: "none" }}
-                        />
+                            style={{ boxsizing: "content-box", border: "none" }}
+                        /></div>
                         <div style={{ position: "absolute", top: "0px", left: "0px", visibility: "hidden", height: "0px", overflow: "scroll", whitespace: "pre", fontsize: "13px", fontweight: "400", fontstyle: "normal", letterspacing: "normal", texttransform: "none" }}></div>
-                    </div>
-                    <div>
+                    
+                    <div className="tag_List">
                         {tagList.map((item, idx) => {
                             return (
                                 <span className="txt_tag">
@@ -210,30 +238,61 @@ const ProjectForm = ({ userObj }) => {
                                 </span>
                             )
                         })}
-                    </div>
+                    </div></div>
                 </div>
-                <br></br>
-                <div className="input_p">
-                    <span className="span_img">썸네일 사진 </span><hr></hr>
+                <div className="input_p"><div className="contentsTitle">
+                    <span className="span_img">썸네일 사진 </span></div><hr></hr>
                     <input
-                        className="input_img"
+
+                        className="input_title"
                         id="mainAttachment"
                         type="file"
+                        // value="Choose"
                         accept="image/*"
                         onChange={onFileChange}
-                        style={{ border: "none" }}
+                        style={{ border: "none"}}
                         required
                     />
                     {thumbNailUrl && (
                         <div className="attatchment">
-                            <img src={thumbNailUrl} />
-                            <button className="default_Btn" onClick={onClearAttachment}>Clear</button>
+                            <img src={thumbNailUrl} className="attachIMG" />
+
+
+                            <div style={{
+                            margin: "20px auto",
+                            textAlign: "center",
+                            lineHeight: "30px",
+                            fontsize: "14px",
+                            width: "70px",
+                            height: "30px",
+                            color: "#707070",
+                            backgroundColor: "#CCE8FF",
+                            borderRadius: "3px",
+                            cursor: "pointer"
+                        }}
+            >
+            {/* <span
+                    onClick={onSubmit}
+                        style={{
+                        margin: "5px",
+                        width: "90px",
+                        height: "40px"
+                    }}>UPLOAD</span> */}
+            
+
+                            <span className="default_Btn" onClick={onClearAttachment}
+                            style={{
+                                margin: "5px",
+                                width: "90px",
+                                height: "40px"
+                            }}
+                            >Clear</span>
+                        </div>
                         </div>
                     )}
                 </div>
-                <br></br>
-                <div className="input_content">
-                    <span>본문 작성</span><hr></hr>
+                <div className="input_content"><div className="contentsTitle">
+                    <span>본문 작성</span></div><hr></hr><div className="CKE">
                     <CKEditor
                         editor={ClassicEditor}
                         config={{
@@ -244,11 +303,10 @@ const ProjectForm = ({ userObj }) => {
                             setData(editor.getData());
                         }}
                     />
+                    </div>
                 </div>
-                <br></br>
             </form>
-            <div>
-                <button className="default_Btn_Right" type="submit" onClick={onSubmit}>제출</button>
+            
             </div>
         </>
     );
