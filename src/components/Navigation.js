@@ -6,10 +6,9 @@ import styled from "styled-components";
 
 const Navi = styled.nav`
     margin: 0px;
-    width: 100%;
+    width: 100vw;
 `
 const NaviDiv = styled.div`
-    margin: 0;
     width: 100%;
     height: 70px;
     /* border: 1px solid black; */
@@ -24,7 +23,7 @@ const Navigation = ({ userObj, isLoggedIn, loginlink }) => {
                     <ul style={{ display: "flex", justifyContent: "center", margin: 10 }}>
                         <li className="logoLi">
                             <Link to="/" >
-                                <div className="logoImage">
+                                <div className="logoImage" style={{ backgroundColor: "gray", width: "50px", height: "50px", marginRight: "50vw" }}>
                                 </div>
                             </Link>
                         </li>
