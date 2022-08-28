@@ -21,12 +21,12 @@ const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
       {<Navigation userObj={userObj} isLoggedIn={isLoggedIn} />}
 
       <Routes>
-        <>
-
+        
+		<>
           {/*폼 작성*/}
           <Route exact path="/adform" element={<AdForm userObj={userObj}/>} />
-        <Route exact path="/projectform" element={<ProjectForm userObj={userObj}/>} />
-        <Route exact path="/togetherform" element={<TogetherForm userObj={userObj}/>} />
+          <Route exact path="/projectform" element={<ProjectForm userObj={userObj}/>} />
+          <Route exact path="/togetherform" element={<TogetherForm userObj={userObj}/>} />
 
           {/*상세페이지*/}
           <Route exact path="/project_items" element = {<ProjectDetail userObj={userObj}/>}/>
@@ -37,7 +37,6 @@ const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
           <Route exact path="/project" element={<Project userObj={userObj} />} />
           <Route exact path="/participate" element={<Participate userObj={userObj} />} />
           <Route exact path="/publicize" element={<Publicize userObj={userObj} />} />
-
         </>
 
         {isLoggedIn ? (
@@ -45,7 +44,7 @@ const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
             <Route exact path="/profile" element={<Profile refreshUser={refreshUser} userObj={userObj} />} />
           </>
         ) : (
-          <Route exact path="/profile" element={<Auth />} />
+		  <Route exact path="/profile" element={<Auth />} />
         )}
       </Routes>
     </Router>

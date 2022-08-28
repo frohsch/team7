@@ -4,9 +4,11 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { dbService, storageService } from "../../firebase_";
 import {v4 as uuidv4} from 'uuid';
 import UploadAdapter from "../../components/UploadAdapter";
-import Navigation from "components/Navigation";
+import { useNavigate,useLocation } from "react-router-dom";
 
 const AdForm = ({userObj}) => {
+	const navigate = useNavigate();
+
     const [title, setTitle] = useState(""); //제목
     const [introduce, setIntroduce] = useState(""); //한줄소개
     const [thumbNail, setThumbNail] = useState(""); //썸네일사진
@@ -71,6 +73,11 @@ const AdForm = ({userObj}) => {
         setData("");
         setThumbNail("");
         setTagList([]);
+
+		navigate(`/ad_items`, {
+            replace: false,
+            state: { data: AdFormObj.projectId },
+        });
     };
 
     const onFileChange = (event) => {

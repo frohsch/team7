@@ -22,7 +22,6 @@ const Comment = ({ userObj, id, tag }) => {
                 list.push(commentObj);
             })
         });
-        
     }, []);
 
     const onSubmitComment = async (event) => {

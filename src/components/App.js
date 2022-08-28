@@ -14,13 +14,14 @@ function App() {
   useEffect(async() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        if(user.displayName === null){
-          updateProfile(user, {displayName: "anonymous"})
-        }
+        // if(user.displayName === null){
+        //   updateProfile(user, {displayName: "anonymous"})
+        // }
         setUserObj({
           uid: user.uid,
 		  displayName: user.displayName ? user.displayName : 'Anonymous',
-          updateProfile: (args) => updateProfile(user, { displayName: user.displayName }),
+        //   updateProfile: (args) => updateProfile(user, { displayName: user.displayName }),
+		updateProfile: (args) => user.updateProfile(args)
         });
           
       } else {
@@ -33,7 +34,13 @@ function App() {
   const refreshUser = () => {
     const user = authService.currentUser;
     setNewName(user.displayName);
+	setUserObj({
+		uid : user.uid,
+		displayName: user.displayName,
+		updateProfile: (args) => user.updateProfile(args)
+	});
   };
+
   return (
     <>
       <div className="Initializing">
