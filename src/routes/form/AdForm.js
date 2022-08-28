@@ -72,7 +72,7 @@ const AdForm = ({userObj}) => {
 			setProjectId(uuidv4());
         }
         
-        const ProjectFormObj = {
+        const AdFormObj = {
             title: title,
             member: memberList,
             introduce: introduce,
@@ -85,7 +85,7 @@ const AdForm = ({userObj}) => {
             view: 0,
             //글 작성자(멤버에 항상 포함되도록)
         };
-        await dbService.collection("adforms").add(ProjectFormObj);
+        await dbService.collection("adforms").add(AdFormObj);
 
         setTitle("");
         setMemberList([]);
@@ -94,6 +94,10 @@ const AdForm = ({userObj}) => {
 
         setData("");
         setThumbNailUrl("");
+        navigate(`/ad_items`, {
+            replace: false,
+            state: { data: AdFormObj.projectId },
+        });
     };
 
     //태그 리스트에 추가
@@ -129,12 +133,10 @@ const AdForm = ({userObj}) => {
         else if (event.target.id === "tagText") {
             setTag(value);
         }
+
     };
 
-		navigate(`/ad_items`, {
-            replace: false,
-            state: { data: AdFormObj.projectId },
-        });
+		
 
 
     //메인 썸네일 이미지 추가

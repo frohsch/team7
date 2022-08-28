@@ -72,7 +72,7 @@ const TogetherForm = ({userObj}) => {
 			setProjectId(uuidv4());
         }
         
-        const ProjectFormObj = {
+        const TogetherFormObj = {
             title: title,
             member: memberList,
             introduce: introduce,
@@ -84,7 +84,7 @@ const TogetherForm = ({userObj}) => {
             view: 0,
             //글 작성자(멤버에 항상 포함되도록)
         };
-        await dbService.collection("participateforms").add(ProjectFormObj);
+        await dbService.collection("participateforms").add(TogetherFormObj);
 
         setTitle("");
         setMemberList([]);
