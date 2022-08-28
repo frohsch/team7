@@ -31,9 +31,6 @@ const BoxItemTo = ({ userObj, listObj, isOwner }) => {
                 <div className="card-wrapper">
                     <div className="card-title">{listObj.title}</div>
                     <div className="card-body">
-                        <div className="card-body-img">
-                            <img src={listObj.thumbNailUrl} />
-                        </div>
                         <div className="card-body-text">
                             <div className="card-body-text-content">{listObj.introduce}</div>
                         </div>

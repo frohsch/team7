@@ -35,7 +35,7 @@ const BoxItemAd = ({ userObj, listObj, isOwner }) => {
                     <div className="card-title">{listObj.title}</div>
                     <div className="card-body">
                         <div className="card-body-img">
-                            <img src={listObj.thumbNailUrl} />
+                            <img src={listObj.thumbnailUrl} />
                         </div>
                         <div className="card-body-text">
                             <div className="card-body-text-content">{listObj.introduce}</div>
