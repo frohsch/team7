@@ -146,7 +146,6 @@ const Home = ({ userObj }) => {
                         backgroundcolor: "#AAAAAA",
                         cursor: "pointer",
                         display: "inline-block",
-                        marginleft: "13px;"
                     }}
                 >
                     🔍

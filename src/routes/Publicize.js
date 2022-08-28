@@ -1,7 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import AdBoard from './Board/AdBoard';
 
-const Publicize = () => {
+const Publicize = ({userObj}) => {
+    let navigate = useNavigate();
+
+    const onClick = () => {
+        console.log("onClick")
+        navigate(`/adform`, {
+            replace: false,
+            state: { userObj: userObj },
+        });
+    };
+
     return (
         <div className='container'>
             <div style={{
@@ -15,11 +26,15 @@ const Publicize = () => {
                             backgroundColor: "#CCE8FF",
                             borderRadius: "20px"
                         }}
-            ><span style={{
-                margin: "5px",
-                width: "90px",
-                height: "40px"
-            }}>UPLOAD</span></div>
+            >
+            <span
+                    onClick={onClick}
+                        style={{
+                        margin: "5px",
+                        width: "90px",
+                        height: "40px"
+                    }}>UPLOAD</span>
+            </div>
             <AdBoard />
         </div>
     );
