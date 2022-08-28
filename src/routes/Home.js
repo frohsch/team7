@@ -161,7 +161,7 @@ const Home = ({ userObj }) => {
                                 key={list.id}
                                 userObj={userObj}
                                 listObj={list}
-                                isOwner={list.creatorId === userObj.uid}
+                                isOwner={false}
                                 {...list}
                             />
                         ))}
@@ -175,7 +175,7 @@ const Home = ({ userObj }) => {
                                 key={list.id}
                                 userObj={userObj}
                                 listObj={list}
-                                isOwner={list.creatorId === userObj.uid}
+                                isOwner={false}
                                 {...list}
                             />
                         ))}
@@ -189,7 +189,7 @@ const Home = ({ userObj }) => {
                                 key={list.id}
                                 userObj={userObj}
                                 listObj={list}
-                                isOwner={list.creatorId === userObj.uid}
+                                isOwner={false}
                                 {...list}
                             />
                         ))}
