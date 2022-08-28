@@ -32,6 +32,13 @@ h1 {
     width: 100%;
 }
 
+.input_member{
+    display: flex;
+}
+.member_title {
+    width: auto;
+    margin: 5px 10px 10px 10px;
+}
 .contentsTitle{
     width: 100%;
     margin:  5px 10px;
@@ -41,11 +48,29 @@ h1 {
     width: 100%;
     margin: 5px 10px 50px 10px;
 }
+.txt_memberCon {
+    margin: 10px 0 50px 10px;
+    display: flex;
+}
+.txt_member {
+    padding: 10px 15px;
+    border-radius: 20px;
+    background-color: #87cdee;
+    margin: 0 0 0 10px;
+}
+.txt_tag {
+    padding: 10px 15px;
+    border-radius: 20px;
+    background-color: #FFFC91;
+
+    margin: 0 0 0 10px;
+}
 .input_intro {
     margin: 5px 10px;
 }
 .tag_List {
-    margin: 15px 0;
+    margin: 10px 0 50px 10px;
+    display: flex;
 }
 .attatchment {
     max-width: 50vw;

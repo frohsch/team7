@@ -5,6 +5,10 @@ import { map } from "@firebase/util";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import UploadAdapter from "../../components/UploadAdapter";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt,faXmark,faCirclePlus,faPlus, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+
 import "./formStyle.css";
 
 const ProjectForm = ({ userObj }) => {
@@ -14,17 +18,42 @@ const ProjectForm = ({ userObj }) => {
     const [introduce, setIntroduce] = useState(""); //한줄소개
     const [tag, setTag] = useState(""); //태그
     const [tagList, setTagList] = useState([]);
+    const [tagListName, setTagListName] = useState("");
     const [thumbNailUrl, setThumbNailUrl] = useState(""); //썸네일사진
     const [data, setData] = useState(""); 
     const [projectId, setProjectId] = useState(uuidv4());
 
     //멤버 리스트에 추가
-    const onKeyPressMem = (event) => {  
-        if (event.target.value.length !== 0 && event.key === 'Enter') {
+    const onAddMemberClick = () => {  
+        if (member !== 0 ) {
             setMemberList([...memberList, member])
             setMember("")
         }
     }
+
+
+	// 멤버 삭제
+	const onDeleteMember = (event) => {
+		const newMemArray = memberList;
+		newMemArray.splice(event.target.id, 1);
+		setMemberList([...newMemArray]);
+	}
+
+	// 해시태그 추가
+	const onAddTagListClick = () => {
+		if (tag !== 0){
+			setTagList([...tagList, tag]);
+			setTag("");
+		}
+	}
+
+	// 해시태그 삭제
+	const onDeleteTagList = (event) => {
+		const newTagArray = tagList;
+		newTagArray.splice(event.target.id, 1);
+		setTagList([...newTagArray]);
+	}
+
 
     const onSubmit = async (event) => {
         //버튼을 클릭한 경우에만 제출하도록 변경
@@ -173,8 +202,9 @@ const ProjectForm = ({ userObj }) => {
                 <div className="input_p"><div className="contentsTitle">
                     <span>멤버</span></div><hr></hr>
                     {/* <div style={{ display: "inline-block" }}> */}
+                    <div className="input_member">
                         <input
-                            className="input_title"
+                            className="member_title" 
                             type="text"
                             title="멤버"
                             name="memberText"
@@ -182,16 +212,27 @@ const ProjectForm = ({ userObj }) => {
                             placeholder="멤버추가"
                             value={member}
                             onChange={onChange}
-                            onKeyPress={onKeyPressMem}
+                            // onKeyPress={onAddMemberClick}
                             style={{ boxsizing: "content-box", border: "none" }}
                         />
+                        <FontAwesomeIcon 
+										icon={faCirclePlus} 
+										size="1x" 
+										style={{paddingLeft:"10px", marginTop:"7px", cursor:"pointer"}}
+										onClick={onAddMemberClick}
+									/>
                     </div>
-                    <div>
+
+
+                    </div>
+                    <div className="txt_memberCon">
                         {memberList.map((item, idx) => {
                             return (
-                                <span className="txt_member">
-                                    <span key={idx}>{item} </span>
-                                </span>
+                                <div className="txt_member">
+                                    {item}
+                                    {/* <span key={idx}>{item} </span> */}
+                                    <FontAwesomeIcon id={idx} onClick={onDeleteMember} icon={faXmark} size="1x" style={{marginLeft:"10px", cursor:"pointer"}}  /> 
+                                </div>
                             )
                         })}
                     {/* </div> */}
@@ -213,10 +254,11 @@ const ProjectForm = ({ userObj }) => {
                 </div>
                 <div className="input_p"><div className="contentsTitle">
                     <span className="span_tag">해시태그</span></div><hr></hr>
-                    <div className="input_title">
-                    <span>#</span>
-                    <div style={{ display: "inline-block" }}>
+                    <div className="member_title">
+                    <span style={{ marginRight:"5px"}}>#</span>
+                    <div style={{ display: "inline-block"}}>
                         <input
+                            className="member_title"
                             type="text"
                             title="태그"
                             name="tagText"
@@ -225,20 +267,27 @@ const ProjectForm = ({ userObj }) => {
                             value={tag}
                             onChange={onChange}
                             onKeyPress={onKeyPressTag}
-                            style={{ boxsizing: "content-box", border: "none" }}
-                        /></div>
+                            style={{ boxsizing: "content-box", border: "none"}}
+                        /> <FontAwesomeIcon 
+                        icon={faCirclePlus} 
+                        size="1x" 
+                        style={{cursor:"pointer"}}
+                        onClick={onAddTagListClick}
+                    /></div></div>
                         <div style={{ position: "absolute", top: "0px", left: "0px", visibility: "hidden", height: "0px", overflow: "scroll", whitespace: "pre", fontsize: "13px", fontweight: "400", fontstyle: "normal", letterspacing: "normal", texttransform: "none" }}></div>
                     
+
+
                     <div className="tag_List">
                         {tagList.map((item, idx) => {
                             return (
-                                <span className="txt_tag">
-                                    <span key={idx}>#{item} </span>
-                                    {/*<button className="btn_delete" onClick={deleteTagItem}>X</button>*/}
-                                </span>
+                                <div className="txt_tag">
+                                    # {item}
+                                    <FontAwesomeIcon id={idx} onClick={onDeleteTagList} icon={faXmark} size="1x" style={{ marginLeft:"10px", cursor:"pointer"}} />
+								</div>
                             )
                         })}
-                    </div></div>
+                    </div>
                 </div>
                 <div className="input_p"><div className="contentsTitle">
                     <span className="span_img">썸네일 사진 </span></div><hr></hr>
