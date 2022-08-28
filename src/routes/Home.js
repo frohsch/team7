@@ -298,6 +298,8 @@ const Home = ({ userObj }) => {
                     ) : (
                         <PostContainer>
                             <MainPost>
+
+                            <PostListWrapper>
                                 <h3 style={{
                                     padding: "10px",
                                     borderLeft: "7px solid #FFEB3B",
@@ -305,7 +307,6 @@ const Home = ({ userObj }) => {
                                     width: "90%",
                                     marginLeft: "3%",
                                 }}>프로젝트 인기글</h3>
-                                <PostListWrapper>
                                     {projects.map((list) => (
                                         <BoxItem
                                             key={list.id}
