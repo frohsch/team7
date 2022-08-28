@@ -11,6 +11,7 @@ import '../../DetailStyle/ProjectDetail.css';
 import React from "react";
 import UploadAdapter from "../../components/UploadAdapter";
 import AdDetailShow from "../../components/AdDetailShow";
+import Comment from "components/Comment";
 
 
 const AdDetail = ({userObj, listObj}) => {	
@@ -40,7 +41,7 @@ const AdDetail = ({userObj, listObj}) => {
 	const [newTagList, setNewTagList] = useState(null);	
 
 	const [newContent, setNewContent] = useState(null);
-	
+	const [newId, setNewId] = useState(null);
 
 	// 해당 프로젝트 정보 가져오기
 	useEffect(() => {
@@ -64,6 +65,7 @@ const AdDetail = ({userObj, listObj}) => {
 				data: newArray[0].data,
 			});
 
+			setNewId(newArray[0].id);
 			setNewTitle(newArray[0].title);
 			setNewIntroduce(newArray[0].introduce);
 			setNewTagList([...newArray[0].tagList]);
@@ -220,6 +222,7 @@ const AdDetail = ({userObj, listObj}) => {
 	};
 		
 	return (
+		<>
 		<div>
 
 			{detailEditing ? (
@@ -364,6 +367,15 @@ const AdDetail = ({userObj, listObj}) => {
 				</div >
 			)}
 		</div>
+		{newId &&
+			//console.log(newId)
+				<Comment
+				userObj={userObj} 
+				id={newId} 
+				tag="adforms"
+			/>
+			}
+		</>	
 	);
 };
 
