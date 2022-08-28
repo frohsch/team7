@@ -76,8 +76,6 @@ const PostContainer = styled.div`
   flex-wrap: nowrap;`
 
 
-
-
 const Home = ({ userObj }) => {
     const [search, setSearch] = useState("");
     const [projects, setProjects] = useState([]); //모든 프로젝트 게시글
@@ -163,7 +161,7 @@ const Home = ({ userObj }) => {
                                 key={list.id}
                                 userObj={userObj}
                                 listObj={list}
-                                isOwner={list.creatorId === userObj.uid}
+                                isOwner={false}
                                 {...list}
                             />
                         ))}
@@ -177,7 +175,7 @@ const Home = ({ userObj }) => {
                                 key={list.id}
                                 userObj={userObj}
                                 listObj={list}
-                                isOwner={list.creatorId === userObj.uid}
+                                isOwner={false}
                                 {...list}
                             />
                         ))}
@@ -191,7 +189,7 @@ const Home = ({ userObj }) => {
                                 key={list.id}
                                 userObj={userObj}
                                 listObj={list}
-                                isOwner={list.creatorId === userObj.uid}
+                                isOwner={false}
                                 {...list}
                             />
                         ))}

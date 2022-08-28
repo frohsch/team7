@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { authService, dbService } from "firebase_";
 import { useNavigate,useLocation } from "react-router-dom";
-import { updateProfile } from "@firebase/auth";
 import styled from "styled-components";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import UploadAdapter from "components/UploadAdapter";
-import ProjectPosts from "./Board/ProjectPosts";
-
+import ReactHtmlParser from "html-react-parser";
 
 const Container = styled.div`
   display: flex;
@@ -27,6 +25,7 @@ display: flex;
 const ProfileContainer = styled.div`
 width: 573px;
 float: left;
+
 `
 
 const ProfileFormCss= styled.div`
@@ -35,13 +34,15 @@ width: 40vw;
   margin: 50px 0 0 0;
   border-bottom: 1px solid #464646;
   display: flex;
-  flex-direction: row;
+//   flex-direction: column;
+  
 `
 const ProfileTitle= styled.div`
 color: black;
   width: 100px;
   font-size: 14px;
   height: auto;
+  margin-bottom: 20px
 `
 
 const EditBtnDiv=styled.div`
@@ -77,7 +78,7 @@ const Profile = ({ refreshUser, userObj }) => {
 	const [profileOwner, setProfileOwner] = useState(false);
 	const [profileEditing, setProfileEditing] = useState(false);
 
-	useEffect(async() => {
+	useEffect(() => {
 		dbService
 			.collection("users")
 			.where("userId", "==", nowUserId)
@@ -124,6 +125,8 @@ const Profile = ({ refreshUser, userObj }) => {
 			});
     }, []);
 
+	console.log("*");
+
     const onLogOutClick = () => {
         authService.signOut();
         navigate("/");
@@ -162,9 +165,9 @@ const Profile = ({ refreshUser, userObj }) => {
 			bio: newBio
 		});
 
-		userObj.displayName = newDisplayName;
-
 		setProfileEditing(false);
+		await userObj.updateProfile({displayName: newDisplayName});
+		refreshUser();
     };
 
 	const cancelEditing = () => {
@@ -198,17 +201,17 @@ const Profile = ({ refreshUser, userObj }) => {
                 
 					<ProfileFormCss>
 						<ProfileTitle><span>Name</span></ProfileTitle>
-						<span className="profilecss" style={{ fontsize: "14px", color: "#464646"}}> {userProfile.displayName} </span>
+						<span className="profilecss" style={{ fontsize: "14px", color: "#464646"}}> {`${userProfile.displayName}`} </span>
 					</ProfileFormCss>
 
 					<ProfileFormCss>
 						<ProfileTitle><span>E Mail</span></ProfileTitle>
-						<span className="profilecss" style={{ fontsize: "14px", color: "#464646"}}> {userProfile.email} </span>
+						<span className="profilecss" style={{ fontsize: "14px", color: "#464646"}}> {`${userProfile.email}`} </span>
 					</ProfileFormCss>
 
 					<ProfileFormCss>
 						<ProfileTitle><span>Bio</span></ProfileTitle>
-						<span className="profilecss" style={{ fontsize: "14px", color: "#464646"}}> {userProfile.bio} </span>
+						<span className="profilecss" style={{ fontsize: "14px", color: "#464646"}}> {ReactHtmlParser(userProfile.bio)} </span>
 					</ProfileFormCss>
 
 				</ProfileContainer>
@@ -216,62 +219,66 @@ const Profile = ({ refreshUser, userObj }) => {
 			) : (
 					<ProfileContainer>
 						<form onSubmit={onSubmit} className="profileForm">
-							<ProfileFormCss>
-								<ProfileTitle><span>Name</span></ProfileTitle>
-								<input 
-									className="profilecss" 
-									style={{ fontsize: "14px", color: "#464646", width: "100%"}}
-									type="text"
-									onChange={onChange}
-									id="editDisplayName"
-									placeholder="Display name"
-									required
-									autoFocus
-									value={newDisplayName}
-								/>
-							</ProfileFormCss>
+							<div>
+								<ProfileFormCss>
+									<ProfileTitle><span>Name</span></ProfileTitle>
+									<input 
+										className="profilecss" 
+										style={{ fontsize: "14px", color: "#464646", width: "100%"}}
+										type="text"
+										onChange={onChange}
+										id="editDisplayName"
+										placeholder="Display name"
+										required
+										autoFocus
+										value={newDisplayName}
+									/>
+								</ProfileFormCss>
 
-							<ProfileFormCss>
-								<ProfileTitle><span>E Mail</span></ProfileTitle>
-								<input 
-									className="profilecss" 
-									style={{ fontsize: "14px", color: "#464646", width: "100%"}}
-									type="text"
-									onChange={onChange}
-									required
-									autoFocus
-									value={userProfile.email}
-									disabled
-								/>
-							</ProfileFormCss>
+								<ProfileFormCss>
+									<ProfileTitle><span>E Mail</span></ProfileTitle>
+									<input 
+										className="profilecss" 
+										style={{ fontsize: "14px", color: "#464646", width: "100%"}}
+										type="text"
+										onChange={onChange}
+										required
+										autoFocus
+										value={userProfile.email}
+										disabled
+									/>
+								</ProfileFormCss>
+								
+								<ProfileFormCss>
+									<span><ProfileTitle>Bio</ProfileTitle></span>
+									<CKEditor
+										editor={ClassicEditor}
+										data={newBio}
+
+										config={{
+											extraPlugins: [ MyCustomUploadAdapterPlugin],
+										} }
+										onInit={editor => {
+											// You can store the "editor" and use when it is needed.
+											console.log( 'Editor is ready to use!', editor );
+										} }
+										onChange={(event, editor) => {
+											const data = editor.getData();
+											setNewBio(data);
+										}}
+										onBlur={editor => {
+											// console.log('Blur.', editor );
+										} }
+										onFocus={editor => {
+											// console.log('Focus.', editor );
+										} }
+									/>
+								</ProfileFormCss>
+							</div>
+							<div>
+								<input type="submit" value="Update Profile" className="formBtn cancelBtn logOut" />
+							</div>
 							
-							<ProfileFormCss>
-								<span><ProfileTitle>Bio</ProfileTitle></span>
-								<CKEditor
-									editor={ClassicEditor}
-									data={newBio}
-
-									config={{
-										extraPlugins: [ MyCustomUploadAdapterPlugin],
-									} }
-									onInit={editor => {
-										// You can store the "editor" and use when it is needed.
-										console.log( 'Editor is ready to use!', editor );
-									} }
-									onChange={(event, editor) => {
-										const data = editor.getData();
-										setNewBio(data);
-									}}
-									onBlur={editor => {
-										// console.log('Blur.', editor );
-									} }
-									onFocus={editor => {
-										// console.log('Focus.', editor );
-									} }
-								/>
-							</ProfileFormCss>
-
-							<input type="submit" value="Update Profile" className="formBtn cancelBtn logOut" />
 						</form>
 
 						<div>

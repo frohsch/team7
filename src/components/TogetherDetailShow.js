@@ -15,6 +15,11 @@ const TogetherDetailShow = ({itemDetail}) => {
 					<div className="member">{memberName}</div>
 				))}
 			</div>
+
+			<div className="list">
+				<span>한줄소개</span>
+				<div>{`${itemDetail.introduce}`}</div>
+			</div>
 			
 			<div className="list">
 				<span>해시태그</span>

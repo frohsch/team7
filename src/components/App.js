@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import AppRouter from "./Router";
 import { authService } from "../firebase_";
 import { updateProfile } from "@firebase/auth";
+//import { CKEditor } from '@ckeditor/ckeditor5-react';
+//import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 function App() {
   const [init, setInit] = useState(false);
@@ -12,29 +14,28 @@ function App() {
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        if (user.displayName === null) {
-          updateProfile(user, { displayName: "anonymous" })
+        if(user.displayName === null){
+          updateProfile(user, {displayName: "anonymous"})
         }
         setUserObj({
           displayName: user.displayName ? user.displayName : 'Anonymous',
           uid: user.uid,
           updateProfile: (args) => updateProfile(user, { displayName: user.displayName }),
-        });
-
+          });
+          
       } else {
         setUserObj(null);
       }
       setInit(true);
     });
   }, []);
-
+  
   const refreshUser = () => {
     const user = authService.currentUser;
     setNewName(user.displayName);
   };
   return (
     <>
-
       <div className="Initializing">
         {init ? (
           <AppRouter refreshUser={refreshUser} isLoggedIn={Boolean(userObj)} userObj={userObj} />

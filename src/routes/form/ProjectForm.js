@@ -295,6 +295,7 @@ const ProjectForm = ({ userObj }) => {
                     <span>본문 작성</span></div><hr></hr><div className="CKE">
                     <CKEditor
                         editor={ClassicEditor}
+						data={data}
                         config={{
                             placeholder: '내용을 입력해 주세요.',
                             extraPlugins: [ MyCustomUploadAdapterPlugin],

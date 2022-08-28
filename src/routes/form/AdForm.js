@@ -185,6 +185,7 @@ const AdForm = ({userObj}) => {
                     <span>본문 작성</span><hr></hr>
                     <CKEditor
                         editor={ClassicEditor}
+						data={data}
                         config={{
                             placeholder: '내용을 입력해 주세요.',
                             extraPlugins: [ MyCustomUploadAdapterPlugin],
