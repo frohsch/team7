@@ -9,41 +9,55 @@ import ReactHtmlParser from "html-react-parser";
 import BoxItem from "components/BoxItem";
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  padding: 10vh 0 0 0;
+display: flex;
+flex-direction: column;
+  height: 80vh;
+  width: 80%;
+  padding: 6vh 0 0 0;
   justify-content: center;
   align-items: center;
+  margin: 0 auto;
+  margin-top: 200px;
 `
 
 const ProfileDiv = styled.div`
-width: 100vw;
-display: flex;
+// width: 100%;
+// height: 100%;
+display: inline-block;
+align-item: center;
+margin: 0 auto;
 `
 
 const ProfileContainer = styled.div`
-width: 573px;
-float: left;
+display: flex;
+flex-direction: column;
+grid-gap: 30px;
+width: 45vw;
+// float: left;
+margin-bottom: 20px;
+text-align: center;
+align-items:center;
+margin: 0 auto;
 
 `
 
 const ProfileFormCss= styled.div`
 width: 40vw;
-  height: 25px;
-  margin: 50px 0 0 0;
-  border-bottom: 1px solid #464646;
+//   height: 25px;
+  padding: 50px 0 0 0;
+//   magin: 0 auto;
   display: flex;
-//   flex-direction: column;
+  flex-direction: column;
   
 `
 const ProfileTitle= styled.div`
 color: black;
-  width: 100px;
+border-bottom: 1px solid #464646;
+  width: 100%;
   font-size: 14px;
   height: auto;
-  margin-bottom: 20px
+  padding-bottom:10px;
+  margin-bottom: 10px;
 `
 
 const EditBtnDiv=styled.div`
@@ -54,9 +68,10 @@ font-size: 14px;
   background-color: #CCE8FF;
   border-radius: 20px;
   text-align: center;
-  margin: 50px 45vw 0 0;
+  margin: 50px 0 0 20px;
   padding: 12px;
   cursor: pointer;
+  display: inline-block
 `
 
 const Profile = ({ refreshUser, userObj }) => {
@@ -186,22 +201,22 @@ const Profile = ({ refreshUser, userObj }) => {
 	// console.log(userPortfolio);
 
     return (
-        <Container>
-            <ProfileDiv>
-                <span className="profileMainTitile">Profile</span>
+        <div>
+            <div style={{textAlign: "center"}}>
+                <span className="profileMainTitile" style={{fontSize:"30px", fontWeight:"bold", display:"inline"}}>Profile</span>
 
-				{profileOwner &&
+				{profileOwner && !profileEditing &&
 					<EditBtnDiv>
 						<span onClick={toggleEditing}>Edit</span>
 					</EditBtnDiv>
 				}
-            </ProfileDiv>
+            </div>
 
 			{!profileEditing ? (
 				<ProfileContainer>
                 
 					<ProfileFormCss>
-						<ProfileTitle><span>Name</span></ProfileTitle>
+						<ProfileTitle><span style={{display:"inline"}}>Name</span></ProfileTitle>
 						<span className="profilecss" style={{ fontsize: "14px", color: "#464646"}}> {`${userProfile.displayName}`} </span>
 					</ProfileFormCss>
 
@@ -214,6 +229,25 @@ const Profile = ({ refreshUser, userObj }) => {
 						<ProfileTitle><span>Bio</span></ProfileTitle>
 						<span className="profilecss" style={{ fontsize: "14px", color: "#464646"}}> {ReactHtmlParser(userProfile.bio)} </span>
 					</ProfileFormCss>
+
+
+					<div style={{display: "flex", flexDirection: "column", textAlign: "center", gridGap:"10px"}}>
+						<span className="profileMainTitile" style={{fontSize:"30px", fontWeight:"bold", paddingTop:"50px"}}>Portfolio</span>
+						{userPortfolio && 
+							<div style={{paddingTop: "20px", display:"inline-block"}}>
+								{userPortfolio.map((portfolio) => (
+									<BoxItem userObj={userObj} listObj={portfolio} isOwner={true}/>
+								))}
+							</div>
+						}
+					</div>
+
+
+					{profileOwner && 
+						<span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+							Log Out
+						</span>
+					}
 
 				</ProfileContainer>
 
@@ -276,40 +310,26 @@ const Profile = ({ refreshUser, userObj }) => {
 									/>
 								</ProfileFormCss>
 							</div>
-							<div>
+							<div style={{paddingTop:"30px"}}>
 								<input type="submit" value="Update Profile" className="formBtn cancelBtn logOut" />
 							</div>
 							
 						</form>
 
 						<div>
-							<button onClick={cancelEditing} className="formBtn cancelBtn logOut">Cancel</button>
+							<button onClick={cancelEditing} className="formBtn cancelBtn logOut" style={{width: "320px"}}>Cancel</button>
 						</div>
 
-					</ProfileContainer>
-				
-			)}
-            {console.log(userPortfolio)}
-            <ProfileDiv>
-                <span className="profileMainTitile">Portfolio</span>
-				{userPortfolio && 
-				<div>
-					{userPortfolio.map((portfolio) => (
-					<BoxItem userObj={userObj} listObj={portfolio} isOwner={true} />
-					))}
-				</div>
-				
-				}
-				
-            </ProfileDiv>
 
-			{profileOwner && 
-				<span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
-					Log Out
-				</span>
-			}
+					</ProfileContainer>
+			)}
+
+			
            
-        </Container>
+		</div>
+			
+           
+        
     );
 };
 
