@@ -4,9 +4,12 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { dbService, storageService } from "../../firebase_";
 import {v4 as uuidv4} from 'uuid';
 import UploadAdapter from "../../components/UploadAdapter";
+import { useNavigate,useLocation } from "react-router-dom";
 
 
 const TogetherForm = ({userObj}) => {
+	const navigate = useNavigate();
+
     const [title, setTitle] = useState(""); //제목
 	const [introduce, setIntroduce] = useState(""); //한줄소개
     const [member, setMember] = useState(""); //멤버
@@ -78,6 +81,11 @@ const TogetherForm = ({userObj}) => {
         setTag("");
         setMemberList([]);
         setTagList([]);
+
+		navigate(`/together_items`, {
+            replace: false,
+            state: { data: TogetherFormObj.projectId },
+        });
     };
 
     function MyCustomUploadAdapterPlugin(editor) {

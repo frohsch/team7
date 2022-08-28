@@ -10,8 +10,8 @@ const Comment = ({ userObj, id, tag }) => {
     const [isValid, setIsValid] = useState(false);
 
     // 모든 commentlist 불러오기
-    useEffect(async () => {
-        await dbService.collection(`${tag}`).doc(`${id}`).collection("comment").orderBy('createdAt').get().then((결과)=>{
+    useEffect(() => {
+         dbService.collection(`${tag}`).doc(`${id}`).collection("comment").orderBy('createdAt').get().then((결과)=>{
                 결과.forEach((doc)=>{
                     const commentObj = {
                         id: doc.id,

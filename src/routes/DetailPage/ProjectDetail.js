@@ -50,7 +50,7 @@ const ProjectDetail = ({userObj, listObj}) => {
 	const [newId, setNewId] = useState(null);
 
 	// 해당 프로젝트 정보 가져오기
-	useEffect(async () => {
+	useEffect(() => {
 		dbService
 		.collection("projectforms")
 		.where("projectId", "==", nowProjectId)
