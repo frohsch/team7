@@ -1,0 +1,41 @@
+.comment_wrapper {
+    /* background-color: aquamarine; */
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border-spacing: 0;
+}
+
+.cLine {
+    background-color: black;
+    width: 100%;
+    height: 1px;
+}
+
+.input {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+.inputComment {
+    width: 93%;
+    font-size: 15px;
+}
+
+.txt_tag {
+    background-color: #f6f6f6;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: auto;
+}
+
+.it {
+    font-size: 15px;
+}
+.dt {
+    font-size: 13px;
+    color: darkgray;
+}

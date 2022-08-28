@@ -5,13 +5,16 @@ import { map } from "@firebase/util";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import UploadAdapter from "../../components/UploadAdapter";
+import { useNavigate,useLocation } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark,faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
 import "./formStyle.css";
 
-const TogetherForm = ({ userObj }) => {
+const TogetherForm = ({userObj}) => {
+	const navigate = useNavigate();
+
     const [title, setTitle] = useState(""); //제목
     const [member, setMember] = useState(""); //멤버
     const [memberList, setMemberList] = useState([]);
@@ -89,6 +92,11 @@ const TogetherForm = ({ userObj }) => {
         setTagList([]);
         setData("");
         setThumbNailUrl("");
+
+		    navigate(`/together_items`, {
+            replace: false,
+            state: { data: TogetherFormObj.projectId },
+        });
     };
 
     //태그 리스트에 추가

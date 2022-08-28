@@ -11,6 +11,7 @@ import '../../DetailStyle/ProjectDetail.css';
 import React from "react";
 import UploadAdapter from "../../components/UploadAdapter";
 import TogetherDetailShow from "../../components/TogetherDetailShow";
+import Comment from "components/Comment";
  
 
 const TogetherDetail = ({userObj, listObj}) => {	
@@ -39,7 +40,7 @@ const TogetherDetail = ({userObj, listObj}) => {
 	const [newTagList, setNewTagList] = useState(null);	
 
 	const [newContent, setNewContent] = useState(null);
-	
+	const [newId, setNewId] = useState(null);
 
 	// 해당 프로젝트 정보 가져오기
 	useEffect(() => {
@@ -63,6 +64,7 @@ const TogetherDetail = ({userObj, listObj}) => {
 				data: newArray[0].data,
 			});
 
+			setNewId(newArray[0].id);
 			setNewTitle(newArray[0].title);
 			setNewMember([...newArray[0].member]);
 			setNewIntroduce(newArray[0].introduce);
@@ -201,6 +203,7 @@ const TogetherDetail = ({userObj, listObj}) => {
 	};
 		
 	return (
+		<>
 		<div>
 
 			{detailEditing ? (
@@ -350,6 +353,15 @@ const TogetherDetail = ({userObj, listObj}) => {
 				</div >
 			)}
 		</div>
+		{newId &&
+			//console.log(newId)
+				<Comment
+				userObj={userObj} 
+				id={newId} 
+				tag="participateforms"
+			/>
+			}
+			</>
 	);
 };
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { dbService, storageService } from "../../firebase_";
+import { useNavigate,useLocation } from "react-router-dom";
 import {v4 as uuidv4} from 'uuid';
-import { map } from "@firebase/util";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import UploadAdapter from "../../components/UploadAdapter";
@@ -12,6 +12,8 @@ import { faTrash, faPencilAlt,faXmark,faCirclePlus,faPlus, faCircleXmark } from 
 import "./formStyle.css";
 
 const ProjectForm = ({ userObj }) => {
+	const navigate = useNavigate();
+
     const [title, setTitle] = useState(""); //제목
     const [member, setMember] = useState(""); //멤버
     const [memberList, setMemberList] = useState([]);
@@ -90,6 +92,11 @@ const ProjectForm = ({ userObj }) => {
         setTagList([]);
         setData("");
         setThumbNailUrl("");
+
+		navigate(`/project_items`, {
+            replace: false,
+            state: { data: ProjectFormObj.projectId },
+        });
     };
 
     //태그 리스트에 추가

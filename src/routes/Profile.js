@@ -6,6 +6,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import UploadAdapter from "components/UploadAdapter";
 import ReactHtmlParser from "html-react-parser";
+import BoxItem from "components/BoxItem";
 
 const Container = styled.div`
   display: flex;
@@ -61,8 +62,7 @@ font-size: 14px;
 const Profile = ({ refreshUser, userObj }) => {
     const navigate = useNavigate();
 
-	const location = useLocation();
-	const nowUserId = location.state.data;
+	const nowUserId = userObj.uid;
 
 	const [userProfile, setUserProfile] = useState({
 		id: "",
@@ -119,17 +119,18 @@ const Profile = ({ refreshUser, userObj }) => {
 					...document.data()
 				}));
 				setUserPortfolio(newArray);
+				console.log(newArray);
 			})
 			.catch(function(error) {
 				console.log("Error getting documents: ", error);
 			});
     }, []);
 
-	console.log("*");
+	console.log(userPortfolio);
 
     const onLogOutClick = () => {
         authService.signOut();
-        navigate("/");
+        navigate("/profile");
     };
 
     const toggleEditing = () => setProfileEditing((prev) => !prev);
@@ -182,7 +183,7 @@ const Profile = ({ refreshUser, userObj }) => {
         }
     }
 	
-	console.log(userPortfolio);
+	// console.log(userPortfolio);
 
     return (
         <Container>
@@ -288,10 +289,18 @@ const Profile = ({ refreshUser, userObj }) => {
 					</ProfileContainer>
 				
 			)}
-            {/* {console.log(userPortfolio)} */}
+            {console.log(userPortfolio)}
             <ProfileDiv>
                 <span className="profileMainTitile">Portfolio</span>
-				{/* <ProjectPosts posts={userPortfolio} loading={false} /> */}
+				{userPortfolio && 
+				<div>
+					{userPortfolio.map((portfolio) => (
+					<BoxItem userObj={userObj} listObj={portfolio} isOwner={true} />
+					))}
+				</div>
+				
+				}
+				
             </ProfileDiv>
 
 			{profileOwner && 

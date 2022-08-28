@@ -12,6 +12,7 @@ import '../../DetailStyle/ProjectDetail.css';
 import React from "react";
 import UploadAdapter from "../../components/UploadAdapter";
 import ProjectDetailShow from "../../components/ProjectDetailShow";
+import Comment from "components/Comment";
 
 
 const ProjectDetail = ({userObj, listObj}) => {	
@@ -44,7 +45,9 @@ const ProjectDetail = ({userObj, listObj}) => {
 	const [newTagList, setNewTagList] = useState(null);	
 
 	const [newContent, setNewContent] = useState(null);
+
 	
+	const [newId, setNewId] = useState(null);
 
 	// 해당 프로젝트 정보 가져오기
 	useEffect(() => {
@@ -69,6 +72,7 @@ const ProjectDetail = ({userObj, listObj}) => {
 				content: newArray[0].content,
 			});
 
+			setNewId(newArray[0].id);
 			setNewTitle(newArray[0].title);
 			setNewMember([...newArray[0].member]);
 			setNewIntroduce(newArray[0].introduce);
@@ -93,7 +97,7 @@ const ProjectDetail = ({userObj, listObj}) => {
 		const ok = window.confirm("삭제하시겠습니까?");
 
 		if (ok){
-			await dbService.doc(`adforms/${itemDetail.id}`).delete();
+			await dbService.doc(`projectforms/${itemDetail.id}`).delete();
 			if (itemDetail.thumbnailUrl !== ""){
 				await storageService.refFromURL(itemDetail.thumbnailUrl).delete();
 			}
@@ -182,7 +186,6 @@ const ProjectDetail = ({userObj, listObj}) => {
 		setNewTagList([...newTagArray]);
 	}
 
-
 	// 수정 취소
 	const cancelEditing = () => {
 		setNewThumbnail("");
@@ -244,6 +247,7 @@ const ProjectDetail = ({userObj, listObj}) => {
 	};
 		
 	return (
+		<>
 		<div>
 
 			{detailEditing ? (
@@ -415,10 +419,22 @@ const ProjectDetail = ({userObj, listObj}) => {
 							</span>
 						</div>
 					)}
+
+					
 				
 				</div >
 			)}
 		</div>
+		{newId &&
+		//console.log(newId)
+			<Comment 
+			userObj={userObj} 
+			id={newId} 
+			tag="projectforms"
+		/>
+		}
+		
+		</>
 	);
 };
 

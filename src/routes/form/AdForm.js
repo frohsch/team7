@@ -6,12 +6,16 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import UploadAdapter from "../../components/UploadAdapter";
 
+import { useNavigate,useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt,faXmark,faCirclePlus,faPlus, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 import "./formStyle.css";
 
-const AdForm = ({ userObj }) => {
+
+const AdForm = ({userObj}) => {
+	const navigate = useNavigate();
+
     const [title, setTitle] = useState(""); //제목
     const [member, setMember] = useState(""); //멤버
     const [memberList, setMemberList] = useState([]);
@@ -87,6 +91,7 @@ const AdForm = ({ userObj }) => {
         setMemberList([]);
         setIntroduce("");
         setTagList([]);
+
         setData("");
         setThumbNailUrl("");
     };
@@ -125,6 +130,12 @@ const AdForm = ({ userObj }) => {
             setTag(value);
         }
     };
+
+		navigate(`/ad_items`, {
+            replace: false,
+            state: { data: AdFormObj.projectId },
+        });
+
 
     //메인 썸네일 이미지 추가
     const onFileChange = (event) => {
