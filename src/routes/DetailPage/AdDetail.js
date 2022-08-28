@@ -13,7 +13,7 @@ import UploadAdapter from "../../components/UploadAdapter";
 import AdDetailShow from "../../components/AdDetailShow";
 
 
-const AdDetail = ({userObj}) => {	
+const AdDetail = ({userObj, listObj}) => {	
 	const location = useLocation();
 	const nowProjectId = location.state.data;
 

@@ -14,7 +14,7 @@ import UploadAdapter from "../../components/UploadAdapter";
 import { async } from "@firebase/util";
 
 
-const ProjectDetail = ({userObj}) => {	
+const ProjectDetail = ({userObj, listObj}) => {	
 	const location = useLocation();
 	const nowProjectId = location.state.data;
 

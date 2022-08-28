@@ -114,6 +114,7 @@ const AdForm = ({userObj}) => {
                         value={title}
                         onChange={onChange}
                         style={{ border: "none" }}
+                        required
                     />
                 </div>
                 <br></br>
@@ -128,6 +129,7 @@ const AdForm = ({userObj}) => {
                         value={introduce}
                         onChange={onChange}
                         style={{ border: "none" }}
+                        required
                     />
                 </div>
                 <br></br>
@@ -168,6 +170,7 @@ const AdForm = ({userObj}) => {
                         type="file"
                         accept="image/*"
                         onChange={onFileChange}
+                        required
                         style={{ border: "none" }}
                     />
                     {thumbNail && (

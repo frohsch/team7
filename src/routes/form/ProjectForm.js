@@ -139,6 +139,7 @@ const ProjectForm = ({ userObj }) => {
                         value={title}
                         onChange={onChange}
                         style={{ border: "none" }}
+                        required
                     />
                 </div>
                 <br></br>
@@ -179,6 +180,7 @@ const ProjectForm = ({ userObj }) => {
                         value={introduce}
                         onChange={onChange}
                         style={{ border: "none" }}
+                        required
                     />
                 </div>
                 <br></br>
@@ -220,6 +222,7 @@ const ProjectForm = ({ userObj }) => {
                         accept="image/*"
                         onChange={onFileChange}
                         style={{ border: "none" }}
+                        required
                     />
                     {thumbNailUrl && (
                         <div className="attatchment">
