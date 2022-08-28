@@ -19,10 +19,20 @@ const MainLemona = styled.div`
 `
 
 const LemonaSec = styled.div`
-  width: 40vw;
-  height: 200px;
-  border: 1px solid black;
+  width: 80vw;
+  height: 220px;
   margin: 70px;
+  background-color: #e3f2fd;
+`
+const LemonaName = styled.div`
+  font-size: 65px;
+  color: #2196f3;
+  margin: 20px 0 20px 3vw;
+`
+const LemonaDisc = styled.div`
+    font-size: 20px;
+    color: #2196f3;
+    margin: 5px 5px 5px 3vw;
 `
 
 const Search = styled.div`
@@ -155,8 +165,11 @@ const Home = ({ userObj }) => {
         <>
             <Container>
                 <MainLemona>
-                    <LemonaSec></LemonaSec>
-                    <LemonaSec></LemonaSec>
+                    <LemonaSec>
+                        <LemonaName>LEMONA CODING🍋</LemonaName>
+                        <LemonaDisc>Share Your Projects with Lemona Coding</LemonaDisc>
+                        <LemonaDisc>Find Your Team Members with Lemona Coding</LemonaDisc>
+                    </LemonaSec>
                 </MainLemona>
                 <form onSubmit={e => onSearch(e)} style={{
                     height: "50px",
