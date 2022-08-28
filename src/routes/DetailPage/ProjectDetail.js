@@ -290,7 +290,8 @@ const ProjectDetail = ({userObj, listObj}) => {
 								required
 								placeholder="Edit Title"
 								autoFocus
-								id="inputTitle"
+								id="inputTitle" 
+								style={{ color: "#404040" }}
 							/>
 						</div>
 

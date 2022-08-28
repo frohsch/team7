@@ -30,7 +30,7 @@ a {
 	/* grid-template-rows: 5fr 1fr 1fr 1fr 1fr 100%; */
 	flex-direction: column;
 	grid-gap: 30px;
-	font-size: 16px;
+	font-size: 14px;
 	text-align: center;
 	padding-top: 30px;
 
@@ -40,7 +40,6 @@ a {
 	width: 500px;
 	height: 300px;
 	margin-bottom: 15px;
-	border: 1px solid black;
 }
 
 .detail_container .list{
@@ -59,7 +58,7 @@ a {
 }
 
 .list div{
-	font-size: 20px;
+	font-size: 14px;
 	padding-left: 10px;
 }
 
@@ -75,12 +74,13 @@ a {
 }
 
 .list .hashtag{
-	border: 1px solid palegreen;
+
 	border-radius: 20px;
 	display: inline-block;
 	padding: 5px;
 	padding-left: 20px;
 	padding-right: 20px;
-	background-color: palegreen;
+	background-color: #FFFC91;
 	margin-right: 10px;
+	margin: 0 0 0 10px;
 }
