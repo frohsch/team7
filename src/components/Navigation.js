@@ -86,7 +86,7 @@ const Navigation = ({ userObj, isLoggedIn, loginlink }) => {
                             ) : (
                                 <Link
                                     className="naviLink"
-                                    to='/auth'
+                                    to='/profile'
                                     style={{
                                         display: "flex",
                                         flexDirection: "column",

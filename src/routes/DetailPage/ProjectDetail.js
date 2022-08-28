@@ -44,6 +44,7 @@ const ProjectDetail = ({userObj, listObj}) => {
 	const [newTagList, setNewTagList] = useState(null);	
 
 	const [newContent, setNewContent] = useState(null);
+
 	
 
 	// 해당 프로젝트 정보 가져오기
@@ -93,7 +94,7 @@ const ProjectDetail = ({userObj, listObj}) => {
 		const ok = window.confirm("삭제하시겠습니까?");
 
 		if (ok){
-			await dbService.doc(`adforms/${itemDetail.id}`).delete();
+			await dbService.doc(`projectforms/${itemDetail.id}`).delete();
 			if (itemDetail.thumbnailUrl !== ""){
 				await storageService.refFromURL(itemDetail.thumbnailUrl).delete();
 			}
@@ -415,6 +416,8 @@ const ProjectDetail = ({userObj, listObj}) => {
 							</span>
 						</div>
 					)}
+
+					
 				
 				</div >
 			)}
