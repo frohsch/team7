@@ -94,6 +94,8 @@ const AdForm = ({userObj}) => {
 
         setData("");
         setThumbNailUrl("");
+
+		console.log( AdFormObj.projectId);
         navigate(`/ad_items`, {
             replace: false,
             state: { data: AdFormObj.projectId },

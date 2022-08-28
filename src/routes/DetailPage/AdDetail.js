@@ -14,9 +14,12 @@ import AdDetailShow from "../../components/AdDetailShow";
 import Comment from "components/Comment";
 
 
+
 const AdDetail = ({userObj, listObj}) => {	
 	const location = useLocation();
 	const nowProjectId = location.state.data;
+
+	console.log(nowProjectId);
 
 	// 프로젝트 정보
 	const [itemDetail, setItemDetail] = useState({
