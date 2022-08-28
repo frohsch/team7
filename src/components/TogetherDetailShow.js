@@ -30,7 +30,7 @@ const TogetherDetailShow = ({itemDetail}) => {
 			
 			<div className="list">
 				<span>본문</span>
-				<div>{ReactHtmlParser(itemDetail.data)}</div>
+				<div>{ReactHtmlParser(itemDetail.content)}</div>
 			</div>
 			
 		</>

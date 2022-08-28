@@ -5,7 +5,8 @@ import '../../BoardStyle/ParticipatePosts.css';
 const ParticipatePosts = ({ posts, loading }) => {
    const navi = useNavigate();
    const linkToArticleDetail = (post) => {
-      navi("/together_items", {state: {data:post.projectId}});
+      navi("/together_items", {state: {data: post.projectId}});
+	  console.log(post.projectId);
     }
   return (
     <>

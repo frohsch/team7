@@ -13,13 +13,9 @@ import UploadAdapter from "../../components/UploadAdapter";
 import AdDetailShow from "../../components/AdDetailShow";
 import Comment from "components/Comment";
 
-
-
 const AdDetail = ({userObj, listObj}) => {	
 	const location = useLocation();
 	const nowProjectId = location.state.data;
-
-	console.log(nowProjectId);
 
 	// 프로젝트 정보
 	const [itemDetail, setItemDetail] = useState({
@@ -28,7 +24,7 @@ const AdDetail = ({userObj, listObj}) => {
 		title: "",
 		introduce: "",
 		tagList: [],
-		data: "",
+		content: "",
 	});
 
 	const [projectOwner, setProjectOwner] = useState(false);
@@ -65,21 +61,21 @@ const AdDetail = ({userObj, listObj}) => {
 				title: newArray[0].title,
 				introduce: newArray[0].introduce,
 				tagList: newArray[0].tagList,
-				data: newArray[0].data,
+				content: newArray[0].content,
 			});
 
 			setNewId(newArray[0].id);
 			setNewTitle(newArray[0].title);
 			setNewIntroduce(newArray[0].introduce);
 			setNewTagList([...newArray[0].tagList]);
-			setNewContent(newArray[0].data);
+			setNewContent(newArray[0].content);
 			
 			dbService.doc(`adforms/${itemDetail.id}`).update({
 				view: newArray[0].view+1
 			});
 			
 			// owner인지 확인
-			if (newArray[0].creatorId == userObj.uid){
+			if (newArray[0].creatorId === userObj.uid){
 				setProjectOwner(true);
 			}
 			else{
@@ -174,7 +170,7 @@ const AdDetail = ({userObj, listObj}) => {
 		setNewTitle(itemDetail.title);
 		setNewIntroduce(itemDetail.introduce);
 		setNewTagList([...itemDetail.tagList]);
-		setNewContent(itemDetail.data);
+		setNewContent(itemDetail.content);
 		setDetailEditing((prev) => !prev);
 	}
 
@@ -206,7 +202,7 @@ const AdDetail = ({userObj, listObj}) => {
 			title: newTitle,
 			introduce: newIntroduce,
 			tagList: newTagList,
-			data: newContent
+			content: newContent
 		});
 
 		// 프로젝트 정보 업데이트
@@ -216,7 +212,7 @@ const AdDetail = ({userObj, listObj}) => {
 			title: newTitle,
 			introduce: newIntroduce,
 			tagList: newTagList,
-			data: newContent
+			content: newContent
 		});
 
 		setDetailEditing(false);
