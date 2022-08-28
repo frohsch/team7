@@ -9,7 +9,7 @@ const ProjectPosts = ({ posts, loading }) => {
             display: "grid",
             gridTemplateRows: "1fr ",
             gridTemplateColumns: "1fr 1fr 1fr",
-            margin: "45px",
+            marginLeft: "5vw",
         }}>
             {loading && <div> loading... </div>}
                 {posts.map((post) => (

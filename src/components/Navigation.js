@@ -23,7 +23,7 @@ const Navigation = ({ userObj, isLoggedIn, loginlink }) => {
                     <ul style={{ display: "flex", justifyContent: "center", margin: 10 }}>
                         <li className="logoLi">
                             <Link to="/" >
-                                <div className="logoImage" style={{ backgroundColor: "gray", width: "50px", height: "50px", marginRight: "50vw" }}>
+                                <div className="logoImage" style={{ backgroundColor: "gray", width: "50px", height: "50px", marginRight: "56vw" }}>
                                 </div>
                             </Link>
                         </li>
