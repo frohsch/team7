@@ -26,7 +26,7 @@ const LemonaSec = styled.div`
 `
 
 const Search = styled.div`
-height: 50px;
+  height: 50px;
   width: 80%;
   border: 1px solid black;
   border-radius: 30px;
@@ -44,9 +44,19 @@ font-size: 14px;
   background-color: #CCE8FF;
   border-radius: 20px;
   text-align: center;
-  margin: 50px 85vw 50px 0;
+  margin: 35px 85vw 0 0;
   padding: 12px;
 `
+
+const MainPost = styled.div`
+  display: grid;
+  border: 1px;
+  width: 30vw;
+  height: auto;
+ // border: 1px solid black;
+  margin: 30px;
+  justify-content: center;
+`;
 const PostListWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -54,26 +64,18 @@ const PostListWrapper = styled.div`
   row-gap: 8x;
   grid-template-columns: repeat(1, auto);
   flex-direction: column;
-//   border: 1px solid blue;
+//border: 1px solid blue;
 `;
 
-const MainPost = styled.div`
-  display: grid;
-  border: 1px;
-  width: 30vw;
-  height: auto;
-//   border: 1px solid black;
-  margin: 30px;
-  justify-content: flex-start;
-`;
 
 const PostContainer = styled.div`
   width: 100%;
-//   border: 1px solid red;
+  // border: 1px solid red;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  flex-wrap: nowrap;`
+  flex-wrap: nowrap;
+  `;
 
 
 const Home = ({ userObj }) => {
@@ -132,15 +134,15 @@ const Home = ({ userObj }) => {
             setAsking(false)
         }
         else {//검색 구현
-            let newArr = projects.filter(data => 
+            let newArr = projects.filter(data =>
                 data.title.includes(search)
             );
             setNewProjects(newArr)
-            let newArr2 = ads.filter(data => 
+            let newArr2 = ads.filter(data =>
                 data.title.includes(search)
             );
             setNewAds(newArr2)
-            let newArr3 = togethers.filter(data => 
+            let newArr3 = togethers.filter(data =>
                 data.title.includes(search)
             );
             setNewTogethers(newArr3)
@@ -149,143 +151,207 @@ const Home = ({ userObj }) => {
         setSearch("");
     }
 
-return (
-    <>
-        <Container>
-            <MainLemona>
-                <LemonaSec></LemonaSec>
-                <LemonaSec></LemonaSec>
-            </MainLemona>
-
-            <Search>
-                <form onSubmit={e => onSearch(e)}>
+    return (
+        <>
+            <Container>
+                <MainLemona>
+                    <LemonaSec></LemonaSec>
+                    <LemonaSec></LemonaSec>
+                </MainLemona>
+                <form onSubmit={e => onSearch(e)} style={{
+                    height: "50px",
+                    width: "80vw",
+                    border: "1px solid black",
+                    borderRadius: "10px",
+                    flexdirection: "row",
+                    alignitems: "center",
+                    display: "flex",
+                }}>
                     <input
                         className="searchInput"
-                        placeholder="Search"
+                        placeholder="검색어를 입력해주세요"
                         type="text"
                         value={search}
                         onChange={onChangeSearch}
                         style={{
-                            height: "40px",
-                            width: "90%",
-                            borderradius: "20px",
+                            height: "auto",
+                            width: "80vw",
                             marginleft: "25px",
                             fontsize: "14px",
                             display: "inline-block",
+                            textAlign: "center",
+                            fontSize: "16px"
                         }} />
                     <button
                         className="searchBtn"
                         style={{
-                            height: "40px",
-                            width: "70px",
+                            height: "auto",
+                            width: "10vw",
                             borderradius: "20px",
                             fontsize: "14px",
                             border: "none",
                             backgroundcolor: "#AAAAAA",
                             cursor: "pointer",
                             display: "inline-block",
+                            borderRadius: "10px",
                         }}
                     >
                         🔍
                     </button>
                 </form>
-            </Search>
-            <Hot>
-                <span className="hotSpan" style={{ margin: "5px" }}>🔥HOT</span>
-            </Hot>
 
-            <div>
-                {asking ? (
-                    <PostContainer>
-                        <MainPost>
-                            <PostListWrapper>
-                                {newProjects.map((list) => (
-                                    <BoxItem
-                                        key={list.id}
-                                        userObj={userObj}
-                                        listObj={list}
-                                        isOwner={false}
-                                        {...list}
-                                    />
-                                ))}
-                            </PostListWrapper>
-                        </MainPost>
+                <Hot>
+                    <span className="hotSpan" style={{ margin: "5px" }}>🔥HOT</span>
+                </Hot>
 
-                        <MainPost>
-                            <PostListWrapper>
-                                {newTogethers.map((list) => (
-                                    <BoxItemTo
-                                        key={list.id}
-                                        userObj={userObj}
-                                        listObj={list}
-                                        isOwner={false}
-                                        {...list}
-                                    />
-                                ))}
-                            </PostListWrapper>
-                        </MainPost>
+                <div>
+                    {asking ? (
+                        <>
+                            <h2 style={{
+                                padding: "10px",
+                                backgroundColor: "#e8eaf6",
+                                width: "90%",
+                                marginLeft: "3%",
+                                textAlign: "center",
+                                marginBottom: "0px",
+                            }}>검색결과</h2>
 
-                        <MainPost>
-                            <PostListWrapper>
-                                {newAds.map((list) => (
-                                    <BoxItemAd
-                                        key={list.id}
-                                        userObj={userObj}
-                                        listObj={list}
-                                        isOwner={false}
-                                        {...list}
-                                    />
-                                ))}
-                            </PostListWrapper>
-                        </MainPost>
-                    </PostContainer>
-                ) : (
-                    <PostContainer>
-                        <MainPost>
-                            <PostListWrapper>
-                                {projects.map((list) => (
-                                    <BoxItem
-                                        key={list.id}
-                                        userObj={userObj}
-                                        listObj={list}
-                                        isOwner={false}
-                                        {...list}
-                                    />
-                                ))}
-                            </PostListWrapper>
-                        </MainPost>
+                            <PostContainer>
+                                <MainPost>
+                                    <PostListWrapper>
+                                        <h3 style={{
+                                            padding: "10px",
+                                            borderLeft: "7px solid #FFEB3B",
+                                            backgroundColor: "#fffde7",
+                                            width: "90%",
+                                            marginLeft: "3%",
+                                        }}>프로젝트 검색결과</h3>
+                                        {newProjects.map((list) => (
+                                            <BoxItem
+                                                key={list.id}
+                                                userObj={userObj}
+                                                listObj={list}
+                                                isOwner={false}
+                                                {...list}
+                                            />
+                                        ))}
+                                    </PostListWrapper>
+                                </MainPost>
 
-                        <MainPost>
-                            <PostListWrapper>
-                                {togethers.map((list) => (
-                                    <BoxItemTo
-                                        key={list.id}
-                                        userObj={userObj}
-                                        listObj={list}
-                                        isOwner={false}
-                                        {...list}
-                                    />
-                                ))}
-                            </PostListWrapper>
-                        </MainPost>
+                                <MainPost>
+                                    <PostListWrapper>
+                                        <h3 style={{
+                                            padding: "10px",
+                                            borderLeft: "7px solid #2196f3",
+                                            backgroundColor: "#e3f2fd",
+                                            width: "90%",
+                                            marginLeft: "3%",
+                                        }}>함께해요 검색결과</h3>
+                                        {newTogethers.map((list) => (
+                                            <BoxItemTo
+                                                key={list.id}
+                                                userObj={userObj}
+                                                listObj={list}
+                                                isOwner={false}
+                                                {...list}
+                                            />
+                                        ))}
+                                    </PostListWrapper>
+                                </MainPost>
 
-                        <MainPost>
-                            <PostListWrapper>
-                                {ads.map((list) => (
-                                    <BoxItemAd
-                                        key={list.id}
-                                        userObj={userObj}
-                                        listObj={list}
-                                        isOwner={false}
-                                        {...list}
-                                    />
-                                ))}
-                            </PostListWrapper>
-                        </MainPost>
-                    </PostContainer>
-                )}
-            </div>
-        </Container>
-    </>
-)}
+                                <MainPost>
+                                    <PostListWrapper>
+                                        <h3 style={{
+                                            padding: "10px",
+                                            borderLeft: "7px solid #FFEB3B",
+                                            backgroundColor: "#fffde7",
+                                            width: "90%",
+                                            paddingLeft: "20px",
+                                            marginLeft: "3%",
+                                        }}>홍보해요 검색결과</h3>
+                                        {newAds.map((list) => (
+                                            <BoxItemAd
+                                                key={list.id}
+                                                userObj={userObj}
+                                                listObj={list}
+                                                isOwner={false}
+                                                {...list}
+                                            />
+                                        ))}
+                                    </PostListWrapper>
+                                </MainPost>
+                            </PostContainer>
+                        </>
+                    ) : (
+                        <PostContainer>
+                            <MainPost>
+                                <h3 style={{
+                                    padding: "10px",
+                                    borderLeft: "7px solid #FFEB3B",
+                                    backgroundColor: "#fffde7",
+                                    width: "90%",
+                                    marginLeft: "3%",
+                                }}>프로젝트 인기글</h3>
+                                <PostListWrapper>
+                                    {projects.map((list) => (
+                                        <BoxItem
+                                            key={list.id}
+                                            userObj={userObj}
+                                            listObj={list}
+                                            isOwner={false}
+                                            {...list}
+                                        />
+                                    ))}
+                                </PostListWrapper>
+                            </MainPost>
+
+                            <MainPost>
+                                <PostListWrapper>
+                                    <h3 style={{
+                                        padding: "10px",
+                                        borderLeft: "7px solid #2196f3",
+                                        backgroundColor: "#e3f2fd",
+                                        width: "90%",
+                                        marginLeft: "3%",
+                                    }}>함께해요 인기글</h3>
+                                    {togethers.map((list) => (
+                                        <BoxItemTo
+                                            key={list.id}
+                                            userObj={userObj}
+                                            listObj={list}
+                                            isOwner={false}
+                                            {...list}
+                                        />
+                                    ))}
+                                </PostListWrapper>
+                            </MainPost>
+
+                            <MainPost>
+                                <PostListWrapper>
+                                    <h3 style={{
+                                        padding: "10px",
+                                        borderLeft: "7px solid #FFEB3B",
+                                        backgroundColor: "#fffde7",
+                                        width: "90%",
+                                        paddingLeft: "20px",
+                                        marginLeft: "3%",
+                                    }}>홍보해요 인기글</h3>
+                                    {ads.map((list) => (
+                                        <BoxItemAd
+                                            key={list.id}
+                                            userObj={userObj}
+                                            listObj={list}
+                                            isOwner={false}
+                                            {...list}
+                                        />
+                                    ))}
+                                </PostListWrapper>
+                            </MainPost>
+                        </PostContainer>
+                    )}
+                </div>
+            </Container>
+        </>
+    )
+}
 export default Home;
